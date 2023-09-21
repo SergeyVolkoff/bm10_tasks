@@ -26,8 +26,8 @@ console = Console(theme=my_colors)
 
 
 
-class BM10():
-    def __init__(self, device_type, host, username, timeout, password,**kwargs):
+class Base_bm10():
+    def __init__(self, host, username, timeout, password,**kwargs):
         try:
             with open("src/BM10_LTE.yaml") as f2:
                 temp = yaml.safe_load(f2)
@@ -40,10 +40,18 @@ class BM10():
             self.promo_ping = " -w 4"
             self.promt_tracert = '-m 3'
             self.word_ping = "ping "
-            self.command_ping = self.word_ping+self.promo_ping
+            self.ip_inet = "8.8.8.8"
+            #self.command_ping = self.word_ping+self.promo_ping
         except(NetmikoAuthenticationException,NetmikoTimeoutException) as error:
             print("*" * 5, "Error connection to:", device['host'], "*" * 5)
-
+    my_colors = Theme( #добавляет цветовую градацию для rich
+    {
+        "success":"bold green",
+        "fail":"bold red",
+        "warning":"bold yellow"
+    }
+    )   
+    console = Console(theme=my_colors)
 
     def check_connection(self,device,log=True):
 
@@ -68,55 +76,32 @@ class BM10():
         temp = self.ssh.send_command(command)
         result = temp
         return result
-
+    
 
     def ping_inet(self, device):
 
-        """ФУНКЦИЯ для простого пинга,  запросит адрес назначения, формат команды прописан в инит.
+        """ФУНКЦИЯ для простого пинга 8.8.8.8 , формат команды прописан в инит.
         без импорта."""
 
         self.check_connection(device)
-        ip_for_ping = "8.8.8.8"
-        command_ping = (self.word_ping + ip_for_ping + self.promo_ip)
+        command_ping = (self.word_ping + self.ip_inet + self.promo_ping)
         print(command_ping)
         output = self.ssh.send_command(command_ping)
         if "round-trip min/avg/max" in output:
             output = re.search(r'round-trip min/avg/max = (\S+ ..)', output).group()
-            result = ["IP", ip_for_ping, "destination available :", output]
+            result = ["IP", self.ip_inet, "destination available :", output]
             result = ' '.join(result)
         else:
-            result = ["Ip", ip_for_ping, "out of destination"]
+            result = ["Ip", self.ip_inet, "out of destination"]
             result = ' '.join(result)
         return result
         print(output)
-
-
-    def ping_ip(self, device,ip_for_ping):
-
-        """ФУНКЦИЯ для простого пинга,  запросит адрес назначения, формат команды прописан в инит.
-        без импорта."""
-
-        self.check_connection(device)
-        command_ping = (self.word_ping + ip_for_ping + self.promo_ip)
-        print(command_ping)
-        output = self.ssh.send_command(command_ping)
-        if "round-trip min/avg/max" in output:
-            output = re.search(r'round-trip min/avg/max = (\S+ ..)', output).group()
-            result = ["IP", ip_for_ping, "destination available :", output]
-            result = ' '.join(result)
-        else:
-            result = ["Ip", ip_for_ping, "out of destination"]
-            result = ' '.join(result)
-        return result
-        print(output)
-
 
     def tracert_inet(self,device):
 
         """ФУНКЦИЯ для  tracert 8.8.8.8 for pppoe peer!!!"""
 
-        ip_tracert = '8.8.8.8'
-        comand_tracert = f'traceroute {ip_tracert} {self.promt_tracert}'
+        comand_tracert = f'traceroute {self.ip_inet} {self.promt_tracert}'
         output_tracert = self.ssh.send_command(comand_tracert)
         if "ms" in output_tracert:
             temp = self.send_command(device,'ip a')
@@ -130,6 +115,25 @@ class BM10():
         else:
             result = f'Tracert does not pass through {output_tracert}'
 
+        return result
+        print(output)
+        
+    def ping_ip(self, device,ip_for_ping):
+        
+        """ФУНКЦИЯ для простого пинга,  запросит адрес назначения, формат команды прописан в инит.
+        без импорта."""
+
+        self.check_connection(device)
+        command_ping = (self.word_ping + ip_for_ping + self.promo_ping)
+        print(command_ping)
+        output = self.ssh.send_command(command_ping)
+        if "round-trip min/avg/max" in output:
+            output = re.search(r'round-trip min/avg/max = (\S+ ..)', output).group()
+            result = ["IP", ip_for_ping, "destination available :", output]
+            result = ' '.join(result)
+        else:
+            result = ["Ip", ip_for_ping, "out of destination"]
+            result = ' '.join(result)
         return result
         print(output)
 
@@ -156,6 +160,9 @@ class BM10():
         return result
         print(output)
 
+
+
+
     def reset_conf(self,device, comm_reset_conf):
         
         """ ФУНКЦИЯ сброса конфига на заводской, с ребутом устр-ва.
@@ -175,9 +182,8 @@ if __name__ == "__main__":
         temp = yaml.safe_load(f)
         for t in temp:
             device = dict(t)
-            r1 = BM10(**device)
+            r1 = Base_bm10(**device)
             #print(r1.send_command(device, "uci show"))
-            print(r1.tracert_ip(device,ip_tracert='8.8.8.8'))
-
-
+            #print(r1.ping_inet(device))
+            print(r1.ping_ip(device,'8.8.8.8'))
 
