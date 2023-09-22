@@ -26,7 +26,7 @@ console = Console(theme=my_colors)
 
 
 class Base_bm10():
-    def __init__(self, host, username, timeout, password,**kwargs):
+    def __init__(self,host, username, timeout, password,**kwargs):
         try:
             with open("src/BM10_LTE.yaml") as f2:
                 temp = yaml.safe_load(f2)

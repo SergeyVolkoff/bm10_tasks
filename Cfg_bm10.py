@@ -25,7 +25,7 @@ from rich.theme import Theme
 
 
 class Cfg_templ_bm10(Base_bm10):
-
+    
     def cfg_template(self,device,commands_template):
 
         """ФУНКЦИЯ настройки базового конфига"""
@@ -53,8 +53,33 @@ class Cfg_templ_bm10(Base_bm10):
         return result
 
 class Cfg_bm10(Cfg_templ_bm10):
+     
 
-    
+    def cfg_base(self,device, commands_template):
+        
+        """ФУНКЦИЯ настройки базового конфига"""
+
+        Cfg_templ_bm10.cfg_template(self,device,commands_template)
+        return
+        
+         
+    def cfg_base_802(self, device, commands_template):
+
+        """ФУНКЦИЯ настройки stp- конфига"""
+
+        Cfg_templ_bm10.cfg_template(self,device,commands_template)
+        return
+
+
+
+    def cfg_vlan(self,deice,commands_template):
+
+        """ФУНКЦИЯ настройки vlan- конфига (vlan-сабинтерфейc)"""
+
+        Cfg_templ_bm10.cfg_template(self,device,commands_template)
+        return
+
+
     def cfg_pass (self,device, commands, log=True):
 
         """ ФУНКЦИЯ изменения пароля, надо поменять так,
@@ -86,70 +111,7 @@ class Cfg_bm10(Cfg_templ_bm10):
                         self.console.print("New pass OK",style="success")
                         break
             return output
-            
-    def cfg_base(self,device, commands_template):
         
-        """ФУНКЦИЯ настройки базового конфига"""
-
-        Cfg_templ_bm10.cfg_template(self,device,commands_template)
-        return
-        
-        # self.check_connection(device)
-        # result = {}
-        # for command in self.commands_base_cfg:
-        #     output = self.ssh.send_command(command, expect_string="", read_timeout=1)
-        #     if "mwan3" in command:
-        #             result_command = "wait, please"
-        #             print(command, result_command)
-        #             time.sleep(3)
-        #     if "commit" in command:
-        #         result_command = "wait, please"
-        #         print(command, result_command)
-        #         time.sleep(3)
-        #     if "" in output:
-        #         result_command = "command passed"
-        #         result[command]=output
-        #         print(command,result_command)
-        #     elif "Usage: uci [<options>] <command> [<arguments>]" in output:
-        #         result_command = "bad command"
-        #         print(command, result_command)
-        #         result[command] = result_command
-        # return result
-    
-        
-    def cfg_base_802(self, device, commands_template):
-
-        """ФУНКЦИЯ настройки stp- конфига"""
-
-        Cfg_templ_bm10.cfg_template(self,device,commands_template)
-        return
-
-
-        # self.check_connection(device)
-        # result = {}
-        # for command in self.commands_802_1d_cfg:
-        #     output = self.ssh.send_command(command, expect_string="", read_timeout=1)
-        #     #time.sleep(3) # только для 802
-        #     if "mwan3" in command:
-        #             result_command = "wait, please"
-        #             print(command, result_command)
-        #             time.sleep(3)
-        #     if "commit" in command:
-        #         result_command = "wait, please"
-        #         print(command, result_command)
-        #         time.sleep(3)
-        #     if "" in output:
-        #         result_command = "command passed"
-        #         result[command]=output
-        #         print(command,result_command)
-        #     elif "Usage: uci [<options>] <command> [<arguments>]" in output:
-        #         result_command = "bad command"
-        #         print(command, result_command)
-        #         result[command] = result_command
-        # return result
-
-
-    
 
 if __name__ == "__main__":
     with open("src/BM10_LTE.yaml")as f:
@@ -161,4 +123,5 @@ if __name__ == "__main__":
             #print(r1.cfg_base(device,r1.commands_base_cfg))
             #print (r1.cfg_base_802(device, r1.commands_802_1d_cfg))
             #print(r1.cfg_base(device, commands_template=r1.commands_base_cfg))
-            print(r1.cfg_base_802(device, commands_template=r1.commands_802_1d_cfg))
+            #print(r1.cfg_base_802(device, commands_template=r1.commands_802_1d_cfg))
+            #print(r1.cfg_vlan(device,commands_template=r1.commands_vlan_cfg))
