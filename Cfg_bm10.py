@@ -58,7 +58,7 @@ class Cfg_bm10(Cfg_templ_bm10):
     def cfg_base(self,device, commands_template):
         
         """ФУНКЦИЯ настройки базового конфига"""
-
+        # super().cfg_template(self,device,commands_template) # checkeed!!!!
         Cfg_templ_bm10.cfg_template(self,device,commands_template)
         return
         
@@ -69,7 +69,6 @@ class Cfg_bm10(Cfg_templ_bm10):
 
         Cfg_templ_bm10.cfg_template(self,device,commands_template)
         return
-
 
 
     def cfg_vlan(self,deice,commands_template):
@@ -122,6 +121,6 @@ if __name__ == "__main__":
             #print(r1.cfg_pass(device, commands='passwd'))
             #print(r1.cfg_base(device,r1.commands_base_cfg))
             #print (r1.cfg_base_802(device, r1.commands_802_1d_cfg))
-            #print(r1.cfg_base(device, commands_template=r1.commands_base_cfg))
+            print(r1.cfg_base(device, commands_template=r1.commands_base_cfg))
             #print(r1.cfg_base_802(device, commands_template=r1.commands_802_1d_cfg))
             #print(r1.cfg_vlan(device,commands_template=r1.commands_vlan_cfg))
