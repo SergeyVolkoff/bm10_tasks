@@ -5,7 +5,7 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-from base_bm10 import Base_bm10
+from main_module.base_bm10 import Base_bm10
 
 
 def check_vln_cfg(comm):
