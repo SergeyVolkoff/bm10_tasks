@@ -7,17 +7,21 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-from clss_Router import Router
-"""
-Проверка зоны firewall, настраиваем 4 порт как ван, 
-открываем инпут в firewall,  пингуем с соседа
-"""
+from base_bm10 import Base_bm10
+
+
 def check_Fwall():
-    with open("BM10_LTE.yaml")as f:
+
+    """
+    Проверка зоны firewall, настраиваем 4 порт как ван, 
+    открываем инпут в firewall,  пингуем с соседа
+    """
+
+    with open("command_cfg/value_bm10.yaml")as f:
         temp = yaml.safe_load(f)
         for t in temp:
             device = dict(t)
-            r1 = Router(**device)
+            r1 = Base_bm10(**device)
     try:
         time.sleep(0)
         res={}

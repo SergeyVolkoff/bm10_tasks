@@ -8,7 +8,7 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-from clss_Router import Router
+#from clss_Router import Router
 from check_Fwall import  check_Fwall
 
 

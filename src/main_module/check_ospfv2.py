@@ -8,17 +8,19 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-from clss_Router import Router
-"""
+from base_bm10 import Base_bm10
 
-"""
-with open("BM10_LTE.yaml") as f:
+
+with open("command_cfg/value_bm10.yaml") as f:
     temp = yaml.safe_load(f)
     for t in temp:
         device = dict(t)
-        r1 = Router(**device)
+        r1 = Base_bm10(**device)
 
 def check_enable_ospfv2():
+ 
+    '''Проверка enable OSPFv2'''
+
     try:
         temp = r1.send_sh_command(device, 'uci show ospf.@ospf[0].enabled')
         if "='1'" in temp:
@@ -35,7 +37,7 @@ def check_enable_ospfv2():
 def check_route_ospfv2_net():
     # ф-я в цикле переберет список маршрутов, если нужного нет - вернет false
     try:
-        return_ip_route = r1.send_sh_command(device, "ip route")
+        return_ip_route = r1.send_command(device, "ip route")
         list_iproute=('192.168.10.0/24',
                       '192.168.20.0/24',
                       '200.1.10.0/24 ',

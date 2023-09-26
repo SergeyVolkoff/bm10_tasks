@@ -10,7 +10,6 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-from clss_Router import Router
 from check_pppoe_client import check_int_pppoe_cl, check_ping_inet,check_ip_pppoe,\
     check_ip_peer,check_tracert_peer
 

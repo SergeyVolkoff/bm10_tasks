@@ -211,7 +211,7 @@ class Base_bm10():
         
 
 if __name__ == "__main__":
-    with open("src/value_bm10.yaml")as f:
+    with open("command_cfg/value_bm10.yaml")as f:
         temp = yaml.safe_load(f)
         for t in temp:
             device = dict(t)

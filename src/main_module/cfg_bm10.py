@@ -28,7 +28,7 @@ class Cfg_templ_bm10(Base_bm10):
     
     def cfg_template(self,device,commands_template):
 
-        """ФУНКЦИЯ настройки базового конфига"""
+        """ФУНКЦИЯ-шаблон настройки базового конфига"""
 
         self.check_connection(device)
         result = {}

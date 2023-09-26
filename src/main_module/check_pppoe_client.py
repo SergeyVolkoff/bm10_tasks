@@ -6,29 +6,30 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-from clss_Router import Router
-'''
-Проверяем работу роутера как РРРоЕ клиента:
+from base_bm10 import Base_bm10
 
-'''
-with open("BM10_LTE.yaml") as f:
+
+with open("command_cfg/value_bm10.yaml") as f:
     temp = yaml.safe_load(f)
     for t in temp:
         device = dict(t)
-        r1 = Router(**device)
+        r1 = Base_bm10(**device)
 
-def check_int_pppoe_cl(comm):  # Определяем наличие настроенного интерфейса ван с РРРоЕ (есть ли конфиг вообще)
+def check_int_pppoe_cl(comm): 
+     # Определяем наличие настроенного интерфейса ван с РРРоЕ (есть ли конфиг вообще)
     try:
-        temp = r1.send_sh_command(device, comm)
+        temp = r1.send_command(device, comm)
         if "pppoe" in temp:
             return True
         else:
             return False
     except ValueError as err:
         return False
-def check_ip_pppoe(comm): # check ip for client and serv
+    
+def check_ip_pppoe(comm): 
+    # check ip for client and serv
     try:
-        temp = r1.send_sh_command(device,comm)
+        temp = r1.send_command(device,comm)
         temp2 = re.search(r'\s+inet (?P<intf>\d+.\d+.\d+.\d+) peer (.{0,})pppoe-wan',temp).group()
         output = re.search(r'\s+inet (?P<ip_int>\d+.\d+.\d+.\d+) peer (?P<ip_peer>\d+.\d+.\d+.\d+).{0,}pppoe-wan', temp)
         #ip_per=output.group('ip_peer')
@@ -69,7 +70,7 @@ def check_tracert_peer():
 '''
 def check_ip_peer(comm): # возвращает ip сервера (ip_per) для теста test_check_ip_peer
     try:
-        temp = r1.send_sh_command(device,comm)
+        temp = r1.send_command(device,comm)
         output = re.search(r'\s+inet (?P<ip_int>\d+.\d+.\d+.\d+) peer (?P<ip_peer>\d+.\d+.\d+.\d+).{0,}pppoe-wan', temp)
         ip_per=output.group('ip_peer')
         return ip_per

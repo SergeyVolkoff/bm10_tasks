@@ -7,16 +7,15 @@ from netmiko import (
 )
 from base_bm10 import Base_bm10
 
-
 def check_vln_cfg(comm):
 
-    """Из конфига вланов проверяем наличие вланов 2 и 3"""
+    """Из конфига вланов проверяем наличие вланов 2 и 3""" 
 
     with open ("command_cfg/value_bm10.yaml") as f:
         temp = yaml.safe_load(f)
         for t in temp:
             device = dict(t)
-            r1 =Base_bm10(**device)
+            r1 = Base_bm10(**device)
     try:
         temp = r1.send_command(device,comm)
         if "bridge-vlan[1].ports='lan2'" in temp:
@@ -29,7 +28,8 @@ def check_vln_cfg(comm):
     except ValueError as err:
         return False
     
-
 if __name__ == "__main__":
+     
      result = check_vln_cfg("uci show network")
      print(result)
+

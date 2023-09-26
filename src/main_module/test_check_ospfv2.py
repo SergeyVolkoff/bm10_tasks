@@ -8,7 +8,6 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-from clss_Router import Router
 from check_ospfv2 import (check_enable_ospfv2,
                           check_route_ospfv2_net,
                           check_ping_interf,

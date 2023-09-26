@@ -7,15 +7,14 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-from clss_Router import Router
-"""
+from base_bm10 import Base_bm10
 
-"""
-with open("BM10_LTE.yaml") as f:
+
+with open("command_cfg/value_bm10.yaml") as f:
     temp = yaml.safe_load(f)
     for t in temp:
         device = dict(t)
-        r1 = Router(**device)
+        r1 = Base_bm10(**device)
 
 
 def check_enable_ripng():
