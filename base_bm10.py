@@ -28,7 +28,7 @@ console = Console(theme=my_colors)
 class Base_bm10():
     def __init__(self,host, username, timeout, password,**kwargs):
         try:
-            with open("src/BM10_LTE.yaml") as f2:
+            with open("src/value_bm10.yaml") as f2:
                 temp = yaml.safe_load(f2)
                 for t in temp:
                     device = dict(t)
@@ -211,7 +211,7 @@ class Base_bm10():
         
 
 if __name__ == "__main__":
-    with open("src/BM10_LTE.yaml")as f:
+    with open("src/value_bm10.yaml")as f:
         temp = yaml.safe_load(f)
         for t in temp:
             device = dict(t)
