@@ -185,7 +185,7 @@ class SCP_cfg_ppoe(Cfg_templ_bm10):
 
         # SCPCLient takes a paramiko transport as an argument
         scp = SCPClient(self.client.get_transport())
-        scp.put('src/pppoe_cfg_file/pppoe', '/etc/config/')
+        scp.put('src/main_module/pppoe_cfg_file/pppoe', '/etc/config/')
         scp.close()
         self.client.close()
 
@@ -197,7 +197,7 @@ class SCP_cfg_ppoe(Cfg_templ_bm10):
         
         # SCPCLient takes a paramiko transport as an argument
         scp = SCPClient(self.client.get_transport())
-        scp.put('src/pppoe_cfg_file/pppoe-server-options', '/etc/ppp/')
+        scp.put('src/main_module/main_module/pppoe_cfg_file/pppoe-server-options', '/etc/ppp/')
         scp.close()
         self.client.close()
     
@@ -209,13 +209,13 @@ class SCP_cfg_ppoe(Cfg_templ_bm10):
         
         # SCPCLient takes a paramiko transport as an argument
         scp = SCPClient(self.client.get_transport())
-        scp.put('src/pppoe_cfg_file/chap-secrets', '/etc/ppp/')
+        scp.put('src/main_module/pppoe_cfg_file/chap-secrets', '/etc/ppp/')
         scp.close()
         self.client.close()
 
         
 if __name__ == "__main__":
-    with open("src/value_bm10.yaml")as f:
+    with open("command_cfg/value_bm10.yaml")as f:
         temp = yaml.safe_load(f)
         for t in temp:
             device = dict(t)
@@ -231,11 +231,11 @@ if __name__ == "__main__":
             #print(r1.cfg_pppoe_client(device,r1.commands_pppoe_client_cfg))
             #print(r1.cfg_ripv2(device,r1.commands_cfg_ripv2))
             #print(r1.cfg_ripvng(device,r1.commands_cfg_ripng))
-            print(r1.cfg_ospfv2(device,r1.commands_cfg_ospfv2))
+            #print(r1.cfg_ospfv2(device,r1.commands_cfg_ospfv2))
             
 
 
             #print(r2.cfg_pppoe_serv())
             #print(r2.cfg_pppoe_opt())
             #print(r2.cfg_pppoe_chap())
-            print(r1.cfg_pppoe_serv(device,r1.commands_pppoe_server_cfg))
+            #print(r1.cfg_pppoe_serv(device,r1.commands_pppoe_server_cfg))
