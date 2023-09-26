@@ -73,11 +73,27 @@ class Cfg_bm10(Cfg_templ_bm10):
 
     def cfg_vlan(self,deice,commands_template):
 
-        """ФУНКЦИЯ настройки vlan- конфига (vlan-сабинтерфейc)"""
+        """ФУНКЦИЯ настройки vlan- конфига (vlan-сабинтерфейc), после ребута потеря связи! """
 
         Cfg_templ_bm10.cfg_template(self,device,commands_template)
         return
 
+
+    def cfg_WiFi_AP(self, device, commands_template):
+
+        """ ФУНКЦИЯ настройки Wifi_AP """
+
+        Cfg_templ_bm10.cfg_template(self,device, commands_template)
+        return
+    
+
+    def cfg_pppoe_client(self,device,commands_template):
+
+        """ ФУНКЦИЯ настройки роутера как РРРоЕ-клиент на wan порту
+        Сначала залить сервер, потом - клиент """
+
+        Cfg_templ_bm10.cfg_template(self,device,commands_template)
+        return
 
     def cfg_pass (self,device, commands, log=True):
 
@@ -110,7 +126,34 @@ class Cfg_bm10(Cfg_templ_bm10):
                         self.console.print("New pass OK",style="success")
                         break
             return output
+
+    
         
+class SCP_cfg_ppoe():
+    
+    def __init__(self):
+        
+        self.client = SSHClient()
+        self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy()) # ключ добавится автоматом, без этого не соединится по ссх
+        #self.client.load_system_host_keys()
+        self.client.connect (
+        hostname='192.168.1.1',
+        username='root',
+        password='root',
+        port=22
+        )
+    def cfg_pppoe_serv1(self):
+
+        """1-ФУНКЦИЯ настройки роутера как РРРоЕ-server на wan порту
+        Сервр льем первым!
+        эта ф-я передает файл pppoe в DUT, в файле лежат настройки сервера ррре"""
+
+        #client = SSHClient()
+        # SCPCLient takes a paramiko transport as an argument
+        scp = SCPClient(self.client.get_transport())
+        scp.put('src/file_cfg/pppoe', '/etc/config/')
+        scp.close()
+        self.client.close()
 
 if __name__ == "__main__":
     with open("src/BM10_LTE.yaml")as f:
@@ -118,9 +161,13 @@ if __name__ == "__main__":
         for t in temp:
             device = dict(t)
             r1 = Cfg_bm10(**device)
+            r2 = SCP_cfg_ppoe()
             #print(r1.cfg_pass(device, commands='passwd'))
             #print(r1.cfg_base(device,r1.commands_base_cfg))
             #print (r1.cfg_base_802(device, r1.commands_802_1d_cfg))
-            print(r1.cfg_base(device, commands_template=r1.commands_base_cfg))
+            #print(r1.cfg_base(device, commands_template=r1.commands_base_cfg))
             #print(r1.cfg_base_802(device, commands_template=r1.commands_802_1d_cfg))
             #print(r1.cfg_vlan(device,commands_template=r1.commands_vlan_cfg))
+            #print(r1.cfg_WiFi_AP(device,commands_template=r1.commands_cfg_WiFi_AP))
+            #print(r1.cfg_pppoe_client(device,r1.commands_pppoe_client_cfg))
+            print(r2.cfg_pppoe_serv1())
