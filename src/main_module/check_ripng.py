@@ -19,7 +19,7 @@ with open("command_cfg/value_bm10.yaml") as f:
 
 def check_enable_ripng():
     try:
-        temp = r1.send_sh_command(device, 'uci show ripng.@rip[0].enabled')
+        temp = r1.send_command(device, 'uci show ripng.@rip[0].enabled')
         if "='1'" in temp:
             print("RIPng - enable!")
             return True
@@ -32,7 +32,7 @@ def check_enable_ripng():
 def check_route_ripng_net():
     # ф-я в цикле переберет список маршрутов, если нужного нет - вернет false
     try:
-        return_ip_route = r1.send_sh_command(device, "ip -6 route")
+        return_ip_route = r1.send_command(device, "ip -6 route")
         list_iproute=('2001:10::/64','2001:20::/64','2001:30::/64','2002:10::/64','2002:20::/64','2002:30::/64')
         i=0
         for ip in list_iproute:

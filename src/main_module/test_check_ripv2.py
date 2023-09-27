@@ -8,7 +8,6 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-from clss_Router import Router
 from check_ripv2 import (check_enable_ripv2,
                          check_ver_ripv2,
                          check_route_ripv2,

@@ -1,4 +1,6 @@
 import re
+import sys
+
 import yaml
 import netmiko
 from netmiko import (

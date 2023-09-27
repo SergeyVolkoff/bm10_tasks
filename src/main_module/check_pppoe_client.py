@@ -58,7 +58,7 @@ def check_ping_inet(): # check ping Internet
 
 def check_tracert_peer():
     try:
-        result_tracert =  r1.tracert_ip(device)
+        result_tracert =  r1.tracert_ip(device) # add !!!!
         if ' Tracert passes through server-peer' in result_tracert:
             return True
         else:
@@ -77,6 +77,6 @@ def check_ip_peer(comm): # возвращает ip сервера (ip_per) дл�
     except ValueError as err:
         return False
 if __name__ =="__main__":
-    result = check_ping_inet()
+    result = check_ip_peer("ip a")
     print (result)
 

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
+import sys
+
 import yaml
 import netmiko
 import paramiko

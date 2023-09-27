@@ -8,7 +8,6 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-from clss_Router import Router
 from check_ripng import (check_enable_ripng,                 
                          check_route_ripng_net,
                          check_ping_interf,

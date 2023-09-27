@@ -6,8 +6,7 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-#from main_module.base_bm10 import Base_bm10 
-from check_802Q import check_vln_cfg
+from check_802Q import *
    
 
 def test_802Q():

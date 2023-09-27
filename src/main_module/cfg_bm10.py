@@ -1,5 +1,6 @@
 from base_bm10 import Base_bm10
 import re
+import sys
 import yaml
 import netmiko
 import paramiko
@@ -96,7 +97,7 @@ class Cfg_bm10(Cfg_templ_bm10):
         return
 
 
-    def cfg_pppoe_serv(self,device,commands_template):
+    def cfg_pppoe_4(self,device,commands_template):
 
         """ 4-ФУНКЦИЯ настройки роутера как РРРоЕ-server на wan порту
         Сервр льем первым!
@@ -221,21 +222,17 @@ if __name__ == "__main__":
             device = dict(t)
             r1 = Cfg_bm10(**device)
             r2 = SCP_cfg_ppoe()
-            #print(r1.cfg_pass(device, commands='passwd'))
-            #print(r1.cfg_base(device,r1.commands_base_cfg))
-            #print (r1.cfg_base_802(device, r1.commands_802_1d_cfg))
-            print(r1.cfg_base(device, r1.commands_base_cfg))
-            #print(r1.cfg_base_802(device, r1.commands_802_1d_cfg))
-            #print(r1.cfg_vlan(device,r1.commands_vlan_cfg))
-            #print(r1.cfg_WiFi_AP(device,r1.commands_cfg_WiFi_AP))
-            #print(r1.cfg_pppoe_client(device,r1.commands_pppoe_client_cfg))
-            #print(r1.cfg_ripv2(device,r1.commands_cfg_ripv2))
-            #print(r1.cfg_ripvng(device,r1.commands_cfg_ripng))
-            #print(r1.cfg_ospfv2(device,r1.commands_cfg_ospfv2))
+            #print(r1.cfg_pass(device, commands='passwd'))                  # Cfg pass
+            print(r1.cfg_base(device,r1.commands_base_cfg))                # Cfg base_cfg (name, firewall,timezone,ASIIC,wifi, mwan)
+            #print (r1.cfg_base_802(device, r1.commands_802_1d_cfg))        # Cfg for 802d (STP)
+            #print(r1.cfg_vlan(device,r1.commands_vlan_cfg))                # Cfg for 802d (STP)
+            #print(r1.cfg_WiFi_AP(device,r1.commands_cfg_WiFi_AP))          # Cfg wifi_ap (1-й порт не раздает!!!)
+            #print(r1.cfg_pppoe_client(device,r1.commands_pppoe_client_cfg))# Cfg pppoe-client
+            #print(r1.cfg_ripv2(device,r1.commands_cfg_ripv2))              # Cfg RIPv2+base_cfg
+            #print(r1.cfg_ripvng(device,r1.commands_cfg_ripng))             # Cfg RIPng+base_cfg
+            #print(r1.cfg_ospfv2(device,r1.commands_cfg_ospfv2))            # Cfg Ospfv2+base_cfg
             
-
-
-            #print(r2.cfg_pppoe_serv())
-            #print(r2.cfg_pppoe_opt())
-            #print(r2.cfg_pppoe_chap())
-            #print(r1.cfg_pppoe_serv(device,r1.commands_pppoe_server_cfg))
+            #print(r2.cfg_pppoe_serv())                                     # Cfg pppoe-serv1
+            #print(r2.cfg_pppoe_opt())                                      # Cfg pppoe-serv2
+            #print(r2.cfg_pppoe_chap())                                     # Cfg pppoe-serv3
+            #print(r1.cfg_pppoe_4(device,r1.commands_pppoe_server_cfg))  # Cfg pppoe-serv4

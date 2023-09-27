@@ -1,4 +1,6 @@
 import re
+import sys
+
 import yaml
 import netmiko
 import pytest
@@ -7,9 +9,8 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-#from clss_Router import Router
-from check_base_cfg import check_sup_ASIC, check_firewall, \
-    check_name_dev, check_time_zone,check_wifi_name,check_mwan3,check_ntp
+from check_base_cfg import *
+
 
 def test_enable_support_ASIC():
     assert check_sup_ASIC(
