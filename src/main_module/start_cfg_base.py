@@ -1,6 +1,5 @@
-
 from base_bm10 import *
-from main_module.cfg_bm10 import *
+from cfg_bm10 import *
 
 if __name__ == "__main__":
     with open("command_cfg/value_bm10.yaml")as f:

@@ -22,7 +22,7 @@ def check_int3G(comm):
             device = dict(t)
             r1 = Base_bm10(**device)
     try:
-        temp = r1.show_int3G(device,comm) - # add "show"!!!!!!!!!!!!!!
+        temp = r1.show_int3G(device,comm) # add "show"!!!!!!!!!!!!!!
         if "addr" in temp:
             return True
         if " but d'nt have ip addr" in temp:

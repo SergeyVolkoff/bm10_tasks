@@ -186,9 +186,10 @@ class SCP_cfg_ppoe(Cfg_templ_bm10):
 
         # SCPCLient takes a paramiko transport as an argument
         scp = SCPClient(self.client.get_transport())
-        scp.put('src/main_module/pppoe_cfg_file/pppoe', '/etc/config/')
+        scp.put('pppoe_cfg_file/pppoe', '/etc/config/')
         scp.close()
         self.client.close()
+        print("File download")
 
     def cfg_pppoe_opt(self):
 
@@ -198,9 +199,10 @@ class SCP_cfg_ppoe(Cfg_templ_bm10):
         
         # SCPCLient takes a paramiko transport as an argument
         scp = SCPClient(self.client.get_transport())
-        scp.put('src/main_module/main_module/pppoe_cfg_file/pppoe-server-options', '/etc/ppp/')
+        scp.put('pppoe_cfg_file/pppoe-server-options', '/etc/ppp/')
         scp.close()
         self.client.close()
+        print("File download")
     
     def cfg_pppoe_chap(self):
 
@@ -210,9 +212,10 @@ class SCP_cfg_ppoe(Cfg_templ_bm10):
         
         # SCPCLient takes a paramiko transport as an argument
         scp = SCPClient(self.client.get_transport())
-        scp.put('src/main_module/pppoe_cfg_file/chap-secrets', '/etc/ppp/')
+        scp.put('pppoe_cfg_file/chap-secrets', '/etc/ppp/')
         scp.close()
         self.client.close()
+        print("File download")
 
         
 if __name__ == "__main__":
@@ -223,7 +226,7 @@ if __name__ == "__main__":
             r1 = Cfg_bm10(**device)
             r2 = SCP_cfg_ppoe()
             #print(r1.cfg_pass(device, commands='passwd'))                  # Cfg pass
-            print(r1.cfg_base(device,r1.commands_base_cfg))                # Cfg base_cfg (name, firewall,timezone,ASIIC,wifi, mwan)
+            #print(r1.cfg_base(device,r1.commands_base_cfg))                # Cfg base_cfg (name, firewall,timezone,ASIIC,wifi, mwan)
             #print (r1.cfg_base_802(device, r1.commands_802_1d_cfg))        # Cfg for 802d (STP)
             #print(r1.cfg_vlan(device,r1.commands_vlan_cfg))                # Cfg for 802d (STP)
             #print(r1.cfg_WiFi_AP(device,r1.commands_cfg_WiFi_AP))          # Cfg wifi_ap (1-й порт не раздает!!!)
@@ -234,5 +237,5 @@ if __name__ == "__main__":
             
             #print(r2.cfg_pppoe_serv())                                     # Cfg pppoe-serv1
             #print(r2.cfg_pppoe_opt())                                      # Cfg pppoe-serv2
-            #print(r2.cfg_pppoe_chap())                                     # Cfg pppoe-serv3
+            print(r2.cfg_pppoe_chap())                                     # Cfg pppoe-serv3
             #print(r1.cfg_pppoe_4(device,r1.commands_pppoe_server_cfg))  # Cfg pppoe-serv4

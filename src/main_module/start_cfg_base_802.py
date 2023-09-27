@@ -8,4 +8,4 @@ if __name__ == "__main__":
             device = dict(t)
             r1 = Cfg_bm10(**device)
             r2 = SCP_cfg_ppoe()
-            print
+            print(r1.cfg_base_802(device, r1.commands_802_1d_cfg))

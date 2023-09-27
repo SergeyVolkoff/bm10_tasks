@@ -8,4 +8,4 @@ if __name__ == "__main__":
             device = dict(t)
             r1 = Cfg_bm10(**device)
             r2 = SCP_cfg_ppoe()
-            print
+            print(r1.cfg_pppoe_4(device,r1.commands_pppoe_server_cfg)) 
