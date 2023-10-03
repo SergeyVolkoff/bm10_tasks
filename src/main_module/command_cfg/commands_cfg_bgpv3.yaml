@@ -65,6 +65,7 @@
 "uci del bgp.@neighbor[-1].shutdown",
 "uci set bgp.cfg01617e.redistribute_static='1'",
 "uci set bgp.cfg01617e.redistribute_connected='1'",
+"uci set bgp.cfg01617e.redistribute_kernel='1'",
 
 "mwan3 stop",
 "uci commit",
