@@ -68,6 +68,8 @@ class Base_bm10():
                 self.commands_cfg_ripng = yaml.safe_load(f16)
             with open("command_cfg/commands_cfg_ospfv2.yaml") as f17:
                 self.commands_cfg_ospfv2 = yaml.safe_load(f17)
+            with open("command_cfg/commands_cfg_bgpv3.yaml") as f18:
+                self.commands_cfg_bgpv3 = yaml.safe_load(f18)
             self.ssh = ConnectHandler(**device)
             self.ip = host
             self.name = username

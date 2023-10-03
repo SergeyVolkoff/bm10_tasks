@@ -122,6 +122,13 @@ class Cfg_bm10(Cfg_templ_bm10):
         Cfg_templ_bm10.cfg_template(self,device,commands_template)
         return
 
+    def cfg_bgpv3(self, device, commands_template): 
+        
+        """ ФУНКЦИЯ настройки BGPv3 """
+
+        Cfg_templ_bm10.cfg_template(self,device,commands_template)
+        return
+    
 
     def cfg_ospfv2(self, device,commands_template): 
 
