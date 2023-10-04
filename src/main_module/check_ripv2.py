@@ -31,7 +31,7 @@ def check_enable_ripv2():
 
 def check_ver_ripv2():
     try:
-        temp = r1.send_sh_command(device, "uci show rip.@rip[0].version")
+        temp = r1.send_command(device, "uci show rip.@rip[0].version")
         if "='2'" in temp:
             print("RIP version is 2!")
             return True
@@ -43,7 +43,7 @@ def check_ver_ripv2():
 
 def check_route_ripv2():
     try:
-        temp = r1.send_sh_command(device, "ip route")
+        temp = r1.send_command(device, "ip route")
         if "200.1.20.0/24 via 192.168.20.2" in temp:
             print("Ip route to host ok!")
             return True
