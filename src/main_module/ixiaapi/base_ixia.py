@@ -17,20 +17,13 @@ class Base_ixia():
 
     def connect_ixia(self):
 
-        """ Подключение к IXIA. Загрузка конфигурационного файла
-          (данные по API серверу указану в IxiaApi.py, файл ниже)"""
+        """ Подключение к IXIA. Загрузка конфигурационного файла 
+		(данные по API серверу указану в IxiaApi.py, файл выше)"""
         
-        
-        file = "ixiaapi/cfgs_ixia/Cfg_access_trunk.ixncfg"
+        self.connect.conn_srvr()
+        self.connect.verif_sessions()
         file = "C:/Users/user299/Desktop/Testing/ixia_test/cfgs_ixia/Cfg_access_trunk.ixncfg"
         self.connect.load_conf(file)
-        try:
-            self.response = requests.post(self.root+"/api/v1/sessions",
-                         headers={'content-type': 'application/json'}, verify=False)
-            if self.response.status_code == 201:
-                print(f'Connection to IXAPI server {self.ipserver} is successfull')
-        except Exception as error:
-            print(error)
 
 if __name__=="__main__":
     ix= Base_ixia()

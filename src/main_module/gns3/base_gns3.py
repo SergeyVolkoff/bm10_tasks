@@ -9,8 +9,12 @@ class Base_gns():
 
         self.server_url = "http://10.27.193.245:3080"
         self.connector = Gns3Connector(url=self.server_url)
-        self.lab = Project(name="SSV_test", connector=self.connector )
-    
+        print(tabulate(self.connector.projects_summary(is_print=False), headers=["Project Name"]))
+        self.name = input("Input lab name: ")
+        self.lab = Project(name=self.name, connector=self.connector )
+        self.lab_get = self.lab.get()
+        
+
     def all_proj (self):
 
         """ Возвращает перечень всех лаб в ГНС"""
@@ -22,7 +26,7 @@ class Base_gns():
 
     def get_ver_gns(self):
 
-        """ Вернет версию - абсолютно бесполезная хрень, если выкл обновление """
+        """ Вернет версию GNS - абсолютно бесполезная хрень, если выкл обновление """
 
         gns_ver = self.connector.get_version()
         return f"GNS3 ver is {gns_ver}"
@@ -31,7 +35,6 @@ class Base_gns():
 
         """ Вернет lab_id, статус моей лабы """
 
-        self.lab.get()
         print(self.lab.project_id)
         return f"GNS3 lab_name: {self.lab.name}, lab_id:{self.lab.project_id}, lab status: {self.lab.status}"
     
@@ -39,23 +42,38 @@ class Base_gns():
 
         """ Вернет все узлы в лабе"""
 
-        self.lab.open()
+        self.lab.open() # open lab
         print(f"*** ALL nodes in {gns.lab.name} lab ***")
         return  self.lab.nodes_summary()
     
-    def start_nod(self):
-        self.lab.get()
-        r1=Node(project_id=self.lab.project_id, name='R1',connector=self.connector)
+    def start_node(self):
+
+        """ Запуск 1 узла в проекте"""
+
+        r1 = Node(
+            project_id=self.lab.project_id, 
+            name='R1',
+            connector=self.connector
+            ) # создаем экз-р устр-ва
+        
         r1.get()
         stts_ret=r1.start()
         return stts_ret
 
-        
-    
+    def start_all_nodes(self):
+
+        """ pass """
+        print(self.lab)
+        print(self.lab_get)
+        self.lab.open()
+        print(self.lab.status)
+        result_starta=self.lab.start_nodes(poll_wait_time=5)
+
 if __name__=="__main__":
     gns= Base_gns()
-    #print (gns.get_ver_gns(),'\n')
-    #print(gns.all_proj(),'\n')
-    #print(gns.get_lab(),'\n')
-    #print( gns.get_nodes(),'\n')
-    print(gns.start_nod())
+    # print (gns.get_ver_gns(),'\n')
+    # print(gns.all_proj(),'\n')
+    # print(gns.get_lab(),'\n')
+    # print( gns.get_nodes(),'\n')
+    # print(gns.start_node())
+    print(gns.start_all_nodes())

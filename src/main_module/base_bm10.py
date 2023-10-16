@@ -185,8 +185,7 @@ class Base_bm10():
         if "ms" in output_tracert:
             temp = self.send_command(device,'ip a')
             if "peer" in temp:
-                output1 = re.search(r'\s+inet (?P<ip_int>\d+.\d+.\d+.\d+) peer (?P<ip_peer>\d+.\d+.\d+.\d+).{0,}pppoe-wan',
-                                temp)
+                output1 = re.search(r'\s+inet (?P<ip_int>\d+.\d+.\d+.\d+) peer (?P<ip_peer>\d+.\d+.\d+.\d+).{0,}pppoe-wan', temp)
                 ip_peer = output1.group('ip_peer')
                 result = f'### Tracert passes through server-peer, {ip_peer}! ###\n {output_tracert}'
             else:
