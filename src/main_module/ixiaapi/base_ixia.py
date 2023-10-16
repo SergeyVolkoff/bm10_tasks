@@ -7,7 +7,7 @@ from ixia_api import IxAPI
 
 class Base_ixia():
     def __init__(self):
-        self.ixiaApiServer = "127.0.0.1"
+        self.ixiaApiServer = "10.27.192.176"
         self.ixiaApiPort = '11009'
         self.ixiaChassis = "10.27.192.3"
         self.connect = IxAPI(self.ixiaApiServer, self.ixiaApiPort)
