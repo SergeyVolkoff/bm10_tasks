@@ -244,5 +244,5 @@ if __name__ == "__main__":
             
             #print(r2.cfg_pppoe_serv())                                     # Cfg pppoe-serv1
             #print(r2.cfg_pppoe_opt())                                      # Cfg pppoe-serv2
-            print(r2.cfg_pppoe_chap())                                     # Cfg pppoe-serv3
-            #print(r1.cfg_pppoe_4(device,r1.commands_pppoe_server_cfg))  # Cfg pppoe-serv4
+            #print(r2.cfg_pppoe_chap())                                     # Cfg pppoe-serv3
+            print(r1.cfg_pppoe_4(device,r1.commands_pppoe_server_cfg))  # Cfg pppoe-serv4
