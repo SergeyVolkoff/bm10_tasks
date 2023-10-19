@@ -1,4 +1,5 @@
 import re
+import time
 
 import pytest
 import yaml
@@ -14,7 +15,11 @@ from check_ripv2 import (check_enable_ripv2,
                          check_ping_interf,
                          )
 
-def test_check_enable_ripv2():
+
+
+
+def test_check_enable_ripv2(init_lab_gns, init_cfg_ripv2):
+
     assert check_enable_ripv2()==True, "RIP disable!"
 
 def test_check_version_ripv2():

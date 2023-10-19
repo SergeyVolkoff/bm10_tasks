@@ -19,7 +19,7 @@ with open("command_cfg/value_bm10.yaml") as f:
 
 def check_enable_ripv2():
     try:
-        temp = r1.send_sh_command(device, 'uci show rip.@rip[0].enabled')
+        temp = r1.send_command(device, 'uci show rip.@rip[0].enabled')
         if "='1'" in temp:
             print("RIPv2 - enable!")
             return True

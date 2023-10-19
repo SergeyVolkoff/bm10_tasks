@@ -213,13 +213,13 @@ class Base_bm10():
             return result_reset
         
 
-if __name__ == "__main__":
-    with open("command_cfg/value_bm10.yaml")as f:
-        temp = yaml.safe_load(f)
-        for t in temp:
-            device = dict(t)
-            r1 = Base_bm10(**device)
-            #print(r1.send_command(device, "uci show"))
-            #print(r1.ping_inet(device))
-            print(r1.ping_ip(device,'8.8.8.8'))
+# if __name__ == "__main__":
+#     with open("command_cfg/value_bm10.yaml")as f:
+#         temp = yaml.safe_load(f)
+#         for t in temp:
+#             device = dict(t)
+#             r1 = Base_bm10(**device)
+#             #print(r1.send_command(device, "uci show"))
+#             #print(r1.ping_inet(device))
+#             print(r1.ping_ip(device,'8.8.8.8'))
 

@@ -32,7 +32,7 @@ class Base_gns():
         gns_ver = self.connector.get_version()
         return f"GNS3 ver is {gns_ver}"
         
-    def get_lab(self):
+    def get_lab_status(self):
 
         """ Вернет lab_id, статус моей лабы """
 
@@ -68,19 +68,16 @@ class Base_gns():
 
         lab = Project(name=self.name_lab , connector=self.connector )
         lab_get = lab.get()
-
-        print(lab)
-        print(lab_get)
         lab.open()
-        print(lab.status)
         result_starta=lab.start_nodes(poll_wait_time=5)
-        return lab.status
+        return print(f"GNS3 lab_name {self.name_lab}", lab.status)
+
 
 if __name__=="__main__":
     gns= Base_gns()
     # print (gns.get_ver_gns(),'\n')
     # print(gns.all_proj(),'\n')
-    # print(gns.get_lab(),'\n')
+    # print(gns.get_lab_status(),'\n')
     # print( gns.get_nodes(),'\n')
     # print(gns.start_node())
     print(gns.start_nodes_from_project())

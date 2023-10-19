@@ -225,24 +225,26 @@ class SCP_cfg_ppoe(Cfg_templ_bm10):
         print("File download")
 
         
-if __name__ == "__main__":
-    with open("command_cfg/value_bm10.yaml")as f:
-        temp = yaml.safe_load(f)
-        for t in temp:
-            device = dict(t)
-            r1 = Cfg_bm10(**device)
-            r2 = SCP_cfg_ppoe()
-            #print(r1.cfg_pass(device, commands='passwd'))                  # Cfg pass
-            #print(r1.cfg_base(device,r1.commands_base_cfg))                # Cfg base_cfg (name, firewall,timezone,ASIIC,wifi, mwan)
-            #print (r1.cfg_base_802(device, r1.commands_802_1d_cfg))        # Cfg for 802d (STP)
-            #print(r1.cfg_vlan(device,r1.commands_vlan_cfg))                # Cfg for 802d (STP)
-            #print(r1.cfg_WiFi_AP(device,r1.commands_cfg_WiFi_AP))          # Cfg wifi_ap (1-й порт не раздает!!!)
-            #print(r1.cfg_pppoe_client(device,r1.commands_pppoe_client_cfg))# Cfg pppoe-client
-            #print(r1.cfg_ripv2(device,r1.commands_cfg_ripv2))              # Cfg RIPv2+base_cfg
-            #print(r1.cfg_ripvng(device,r1.commands_cfg_ripng))             # Cfg RIPng+base_cfg
-            #print(r1.cfg_ospfv2(device,r1.commands_cfg_ospfv2))            # Cfg Ospfv2+base_cfg
+# if __name__ == "__main__":
+#     with open("command_cfg/value_bm10.yaml")as f:
+#         temp = yaml.safe_load(f)
+#         for t in temp:
+#             device = dict(t)
+#             r1 = Cfg_bm10(**device)
+#             r2 = SCP_cfg_ppoe()
+#             #print(r1.cfg_pass(device, commands='passwd'))                  # Cfg pass
+#             #print(r1.cfg_base(device,r1.commands_base_cfg))                # Cfg base_cfg (name, firewall,timezone,ASIIC,wifi, mwan)
+#             #print (r1.cfg_base_802(device, r1.commands_802_1d_cfg))        # Cfg for 802d (STP)
+#             #print(r1.cfg_vlan(device,r1.commands_vlan_cfg))                # Cfg for 802d (STP)
+#             #print(r1.cfg_WiFi_AP(device,r1.commands_cfg_WiFi_AP))          # Cfg wifi_ap (1-й порт не раздает!!!)
+#             #print(r1.cfg_pppoe_client(device,r1.commands_pppoe_client_cfg))# Cfg pppoe-client
+#             #print(r1.cfg_ripv2(device,r1.commands_cfg_ripv2))              # Cfg RIPv2+base_cfg
+#             #print(r1.cfg_ripvng(device,r1.commands_cfg_ripng))             # Cfg RIPng+base_cfg
+#             #print(r1.cfg_ospfv2(device,r1.commands_cfg_ospfv2))            # Cfg Ospfv2+base_cfg
             
-            #print(r2.cfg_pppoe_serv())                                     # Cfg pppoe-serv1
-            #print(r2.cfg_pppoe_opt())                                      # Cfg pppoe-serv2
-            #print(r2.cfg_pppoe_chap())                                     # Cfg pppoe-serv3
-            print(r1.cfg_pppoe_4(device,r1.commands_pppoe_server_cfg))  # Cfg pppoe-serv4
+#             #print(r2.cfg_pppoe_serv())                                     # Cfg pppoe-serv1
+#             #print(r2.cfg_pppoe_opt())                                      # Cfg pppoe-serv2
+#             #print(r2.cfg_pppoe_chap())                                     # Cfg pppoe-serv3
+#             #print(r1.cfg_pppoe_4(device,r1.commands_pppoe_server_cfg))  # Cfg pppoe-serv4
+
+            
