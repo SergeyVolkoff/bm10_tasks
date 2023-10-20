@@ -18,7 +18,7 @@ from check_ripv2 import (check_enable_ripv2,
 
 
 
-def test_check_enable_ripv2(init_lab_gns, init_cfg_ripv2):
+def test_check_enable_ripv2(init_lab_gns, init_cfg_ripv2): # функция запускается с 2мя фикстурами
 
     assert check_enable_ripv2()==True, "RIP disable!"
 
