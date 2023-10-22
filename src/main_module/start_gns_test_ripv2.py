@@ -8,8 +8,9 @@ from test_check_ripv2 import *
 
 if __name__=="__main__":
     
-    current_lab = Base_gns()
-    print(current_lab.start_nodes_from_project())
+    #current_lab = Base_gns()
+    #print(current_lab.start_nodes_from_project())
+    
     with open("command_cfg/value_bm10.yaml")as f:
         temp = yaml.safe_load(f)
         for t in temp:

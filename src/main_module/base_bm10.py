@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 import re
 import sys
-
 import yaml
 import netmiko
 import paramiko
 import time
+
+
+from ping3 import ping, verbose_ping
 from rich import print
 from rich.theme import Theme
 from rich.console import Console
@@ -197,8 +199,6 @@ class Base_bm10():
         print(output)
 
 
-
-
     def reset_conf(self,device, comm_reset_conf):
         
         """ ФУНКЦИЯ сброса конфига на заводской, с ребутом устр-ва.
@@ -213,13 +213,27 @@ class Base_bm10():
             return result_reset
         
 
-# if __name__ == "__main__":
-#     with open("command_cfg/value_bm10.yaml")as f:
-#         temp = yaml.safe_load(f)
-#         for t in temp:
-#             device = dict(t)
-#             r1 = Base_bm10(**device)
-#             #print(r1.send_command(device, "uci show"))
-#             #print(r1.ping_inet(device))
-#             print(r1.ping_ip(device,'8.8.8.8'))
+    def wait_reboot(self):
+        result=ping('192.168.1.1')
+        while result is None:
+            result=ping('192.168.1.1')
+            print(result)
+            print("DUT in reboot, weit!")
+            time.sleep(5)
+        else:
+            print("DUT up after reboot, weit all protocols!")
+            time.sleep(5)
+            return "all up!"
 
+
+if __name__ == "__main__":
+    with open("command_cfg/value_bm10.yaml")as f:
+        temp = yaml.safe_load(f)
+        for t in temp:
+            device = dict(t)
+            r1 = Base_bm10(**device)
+            #print(r1.send_command(device, "uci show"))
+            #print(r1.ping_inet(device))
+            #print(r1.ping_ip(device,'8.8.8.8'))
+            #print (r1.wait_reboot())
+            print(r1.check_connection(device))

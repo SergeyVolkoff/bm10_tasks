@@ -1,3 +1,4 @@
+
 import re
 import time
 import yaml
@@ -7,14 +8,15 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
+time.sleep(30)
 from base_bm10 import Base_bm10
 
-
 with open("command_cfg/value_bm10.yaml") as f:
-    temp = yaml.safe_load(f)
-    for t in temp:
-        device = dict(t)
-        r1 = Base_bm10(**device)
+        temp = yaml.safe_load(f)
+        for t in temp:
+            device = dict(t)
+            r1 = Base_bm10(**device)
+
 
 
 def check_enable_ripv2():
@@ -82,5 +84,6 @@ def check_ping_interf(ip_for_ping): # check ping Internet
         return False
     
 if __name__ == "__main__":
-    result = check_ping_interf200(ip_for_ping='200.1.10.2')
-    print(result)
+    
+            result = check_ping_interf(ip_for_ping='192.168.1.1')
+            print(result)
