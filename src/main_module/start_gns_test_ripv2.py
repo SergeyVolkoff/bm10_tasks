@@ -17,3 +17,4 @@ if __name__=="__main__":
             device = dict(t)
             r1 = Cfg_bm10(**device)
             print(r1.cfg_ripv2(device,r1.commands_cfg_ripv2))
+            
