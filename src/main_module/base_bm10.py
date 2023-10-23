@@ -28,14 +28,13 @@ my_colors = Theme( #добавляет цветовую градацию для 
 )
 console = Console(theme=my_colors)
 
-
 class Base_bm10():
     def __init__(self,host, username, timeout, password,**kwargs):
         try:
             with open("command_cfg/value_bm10.yaml") as f2:
                 temp = yaml.safe_load(f2)
                 for t in temp:
-                    device = dict(t)
+                     device = dict(t)
             with open ("command_cfg/commands_reset_cfg.yaml") as f1:            # команды сброса конфига
                 self.commands_to_reset_conf = yaml.safe_load(f1)
             with open("command_cfg/commands_cfg_3G.yaml") as f:                 # команды настройки 3G

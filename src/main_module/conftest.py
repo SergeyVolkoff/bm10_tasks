@@ -11,15 +11,15 @@ from base_bm10 import *
 
 
 
-@pytest.fixture
-def init_cfg_ripv2():
-    with open("command_cfg/value_bm10.yaml")as f:
-        temp = yaml.safe_load(f)
-        for t in temp:
-            device = dict(t)
-            r1 = Cfg_bm10(**device)
-            r1.cfg_ripv2(device,r1.commands_cfg_ripv2)
-            time.sleep(5)
+# @pytest.fixture
+# def init_cfg_ripv2():
+#     with open("command_cfg/value_bm10.yaml")as f:
+#         temp = yaml.safe_load(f)
+#         for t in temp:
+#             device = dict(t)
+#             r1 = Cfg_bm10(**device)
+#             r1.cfg_ripv2(device,r1.commands_cfg_ripv2)
+#             time.sleep(5)
 
 @pytest.fixture
 def init_lab_gns():
@@ -32,18 +32,11 @@ def wait_reboot():
         while result is None:
             result=ping('192.168.1.1')
             print(result)
-            print("DUT in reboot, weit!")
+            print("DUT is rebooting, wait")
             time.sleep(5)
         else:
-            print("DUT up after reboot, weit all protocols!")
-            time.sleep(5)
-            return "all up!"
+            print("DUT up after reboot, wait all protocols!")
+            time.sleep(15)
+            print( "all up!")
 
-@pytest.fixture
-def init_ssh_after_reboot():
-     with open("command_cfg/value_bm10.yaml")as f:
-        temp = yaml.safe_load(f)
-        for t in temp:
-            device = dict(t)
-            r1 = Cfg_bm10(**device)
-            r1.check_connection(device)
+

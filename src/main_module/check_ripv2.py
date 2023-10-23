@@ -8,7 +8,6 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-time.sleep(30)
 from base_bm10 import Base_bm10
 
 with open("command_cfg/value_bm10.yaml") as f:
@@ -16,8 +15,7 @@ with open("command_cfg/value_bm10.yaml") as f:
         for t in temp:
             device = dict(t)
             r1 = Base_bm10(**device)
-
-
+            
 
 def check_enable_ripv2():
     try:
