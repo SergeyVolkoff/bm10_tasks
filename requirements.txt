@@ -3,10 +3,13 @@ charset-normalizer==3.2.0
 idna==3.4
 requests==2.31.0
 urllib3==2.0.5
-pytest==6.2.3
-pyyaml
-netmiko
+pytest~=7.1.2
+pyyaml~=5.3.1
+netmiko~=4.1.0
 pexpect
-paramiko
-rich
+paramiko~=2.11.0
+rich~=12.4.4
 
+
+scp~=0.14.4
+tabulate~=0.8.10
