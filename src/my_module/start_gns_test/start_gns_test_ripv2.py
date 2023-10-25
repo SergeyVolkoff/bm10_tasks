@@ -32,7 +32,8 @@ with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/value_bm10.y
             time.sleep(5)
         else:
             print("DUT up after reboot, wait all protocols!")
-            time.sleep(1)
+            time.sleep(25)
             print( "All up!")
 
 pytest.main(["-v","--tb=no","/home/ssw/Documents/bm10_tasks/src/my_module/tests_all/test_check_ripv2.py"])
+current_lab.close()
