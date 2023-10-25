@@ -46,7 +46,6 @@ class Base_gns():
 
         lab = Project(name=self.name_lab , connector=self.connector )
         lab.open() # open lab
-        
         print(f"*** ALL nodes in {lab.name} lab ***")
         return  lab.nodes_summary()
     
@@ -69,6 +68,7 @@ class Base_gns():
         lab = Project(name=self.name_lab , connector=self.connector )
         lab_get = lab.get()
         lab.open()
+        
         result_starta=lab.start_nodes(poll_wait_time=5)
         return print(f"GNS3 lab_name {self.name_lab}", lab.status)
 
