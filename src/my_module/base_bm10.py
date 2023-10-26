@@ -2,11 +2,20 @@
 import re
 import os
 import sys
+import pprint
 import yaml
 import netmiko
 import paramiko
 import time
+import sys
+import os
 
+
+# sys.path.insert(1, os.path.join(sys.path[0],'../command_cfg/'))  # !!! PATH fo import with position 1!!!
+# sys.path.append(os.path.join(os.getcwd(),'../my_module/command_cfg'))
+# sys.path.append(os.path.join(os.getcwd(),'../../src/my_module/command_cfg'))
+
+# pprint.pprint(sys.path)
 
 from ping3 import ping, verbose_ping
 from rich import print
@@ -32,45 +41,45 @@ console = Console(theme=my_colors)
 class Base_bm10():
     def __init__(self,host, username, timeout, password,**kwargs):
         try:
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/value_bm10.yaml") as f2:
+            with open("../command_cfg/value_bm10.yaml") as f2:
                 temp = yaml.safe_load(f2)
                 for t in temp:
                      device = dict(t)
-            with open ("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_reset_cfg.yaml") as f1:            # команды сброса конфига
+            with open ("../command_cfg/commands_reset_cfg.yaml") as f1:            # команды сброса конфига
                 self.commands_to_reset_conf = yaml.safe_load(f1)
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_cfg_3G.yaml") as f:                 # команды настройки 3G
+            with open("../command_cfg/commands_cfg_3G.yaml") as f:                 # команды настройки 3G
                 self.commands_cfg_3G = yaml.safe_load(f)
-            with open ("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_base_cfg.yaml") as f3:             # команды настройки базового конфига(хост,firewall,wifi)
+            with open ("../command_cfg/commands_base_cfg.yaml") as f3:             # команды настройки базового конфига(хост,firewall,wifi)
                 self.commands_base_cfg = yaml.safe_load(f3)
-            with open ("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_802_1d_cfg.yaml") as f4:           # команды настройки STP+ базовые настройки
+            with open ("../command_cfg/commands_802_1d_cfg.yaml") as f4:           # команды настройки STP+ базовые настройки
                 self.commands_802_1d_cfg = yaml.safe_load(f4)
-            with open ("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_gre_config.yaml") as f5:           # команды настройки GRE-tun + базовые настройки
+            with open ("../command_cfg/commands_gre_config.yaml") as f5:           # команды настройки GRE-tun + базовые настройки
                 self.commands_gre_config = yaml.safe_load(f5)
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_Fwall_cfg.yaml") as f6:             # команды настройки firewall wan2(как замена порта)
+            with open("../command_cfg/commands_Fwall_cfg.yaml") as f6:             # команды настройки firewall wan2(как замена порта)
                 self.commands_Fwall_cfg = yaml.safe_load(f6)
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_dmz_cfg.yaml") as f7:               # команды настройки DMZ доделать правило трафика!!!
+            with open("../commands_dmz_cfg.yaml") as f7:               # команды настройки DMZ доделать правило трафика!!!
                 self.commands_dmz_cfg = yaml.safe_load(f7)
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_reset_cfg.yaml") as f8:             # команды настройки reset
+            with open("../commands_reset_cfg.yaml") as f8:             # команды настройки reset
                 self.commands_reset_cfg = yaml.safe_load(f8)
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_sh_base.yaml") as f9:               # команды настройки base_cfg
+            with open("../command_cfg/commands_sh_base.yaml") as f9:               # команды настройки base_cfg
                 self.commands_sh_base = yaml.safe_load(f9)
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_vlan_cfg.yaml") as f10:              # команды настройки vlan_cfg
+            with open("../command_cfg/commands_vlan_cfg.yaml") as f10:              # команды настройки vlan_cfg
                 self.commands_vlan_cfg = yaml.safe_load(f10)
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_cfg_WiFi_AP.yaml") as f11:            #  команды настройки wifi_ap
+            with open("../command_cfg/commands_cfg_WiFi_AP.yaml") as f11:            #  команды настройки wifi_ap
                 self.commands_cfg_WiFi_AP = yaml.safe_load(f11)
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_cfg_WiFi_AP_KingKong.yaml") as f12:    # команды настройки wifi_ap2
+            with open("../command_cfg/commands_cfg_WiFi_AP_KingKong.yaml") as f12:    # команды настройки wifi_ap2
                 self.commands_cfg_WiFi_AP_KingKong = yaml.safe_load(f12)
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_pppoe_client_cfg.yaml") as f13:        # команды настройки РРРРоЕ-клиент
+            with open("../command_cfg/commands_pppoe_client_cfg.yaml") as f13:        # команды настройки РРРРоЕ-клиент
                 self.commands_pppoe_client_cfg = yaml.safe_load(f13)
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_pppoe_server_cfg.yaml") as f14:         # команды настройки РРРРоЕ-server
+            with open("../command_cfg/commands_pppoe_server_cfg.yaml") as f14:         # команды настройки РРРРоЕ-server
                 self.commands_pppoe_server_cfg = yaml.safe_load(f14)
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_cfg_ripv2.yaml") as f15:                # команды настройки Ripv2
+            with open("../command_cfg/commands_cfg_ripv2.yaml") as f15:                # команды настройки Ripv2
                 self.commands_cfg_ripv2 = yaml.safe_load(f15)
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_cfg_ripng.yaml") as f16:                # команды настройки Ripng
+            with open("../command_cfg/commands_cfg_ripng.yaml") as f16:                # команды настройки Ripng
                 self.commands_cfg_ripng = yaml.safe_load(f16)
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_cfg_ospfv2.yaml") as f17:
+            with open("../command_cfg/commands_cfg_ospfv2.yaml") as f17:
                 self.commands_cfg_ospfv2 = yaml.safe_load(f17)
-            with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/commands_cfg_bgpv3.yaml") as f18:
+            with open("../command_cfg/commands_cfg_bgpv3.yaml") as f18:
                 self.commands_cfg_bgpv3 = yaml.safe_load(f18)
             self.ssh = ConnectHandler(**device)
             self.ip = host
@@ -230,8 +239,8 @@ if __name__ == "__main__":
         for t in temp:
             device = dict(t)
             r1 = Base_bm10(**device)
-            #print(r1.send_command(device, "uci show"))
+            print(r1.send_command(device, "uci show"))
             #print(r1.ping_inet(device))
             #print(r1.ping_ip(device,'8.8.8.8'))
             #print (r1.wait_reboot())
-            print(r1.check_connection(device))
+            #print(r1.check_connection(device))
