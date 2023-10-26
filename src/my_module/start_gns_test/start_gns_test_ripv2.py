@@ -1,10 +1,11 @@
 import yaml
 import pytest
+import time
 import sys
 import os
-import time
-sys.path.insert(1, os.path.join(sys.path[0],'..'))
-sys.path.append(r"/home/ssw/Documents/bm10_tasks/src/my_module/") # !!! PATH fo import!!!
+
+sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with position 1!!!
+# sys.path.append(os.path.join(os.getcwd(),'..'))     # !!! PATH fo import!!!
 # pprint.pprint(sys.path)
 
 from ping3 import ping, verbose_ping
@@ -13,8 +14,8 @@ from base_gns3 import Base_gns
 
 
 
-current_lab = Base_gns()
-print(current_lab.start_nodes_from_project())
+# current_lab = Base_gns()
+# print(current_lab.start_nodes_from_project())
 
 with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/value_bm10.yaml")as f:
     temp = yaml.safe_load(f)
@@ -36,4 +37,3 @@ with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/value_bm10.y
             print( "All up!")
 
 pytest.main(["-v","--tb=no","/home/ssw/Documents/bm10_tasks/src/my_module/tests_all/test_check_ripv2.py"])
-current_lab.close()
