@@ -54,7 +54,7 @@ class Cfg_bm10(Cfg_templ_bm10):
     def cfg_base(self,device, commands_template):
         
         """ФУНКЦИЯ настройки базового конфига"""
-        # super().cfg_template(self,device,commands_template) # checkeed!!!!
+        
         Cfg_templ_bm10.cfg_template(self,device,commands_template)
         return
         
@@ -188,7 +188,7 @@ class SCP_cfg_ppoe(Cfg_templ_bm10):
 
         # SCPCLient takes a paramiko transport as an argument
         scp = SCPClient(self.client.get_transport())
-        scp.put('pppoe_cfg_file/pppoe', '/etc/config/')
+        scp.put('../pppoe_cfg_file/pppoe', '/etc/config/')
         scp.close()
         self.client.close()
         print("File download")
@@ -201,7 +201,7 @@ class SCP_cfg_ppoe(Cfg_templ_bm10):
         
         # SCPCLient takes a paramiko transport as an argument
         scp = SCPClient(self.client.get_transport())
-        scp.put('pppoe_cfg_file/pppoe-server-options', '/etc/ppp/')
+        scp.put('../pppoe_cfg_file/pppoe-server-options', '/etc/ppp/')
         scp.close()
         self.client.close()
         print("File download")
@@ -214,7 +214,7 @@ class SCP_cfg_ppoe(Cfg_templ_bm10):
         
         # SCPCLient takes a paramiko transport as an argument
         scp = SCPClient(self.client.get_transport())
-        scp.put('pppoe_cfg_file/chap-secrets', '/etc/ppp/')
+        scp.put('../pppoe_cfg_file/chap-secrets', '/etc/ppp/')
         scp.close()
         self.client.close()
         print("File download")

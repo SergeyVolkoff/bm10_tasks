@@ -49,17 +49,15 @@ class Base_bm10():
                 self.commands_to_reset_conf = yaml.safe_load(f1)
             with open("../command_cfg/commands_cfg_3G.yaml") as f:                 # команды настройки 3G
                 self.commands_cfg_3G = yaml.safe_load(f)
-            with open ("../command_cfg/commands_base_cfg.yaml") as f3:             # команды настройки базового конфига(хост,firewall,wifi)
-                self.commands_base_cfg = yaml.safe_load(f3)
-            with open ("../command_cfg/commands_802_1d_cfg.yaml") as f4:           # команды настройки STP+ базовые настройки
-                self.commands_802_1d_cfg = yaml.safe_load(f4)
+            
+            
             with open ("../command_cfg/commands_gre_config.yaml") as f5:           # команды настройки GRE-tun + базовые настройки
                 self.commands_gre_config = yaml.safe_load(f5)
             with open("../command_cfg/commands_Fwall_cfg.yaml") as f6:             # команды настройки firewall wan2(как замена порта)
                 self.commands_Fwall_cfg = yaml.safe_load(f6)
-            with open("../commands_dmz_cfg.yaml") as f7:               # команды настройки DMZ доделать правило трафика!!!
+            with open("../command_cfg/commands_dmz_cfg.yaml") as f7:               # команды настройки DMZ доделать правило трафика!!!
                 self.commands_dmz_cfg = yaml.safe_load(f7)
-            with open("../commands_reset_cfg.yaml") as f8:             # команды настройки reset
+            with open("../command_cfg/commands_reset_cfg.yaml") as f8:             # команды настройки reset
                 self.commands_reset_cfg = yaml.safe_load(f8)
             with open("../command_cfg/commands_sh_base.yaml") as f9:               # команды настройки base_cfg
                 self.commands_sh_base = yaml.safe_load(f9)
@@ -69,18 +67,12 @@ class Base_bm10():
                 self.commands_cfg_WiFi_AP = yaml.safe_load(f11)
             with open("../command_cfg/commands_cfg_WiFi_AP_KingKong.yaml") as f12:    # команды настройки wifi_ap2
                 self.commands_cfg_WiFi_AP_KingKong = yaml.safe_load(f12)
-            with open("../command_cfg/commands_pppoe_client_cfg.yaml") as f13:        # команды настройки РРРРоЕ-клиент
-                self.commands_pppoe_client_cfg = yaml.safe_load(f13)
-            with open("../command_cfg/commands_pppoe_server_cfg.yaml") as f14:         # команды настройки РРРРоЕ-server
-                self.commands_pppoe_server_cfg = yaml.safe_load(f14)
+            
             with open("../command_cfg/commands_cfg_ripv2.yaml") as f15:                # команды настройки Ripv2
                 self.commands_cfg_ripv2 = yaml.safe_load(f15)
             with open("../command_cfg/commands_cfg_ripng.yaml") as f16:                # команды настройки Ripng
                 self.commands_cfg_ripng = yaml.safe_load(f16)
-            with open("../command_cfg/commands_cfg_ospfv2.yaml") as f17:
-                self.commands_cfg_ospfv2 = yaml.safe_load(f17)
-            with open("../command_cfg/commands_cfg_bgpv3.yaml") as f18:
-                self.commands_cfg_bgpv3 = yaml.safe_load(f18)
+            
             self.ssh = ConnectHandler(**device)
             self.ip = host
             self.name = username

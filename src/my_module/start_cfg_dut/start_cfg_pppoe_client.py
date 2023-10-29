@@ -1,15 +1,17 @@
 import sys
 import os
+import yaml
 sys.path.insert(1, os.path.join(sys.path[0],'..'))
 
-from cfg_bm10 import *
+from cfg_bm10 import Cfg_bm10
 
 
 if __name__ == "__main__":
-    with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/value_bm10.yaml")as f:
+    with open("../command_cfg/value_bm10.yaml")as f:
         temp = yaml.safe_load(f)
         for t in temp:
             device = dict(t)
             r1 = Cfg_bm10(**device)
-            r2 = SCP_cfg_ppoe()
-            print(r1.cfg_pppoe_client(device,r1.commands_pppoe_client_cfg))
+            with open("../command_cfg/commands_pppoe_client_cfg.yaml") as f13:        # команды настройки РРРРоЕ-клиент
+                commands_pppoe_client_cfg = yaml.safe_load(f13)
+            print(r1.cfg_pppoe_client(device,commands_pppoe_client_cfg))
