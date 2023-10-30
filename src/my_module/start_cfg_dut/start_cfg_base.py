@@ -13,5 +13,5 @@ if __name__ == "__main__":
             device = dict(t)
             r1 = Cfg_bm10(**device)
             with open ("../command_cfg/commands_base_cfg.yaml") as f3:             # команды настройки базового конфига(хост,firewall,wifi)
-               commands_template = yaml.safe_load(f3)
-            print(r1.cfg_base(device,commands_template))
+               commands_base_cfg = yaml.safe_load(f3)
+            print(r1.cfg_base(device,commands_base_cfg))

@@ -67,7 +67,7 @@ class Cfg_bm10(Cfg_templ_bm10):
         return
 
 
-    def cfg_vlan(self,deice,commands_template):
+    def cfg_vlan(self,device,commands_template):
 
         """ФУНКЦИЯ настройки vlan- конфига (vlan-сабинтерфейc), после ребута потеря связи! """
 
@@ -82,6 +82,22 @@ class Cfg_bm10(Cfg_templ_bm10):
         Cfg_templ_bm10.cfg_template(self,device, commands_template)
         return
     
+    
+    def cfg_3G(self, device, commands_template):
+
+        """ ФУНКЦИЯ настройки 3G """
+
+        Cfg_templ_bm10.cfg_template(self,device, commands_template)
+        return
+
+
+    def cfg_gre(self, device, commands_template):
+
+        """ ФУНКЦИЯ настройки GRE """
+
+        Cfg_templ_bm10.cfg_template(self,device, commands_template)
+        return
+
 
     def cfg_pppoe_client(self,device,commands_template):
 

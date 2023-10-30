@@ -13,5 +13,5 @@ if __name__ == "__main__":
             device = dict(t)
             r1 = Cfg_bm10(**device)
             with open("../command_cfg/commands_cfg_bgpv3.yaml") as f18:
-                commands_template = yaml.safe_load(f18)
-            print(r1.cfg_bgpv3(device,commands_template)) 
+                commands_cfg_bgpv3 = yaml.safe_load(f18)
+            print(r1.cfg_bgpv3(device,commands_cfg_bgpv3)) 

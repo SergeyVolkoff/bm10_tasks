@@ -11,5 +11,5 @@ if __name__ == "__main__":
             device = dict(t)
             r1 = Cfg_bm10(**device)
             with open ("../command_cfg/commands_802_1d_cfg.yaml") as f4:           # команды настройки STP+ базовые настройки
-                commands_template = yaml.safe_load(f4)
-            print(r1.cfg_base_802(device, commands_template))
+                commands_802_1d_cfg = yaml.safe_load(f4)
+            print(r1.cfg_base_802(device, commands_802_1d_cfg))

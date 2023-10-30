@@ -10,6 +10,6 @@ if __name__ == "__main__":
         for t in temp:
             device = dict(t)
             r1 = Cfg_bm10(**device)
-            with open("../command_cfg/commands_cfg_ripng.yaml") as f16:                # команды настройки Ripng
-                commands_cfg_ripng = yaml.safe_load(f16)
-            print(r1.cfg_ripvng(device,commands_cfg_ripng))
+            with open("../command_cfg/commands_cfg_WiFi_AP.yaml") as f11:            #  команды настройки wifi_ap
+                commands_cfg_WiFi_AP = yaml.safe_load(f11)
+            print(r1.cfg_vlan(device,commands_cfg_WiFi_AP)) 

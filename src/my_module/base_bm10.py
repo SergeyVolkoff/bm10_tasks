@@ -47,12 +47,7 @@ class Base_bm10():
                      device = dict(t)
             with open ("../command_cfg/commands_reset_cfg.yaml") as f1:            # команды сброса конфига
                 self.commands_to_reset_conf = yaml.safe_load(f1)
-            with open("../command_cfg/commands_cfg_3G.yaml") as f:                 # команды настройки 3G
-                self.commands_cfg_3G = yaml.safe_load(f)
             
-            
-            with open ("../command_cfg/commands_gre_config.yaml") as f5:           # команды настройки GRE-tun + базовые настройки
-                self.commands_gre_config = yaml.safe_load(f5)
             with open("../command_cfg/commands_Fwall_cfg.yaml") as f6:             # команды настройки firewall wan2(как замена порта)
                 self.commands_Fwall_cfg = yaml.safe_load(f6)
             with open("../command_cfg/commands_dmz_cfg.yaml") as f7:               # команды настройки DMZ доделать правило трафика!!!
@@ -61,18 +56,9 @@ class Base_bm10():
                 self.commands_reset_cfg = yaml.safe_load(f8)
             with open("../command_cfg/commands_sh_base.yaml") as f9:               # команды настройки base_cfg
                 self.commands_sh_base = yaml.safe_load(f9)
-            with open("../command_cfg/commands_vlan_cfg.yaml") as f10:              # команды настройки vlan_cfg
-                self.commands_vlan_cfg = yaml.safe_load(f10)
-            with open("../command_cfg/commands_cfg_WiFi_AP.yaml") as f11:            #  команды настройки wifi_ap
-                self.commands_cfg_WiFi_AP = yaml.safe_load(f11)
             with open("../command_cfg/commands_cfg_WiFi_AP_KingKong.yaml") as f12:    # команды настройки wifi_ap2
                 self.commands_cfg_WiFi_AP_KingKong = yaml.safe_load(f12)
-            
-            with open("../command_cfg/commands_cfg_ripv2.yaml") as f15:                # команды настройки Ripv2
-                self.commands_cfg_ripv2 = yaml.safe_load(f15)
-            with open("../command_cfg/commands_cfg_ripng.yaml") as f16:                # команды настройки Ripng
-                self.commands_cfg_ripng = yaml.safe_load(f16)
-            
+
             self.ssh = ConnectHandler(**device)
             self.ip = host
             self.name = username

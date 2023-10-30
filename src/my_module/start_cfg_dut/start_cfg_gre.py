@@ -10,6 +10,6 @@ if __name__ == "__main__":
         for t in temp:
             device = dict(t)
             r1 = Cfg_bm10(**device)
-            with open("../command_cfg/commands_cfg_ripng.yaml") as f16:                # команды настройки Ripng
-                commands_cfg_ripng = yaml.safe_load(f16)
-            print(r1.cfg_ripvng(device,commands_cfg_ripng))
+            with open ("../command_cfg/commands_gre_config.yaml") as f5:           # команды настройки GRE-tun + базовые настройки
+                commands_gre_config = yaml.safe_load(f5)
+            print(r1.cfg_vlan(device,commands_gre_config)) 
