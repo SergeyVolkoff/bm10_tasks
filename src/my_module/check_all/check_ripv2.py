@@ -1,18 +1,17 @@
 
+import pprint
 import re
-import time
 import yaml
-import netmiko
-from netmiko import (
-    ConnectHandler,
-    NetmikoTimeoutException,
-    NetmikoAuthenticationException,
-)
+import sys
+import os
+from ping3 import ping
+sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with position 1!!!
 
+#pprint.pprint(sys.path)
 
 from base_bm10 import Base_bm10
 
-with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/value_bm10.yaml") as f:
+with open("../command_cfg/value_bm10.yaml") as f:
         temp = yaml.safe_load(f)
         for t in temp:
             device = dict(t)
