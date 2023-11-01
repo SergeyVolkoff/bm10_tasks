@@ -4,16 +4,13 @@ import time
 import yaml
 import sys
 import os
-
 from ping3 import ping
 
 
 sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with position 1!!!
-
 #pprint.pprint(sys.path)
 
-from base_bm10 import *
-
+from base_bm10 import Base_bm10
 
 with open("../command_cfg/value_bm10.yaml") as f:
         temp = yaml.safe_load(f)
