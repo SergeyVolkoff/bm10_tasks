@@ -63,7 +63,19 @@ def check_trsrt_when_mwan_up():
     else:
          print("MWAN3 status - disable!")
 
-
+def check_ping_interf(ip_for_ping): # check ping Internet
+    try:
+        res_ping_inet = r1.ping_ip(device,ip_for_ping)
+        print(res_ping_inet)
+        if "destination available" in res_ping_inet:
+            print("Interface availeble")
+            return True
+        else:
+            print("Interface is not available")
+            return False
+    except ValueError as err:
+        return False
+    
 if __name__ == "__main__":
     
             result = check_trsrt_when_mwan_up()
