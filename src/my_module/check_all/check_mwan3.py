@@ -30,7 +30,7 @@ def check_enable_mwan3():
     except ValueError as err:
         return False
 
-def check_trsrt_mwan_stop():
+def check_trsrt_when_mwan_stop():
     comm_mwan_stop = r1.send_command(device, 'mwan3 stop')
     time.sleep(2)
     show_mwan_stts = r1.send_command(device, 'mwan3 status')
@@ -40,12 +40,31 @@ def check_trsrt_mwan_stop():
             print (f"hop with an address 192.168.10.2 and 192.168.20.2 in the tracert!!! - {rslt_trsrt}")
             return False
         else:
-            print(f"Tracing ok and goes only through 192.168.20.2 {rslt_trsrt}")
-            return True
+            if "can't connect to remote host" in rslt_trsrt:
+                return rslt_trsrt
+            else:
+                print(f"Tracing ok and goes only through 192.168.20.2 {rslt_trsrt}")
+                return True
     else:
-        print("MWAN3 status - enable!")        
+        print("MWAN3 status - enable!")      
+
+def check_trsrt_when_mwan_up():
+    comm_mwan_strt = r1.send_command(device, 'mwan3 start')
+    time.sleep(2)  
+    show_mwan_stts = r1.send_command(device, 'mwan3 status')
+    if "192.168.20.0/24" in show_mwan_stts:
+        rslt_trsrt = r1.tracert_ip(device, ip_tracert="1.1.1.1")
+        if '192.168.10.2' and '192.168.20.2' in rslt_trsrt:
+            print (f"hop with an address 192.168.10.2 and 192.168.20.2 in the tracert!!! - {rslt_trsrt}")
+            return True
+        else:
+            print(f'Not all hop in tracert - {rslt_trsrt}')
+            return False
+    else:
+         print("MWAN3 status - disable!")
+
 
 if __name__ == "__main__":
     
-            result = check_trsrt_mwan_stop()
+            result = check_trsrt_when_mwan_up()
             print(result)

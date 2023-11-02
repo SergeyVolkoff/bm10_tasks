@@ -9,7 +9,7 @@ sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with po
 # sys.path.insert(1, os.path.join(sys.path[0],'../command_cfg/'))  # !!! PATH fo import with position 1!!!
 # sys.path.append(os.path.join(os.getcwd(),'..'))     # !!! PATH fo import!!!
 
-pprint.pprint(sys.path)
+#pprint.pprint(sys.path)
 
 from ping3 import ping, verbose_ping
 from cfg_bm10 import Cfg_bm10
@@ -40,4 +40,4 @@ with open("../command_cfg/value_bm10.yaml")as f:
             time.sleep(25)
             print( "All up!")
 
-pytest.main(["-v","--tb=no","/home/ssw/Documents/bm10_tasks/src/my_module/tests_all/test_check_ripv2.py"])
+pytest.main(["-v","--tb=no","../tests_all/test_check_ripv2.py"])

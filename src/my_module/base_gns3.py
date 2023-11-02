@@ -38,7 +38,7 @@ class Base_gns():
 
         lab = Project(name=self.name_lab , connector=self.connector )
         print(lab.project_id)
-        return f"GNS3 lab_name: {lab.name}, lab_id:{lab.project_id}, lab status: {self.lab.status}"
+        return f"GNS3 lab_name: {lab.name}, lab_id:{lab.project_id}, lab status: {lab.status}"
     
     def get_nodes(self):
 
@@ -77,7 +77,7 @@ if __name__=="__main__":
     gns= Base_gns()
     # print (gns.get_ver_gns(),'\n')
     # print(gns.all_proj(),'\n')
-    # print(gns.get_lab_status(),'\n')
+    print(gns.get_lab_status(),'\n')
     # print( gns.get_nodes(),'\n')
     # print(gns.start_node())
-    print(gns.start_nodes_from_project())
+    # print(gns.start_nodes_from_project())
