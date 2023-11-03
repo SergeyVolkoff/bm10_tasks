@@ -1,12 +1,6 @@
 import pytest
 from check_all.check_mwan3 import *
 
-def test_check_enable_mwan3():
-    assert check_enable_mwan3() ==True, "MWAN3 status - disable!"
-
-def test_check_tracert_when_mwan3_disable():
-    assert check_trsrt_when_mwan_stop()==True, "hop with an address 192.168.10.2 and 192.168.20.2 in the tracert!!!"
-
 
 """
 В блоке ниже используется параметризация mark.parametrize
@@ -17,9 +11,8 @@ ip_for_check = (
     ('192.168.10.2'),
     ('192.168.20.1'),
     ('192.168.20.2'),
-    ('200.1.10.1'),
     ('200.1.20.1'),
-    
+    ('1.1.1.1'),
 )
 task_ids = ['ip_test({})'.format(t)
              # определям параметр ids чтобы сделать идентификаторы для понимания вывода теста
@@ -34,4 +27,15 @@ task_ids = ['ip_test({})'.format(t)
 
 def test_check_ping_inter(ip_test,):
     assert check_ping_interf(ip_for_ping=f"{ip_test}")==True, f"*** IP {ip_test} unavaileble now ***"
+    
+def test_check_enable_mwan3():
+    assert check_enable_mwan3() ==True, "MWAN3 status - disable!"
+
+def test_check_tracert_when_mwan3_disable():
+    r1.send_command(device, 'mwan3 stop')
+    assert check_trsrt_when_mwan_stop()==True, "hop with an address 192.168.10.2 and 192.168.20.2 in the tracert!!!"
+
+def test_check_tracert_when_mwan3_up():
+    r1.send_command(device, 'mwan3 start')
+    assert check_trsrt_when_mwan_up()== True, "Not all hop in tracert"
     

@@ -10,7 +10,7 @@ if __name__ == "__main__":
         for t in temp:
             device = dict(t)
             r1 = Cfg_bm10(**device)
-            with open("../command_cfg/commands_cfg_mwan3.yaml") as f15:                # команды настройки Ripv2
+            with open("../command_cfg/commands_cfg_mwan3.yaml") as f15:  # команды настройки mwan3
                 commands_cfg_mwan3 = yaml.safe_load(f15)
             print(r1.cfg_ripv2(device,commands_cfg_mwan3))
 

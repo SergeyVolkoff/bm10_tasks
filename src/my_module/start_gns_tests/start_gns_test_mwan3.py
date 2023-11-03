@@ -19,7 +19,6 @@ from base_bm10 import Base_bm10
 
 current_lab = Base_gns() # test wait this lab - SSV_auto_BM10_MWAN
 print(current_lab.start_nodes_from_project())
-
 with open("../command_cfg/value_bm10.yaml")as f:
     temp = yaml.safe_load(f)
     for t in temp:

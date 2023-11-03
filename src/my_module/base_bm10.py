@@ -64,7 +64,7 @@ class Base_bm10():
             self.name = username
             self.passwd = password
             self.promo_ping = " -w 4"
-            self.promt_tracert = '-m 3'
+            self.promt_tracert = '-m 2'
             self.word_ping = "ping "
             self.ip_inet = "8.8.8.8"
             #self.command_ping = self.word_ping+self.promo_ping
@@ -168,7 +168,7 @@ class Base_bm10():
 
         #self.check_connection(device)
         comand_tracert = f'traceroute {ip_tracert} {self.promt_tracert}'
-        output_tracert = self.ssh.send_command(comand_tracert)
+        output_tracert = self.ssh.send_command(comand_tracert, read_timeout=11)
         if "ms" in output_tracert:
             temp = self.send_command(device,'ip a')
             if "peer" in temp:
@@ -181,7 +181,6 @@ class Base_bm10():
             result = f'Tracert does not pass through {output_tracert}'
 
         return result
-        print(output)
 
 
     def reset_conf(self,device, comm_reset_conf):
