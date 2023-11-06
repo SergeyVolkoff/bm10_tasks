@@ -10,6 +10,8 @@ sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with po
 from ping3 import ping
 from base_gns3 import Base_gns
 from base_bm10 import Base_bm10
+from gns3fy import *
+
 
 with open("../command_cfg/value_bm10.yaml") as f:
         temp = yaml.safe_load(f)
@@ -88,11 +90,32 @@ def check_ping_interf(ip_for_ping): # check ping Internet
     except ValueError as err:
         return False
 
-def shut_link_DUT_R2_mwan():
-    current_lab = Base_gns()
 
+
+
+def shut_R2_mwan():
+    current_lab = Base_gns()
+    print(current_lab.start_node())
+
+def check_tracert_when_mwan3_up_LinkR2disable():
+
+    # Проверка, что при вкл mwan3 и выкл линке на r2 трасса пройдет через r1
+    current_lab = Base_gns()
+    print(current_lab.start_node())
+    time.sleep(5)
+    show_mwan_stts = r1.send_command(device, 'mwan3 status')
+    if "192.168.10.0/24" in show_mwan_stts:
+        rslt_trsrt = r1.tracert_ip(device, ip_tracert="1.1.1.1")
+        if  '192.168.10.2'  in rslt_trsrt:
+            print (f"tracert OK, wanb OK!!! - {rslt_trsrt}")
+            return True
+        else:
+            print(f'WANb FAIL !!! - {rslt_trsrt}')
+            return False
+    else:
+         print("MWAN3 status - disable!")
 
 if __name__ == "__main__":
     
-            result = shut_link_DUT_R2_mwan()
+            result = check_tracert_when_mwan3_up_LinkR2disable()
             print(result)

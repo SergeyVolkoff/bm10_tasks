@@ -38,4 +38,8 @@ def test_check_tracert_when_mwan3_disable():
 def test_check_tracert_when_mwan3_up():
     r1.send_command(device, 'mwan3 start')
     assert check_trsrt_when_mwan_up()== True, "Not all hop in tracert"
-    
+
+def  test_check_tracert_when_mwan3_up_LinkR2disable():
+    current_lab = Base_gns()
+    print(current_lab.start_node())
+    assert check_tracert_when_mwan3_up_LinkR2disable()==True, 

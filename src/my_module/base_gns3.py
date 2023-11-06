@@ -13,6 +13,7 @@ class Base_gns():
         self.connector = Gns3Connector(url=self.server_url)
         self.list_labs = (tabulate(self.connector.projects_summary(is_print=False), headers=["Project Name"]))
         print(self.list_labs)
+
         self.name_lab = input("Input lab name: ")
         
 
@@ -58,6 +59,10 @@ class Base_gns():
         lab = Project(name=self.name_lab , connector=self.connector )
         lab.get()
         lab.open() # open lab
+        # links_summary = lab.links_summary(is_print=False)
+        # print(
+        #     tabulate(links_summary,headers=["Node R1","port R1","Node R2","port R2"])
+        # )
         r2 = Node(
             project_id=lab.project_id, 
             name='R2',
@@ -65,8 +70,13 @@ class Base_gns():
             ) # создаем экз-р устр-ва
         
         r2.get()
-        r2.start()
-        print (r2.status, r2.links)
+        r2.stop()
+        print (r2.status)
+
+        # link_r2_DUT = r2.links[1]
+        # print(link_r2_DUT)
+        # link_r2_DUT.get()
+        # link_r2_DUT.delete()
 
     def start_nodes_from_project(self):
 

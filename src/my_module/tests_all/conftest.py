@@ -9,14 +9,16 @@ sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with po
 
 from ping3 import ping, verbose_ping
 from base_gns3 import Base_gns
-from gns3fy import Gns3Connector, Project, Node, Link
+from gns3fy import *
 from cfg_bm10 import *
 from base_bm10 import *
 
 
 @pytest.fixture
-def shut_link_DUT_R2_mwan()
-     pass
+def shut_R2_mwan():
+    current_lab = Base_gns()
+    print(current_lab.start_node())
+
 
 
 
