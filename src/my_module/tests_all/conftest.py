@@ -17,8 +17,9 @@ from base_bm10 import *
 @pytest.fixture
 def shut_R2_mwan():
     current_lab = Base_gns()
-    print(current_lab.start_node())
-
+    print(current_lab.stop_node())
+    time.sleep(5)
+    
 
 
 

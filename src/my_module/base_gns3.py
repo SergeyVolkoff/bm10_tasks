@@ -2,6 +2,18 @@
 from gns3fy import Gns3Connector, Project, Node, Link
 from tabulate import tabulate
 
+from rich import print
+from rich.theme import Theme
+from rich.console import Console
+my_colors = Theme( #добавляет цветовую градацию для rich
+    {
+        "success":"bold green",
+        "fail":"bold red",
+        "warning":"bold yellow"
+    }
+)
+console = Console(theme=my_colors)
+
 class Base_gns():
 
     
@@ -49,7 +61,7 @@ class Base_gns():
         lab.get()
         lab.open() # open lab
         lab.start_nodes(poll_wait_time=5)
-        print(f"*** ALL nodes in {lab.name} lab ***")
+        console.print(f"*** ALL nodes in {lab.name} lab ***",style='success')
         return  lab.nodes_summary()
     
     def start_node(self):
@@ -59,7 +71,24 @@ class Base_gns():
         lab = Project(name=self.name_lab , connector=self.connector )
         lab.get()
         lab.open() # open lab
-        # links_summary = lab.links_summary(is_print=False)
+        r2 = Node(
+            project_id=lab.project_id, 
+            name='R2',
+            connector=self.connector
+            ) # создаем экз-р устр-ва
+        
+        r2.get()
+        r2.start()
+        console.print (f'Node {r2.name} {r2.status}',style='success')
+
+
+    def stop_node(self):
+        """ Запуск 2go узла в проекте"""
+        
+        lab = Project(name=self.name_lab , connector=self.connector )
+        lab.get()
+        lab.open() # open lab
+         # links_summary = lab.links_summary(is_print=False)
         # print(
         #     tabulate(links_summary,headers=["Node R1","port R1","Node R2","port R2"])
         # )
@@ -68,11 +97,9 @@ class Base_gns():
             name='R2',
             connector=self.connector
             ) # создаем экз-р устр-ва
-        
         r2.get()
         r2.stop()
-        print (r2.status)
-
+        console.print (f'Node {r2.name} {r2.status}',style='success')
         # link_r2_DUT = r2.links[1]
         # print(link_r2_DUT)
         # link_r2_DUT.get()
@@ -84,7 +111,7 @@ class Base_gns():
         lab.get()
         lab.open() # open lab
         lab.start_nodes(poll_wait_time=5)
-        print(f"*** ALL nodes in {lab.name} lab ***")
+        console.print(f"*** ALL nodes in {lab.name} lab ***",style='success')
         return  lab.nodes_summary()
 
 

@@ -1,16 +1,30 @@
 import pprint
 import re
 import time
+from py import test
 import yaml
 import sys
 import os
+
 sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with position 1!!!
-#pprint.pprint(sys.path)
+# pprint.pprint(sys.path)
 
 from ping3 import ping
 from base_gns3 import Base_gns
 from base_bm10 import Base_bm10
 from gns3fy import *
+
+from rich import print
+from rich.theme import Theme
+from rich.console import Console
+my_colors = Theme( #добавляет цветовую градацию для rich
+    {
+        "success":"bold green",
+        "fail":"bold red",
+        "warning":"bold yellow"
+    }
+)
+console = Console(theme=my_colors)
 
 
 with open("../command_cfg/value_bm10.yaml") as f:
@@ -19,17 +33,19 @@ with open("../command_cfg/value_bm10.yaml") as f:
             device = dict(t)
             r1 = Base_bm10(**device)
 
+
 def check_enable_mwan3():
 
     # Проверка, что mwan3 включен на обоих интерфейсах
     
+    r1.send_command(device, 'mwan3 start')
     try:
         temp = r1.send_command(device, 'mwan3 status')
         if "wan is online" and "wanb is online" in temp:
-            print("MWAN3 status - enable!")
+            console.print("MWAN3 status - enable! \n ",style="success")
             return True
         else:
-            print("MWAN3 status - disable !")
+            console.print("MWAN3 status - disable! \n ",style='fail')
             return False
     except ValueError as err:
         return False
@@ -44,35 +60,39 @@ def check_trsrt_when_mwan_stop():
     if "interface wan is offline and tracking is down" in show_mwan_stts:
         rslt_trsrt = r1.tracert_ip(device, ip_tracert="1.1.1.1")
         if '192.168.10.2' in rslt_trsrt:
-            print (f"hop with an address 192.168.10.2 and 192.168.20.2 in the tracert!!! - {rslt_trsrt}")
+            console.print (f"Hop with an address 192.168.10.2 in the tracert, but should not be!!! -\n  {rslt_trsrt}",style='fail')
             return False
         else:
             if "can't connect to remote host" in rslt_trsrt:
-                return rslt_trsrt
+                print(rslt_trsrt)
+                return False
             else:
-                print(f"Tracing ok and goes only through 192.168.20.2 {rslt_trsrt}")
+                console.print(f"Tracing ok and goes only through 192.168.20.2 \n {rslt_trsrt}",style="success")
                 return True
     else:
-        print("MWAN3 status - enable!")      
+        print("MWAN3 status - enable!\n ")      
 
 
 def check_trsrt_when_mwan_up():
 
     # Проверка, что при вкл mwan3 трассерт балансируется через оба шлюза!
-
+    r1.send_command(device, '/sbin/ifup wan')
+    r1.send_command(device, '/sbin/ifup wanb')
     time.sleep(5)
     show_mwan_stts = r1.send_command(device, 'mwan3 status')
     if "192.168.20.0/24" in show_mwan_stts:
         rslt_trsrt = r1.tracert_ip(device, ip_tracert="1.1.1.1")
-        if  '192.168.20.2' and '192.168.10.2'  in rslt_trsrt:
-            print (f"Hop with an address 192.168.10.2 and 192.168.20.2 in the tracert - traffic balanced!!! - {rslt_trsrt}")
+        if  '20.2' and '10.2'  in rslt_trsrt:
+            console.print (
+                f"Hop with an address 192.168.10.2 and 192.168.20.2 in the tracert -\n  traffic balanced!!! - \n {rslt_trsrt}",style="success"
+                            )
             return True
         else:
-            print(f'Not all hop in tracert - {rslt_trsrt}')
+            console.print(f'Not all hop in tracert -\n  {rslt_trsrt}',style='fail',)
             return False
     else:
-         print("MWAN3 status - disable!")
-
+        print("MWAN3 status - disable!")
+        return False
 
 def check_ping_interf(ip_for_ping): # check ping Internet
 
@@ -82,40 +102,34 @@ def check_ping_interf(ip_for_ping): # check ping Internet
         res_ping_inet = r1.ping_ip(device,ip_for_ping)
         print(res_ping_inet)
         if "destination available" in res_ping_inet:
-            print("Interface availeble")
+            console.print("Interface availeble\n ",style="success")
             return True
         else:
-            print("Interface is not available")
+            console.print("Interface is not available\n ",style='fail')
             return False
     except ValueError as err:
         return False
 
 
-
-
-def shut_R2_mwan():
-    current_lab = Base_gns()
-    print(current_lab.start_node())
-
 def check_tracert_when_mwan3_up_LinkR2disable():
 
     # Проверка, что при вкл mwan3 и выкл линке на r2 трасса пройдет через r1
-    current_lab = Base_gns()
-    print(current_lab.start_node())
-    time.sleep(5)
+    # current_lab = Base_gns()
+    # print(current_lab.stop_node())
+    
     show_mwan_stts = r1.send_command(device, 'mwan3 status')
     if "192.168.10.0/24" in show_mwan_stts:
         rslt_trsrt = r1.tracert_ip(device, ip_tracert="1.1.1.1")
         if  '192.168.10.2'  in rslt_trsrt:
-            print (f"tracert OK, wanb OK!!! - {rslt_trsrt}")
+            console.print (f"Protection channel via interface wanb - OK, tracert - OK!!! - \n{rslt_trsrt}",style="success")
             return True
         else:
-            print(f'WANb FAIL !!! - {rslt_trsrt}')
+            console.print(f'WANb FAIL !!! - {rslt_trsrt}',style='fail')
             return False
     else:
-         print("MWAN3 status - disable!")
+        console.print("MWAN3 status - disable!",style='fail')
 
 if __name__ == "__main__":
     
-            result = check_tracert_when_mwan3_up_LinkR2disable()
+            result = check_trsrt_when_mwan_stop()
             print(result)
