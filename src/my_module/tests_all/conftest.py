@@ -4,6 +4,7 @@ import pytest
 import sys
 import os
 import time
+from gns3fy import Gns3Connector, Project, Node, Link
 sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with position 1!!!
 
 
@@ -13,11 +14,23 @@ from gns3fy import *
 from cfg_bm10 import *
 from base_bm10 import *
 
-
 @pytest.fixture
 def shut_R2_mwan():
-    current_lab = Base_gns()
-    print(current_lab.stop_node())
+    server_url = "http://10.27.193.245:3080"
+    connector = Gns3Connector(url=server_url)
+    name_lab = 'SSV_auto_BM10_MWAN'
+    lab = Project(name=name_lab , connector=connector)
+    lab.get()
+    lab.open() # open lab
+    r2 = Node(
+            project_id=lab.project_id, 
+            name='R2',
+            connector=connector
+            ) # создаем экз-р устр-ва
+    r2.get()
+    r2.stop()
+    console.print (f'Node {r2.name} {r2.status}',style='success')
+    # print(lab.stop_node())
     time.sleep(5)
     
 

@@ -35,11 +35,12 @@ console.print(
     style='info'
               )
 time.sleep(6)
-current_lab = Base_gns() # test wait this lab - SSV_auto_BM10_MWAN
-console.print("Стартует настройка лабы в gns3, в ходе тестов будет дважды предложено выбрать шаблон из списка. Выбор чего то кроме 'SSV_auto_BM10_MWAN' приведет к краху теста",style='info')
-time.sleep(5)
-print(current_lab.start_nodes_from_project())
-console.print("Стартует настройка DUT под тест mwan3\n" ,style='info')
+class Start_laba():
+    current_lab = Base_gns() # test wait this lab - SSV_auto_BM10_MWAN
+    console.print("Стартует настройка лабы в gns3, в ходе тестов будет дважды предложено выбрать шаблон из списка. Выбор чего то кроме 'SSV_auto_BM10_MWAN' приведет к краху теста",style='info')
+    time.sleep(5)
+    print(current_lab.start_nodes_from_project())
+    console.print("Стартует настройка DUT под тест mwan3\n" ,style='info')
 time.sleep(5)
 with open("../command_cfg/value_bm10.yaml")as f:
     temp = yaml.safe_load(f)
