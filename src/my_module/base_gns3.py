@@ -119,8 +119,8 @@ if __name__=="__main__":
     gns= Base_gns()
     # print (gns.get_ver_gns(),'\n')
     # print(gns.all_proj(),'\n')
-    # print(gns.get_lab_status(),'\n')
+    print(gns.get_lab_status(),'\n')
     
-    print(gns.start_node())
+    # print(gns.start_node())
     # print(gns.start_nodes_from_project())
     # print( gns.get_nodes(),'\n')

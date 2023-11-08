@@ -76,22 +76,28 @@ def check_trsrt_when_mwan_stop():
 def check_trsrt_when_mwan_up():
 
     # Проверка, что при вкл mwan3 трассерт балансируется через оба шлюза!
-    r1.send_command(device, '/sbin/ifup wan')
-    r1.send_command(device, '/sbin/ifup wanb')
-    time.sleep(5)
+    
+    # r1.send_command(device, '/sbin/ifup wan')
+    # r1.send_command(device, '/sbin/ifup wanb')
+    # time.sleep(5)
     show_mwan_stts = r1.send_command(device, 'mwan3 status')
-    if "192.168.20.0/24" in show_mwan_stts:
-        rslt_trsrt = r1.tracert_ip(device, ip_tracert="1.1.1.1")
-        if  '20.2' and '10.2'  in rslt_trsrt:
-            console.print (
-                f"Hop with an address 192.168.10.2 and 192.168.20.2 in the tracert -\n  traffic balanced!!! - \n {rslt_trsrt}",style="success"
+    temp1=r1.tracert_ip(device, ip_tracert="1.1.1.1")
+    temp1 = re.search(r' 1  (?P<ip_peer>\S+)',temp1)
+    rslt_trsrt1 = temp1.group('ip_peer')
+    temp2 = r1.tracert_ip(device,ip_tracert="2.2.2.2")
+    temp2 = re.search(r' 1  (?P<ip_peer>\S+)',temp2)
+    rslt_trsrt2 = temp2.group('ip_peer')
+    if rslt_trsrt2 and rslt_trsrt1:
+        if  rslt_trsrt1 != rslt_trsrt2:
+            console.print (f"Hops with an address 192.168.10.2 and 192.168.20.2 in the tracert -\ntraffic balanced!!! : \nFor trasert 1 first hop is{rslt_trsrt1}\nFor trasert 2 first hop is{rslt_trsrt2}\n"    
+                ,style="success"
                             )
             return True
         else:
-            console.print(f'Not all hop in tracert -\n  {rslt_trsrt}',style='fail',)
+            console.print(f'Not all hop in tracert -\n  {rslt_trsrt1} \n {rslt_trsrt2}',style='fail',)
             return False
     else:
-        print("MWAN3 status - disable!")
+        print("MWAN3 status - disable! or tracert fail")
         return False
 
 def check_ping_interf(ip_for_ping): # check ping Internet
@@ -131,5 +137,5 @@ def check_tracert_when_mwan3_up_LinkR2disable():
 
 if __name__ == "__main__":
     
-            result = check_trsrt_when_mwan_stop()
+            result = check_trsrt_when_mwan_up()
             print(result)
