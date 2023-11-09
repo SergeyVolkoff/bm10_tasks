@@ -31,16 +31,15 @@ console = Console(theme=my_colors)
 
 
 console.print(
-    "Тест работает по ПМИ 'Проверка mwan3'.\n Рекомендуется ознакомиться с текстом теста.\n В ходе теста будет дважды запрошено название лабы и предложены варианты ответа",
+    "Тест работает по ПМИ 'Проверка mwan3'.\n Рекомендуется ознакомиться с текстом теста.\n В ходе теста будет запрошено название лабы и предложены варианты ответа",
     style='info'
               )
 time.sleep(6)
-class Start_laba():
-    current_lab = Base_gns() # test wait this lab - SSV_auto_BM10_MWAN
-    console.print("Стартует настройка лабы в gns3, в ходе тестов будет дважды предложено выбрать шаблон из списка. Выбор чего то кроме 'SSV_auto_BM10_MWAN' приведет к краху теста",style='info')
-    time.sleep(5)
-    print(current_lab.start_nodes_from_project())
-    console.print("Стартует настройка DUT под тест mwan3\n" ,style='info')
+current_lab = Base_gns() # test wait this lab - SSV_auto_BM10_MWAN
+console.print("Стартует настройка лабы в gns3",style='info')
+time.sleep(5)
+print(current_lab.start_nodes_from_project())
+console.print("Стартует настройка DUT под тест mwan3\n" ,style='info')
 time.sleep(5)
 with open("../command_cfg/value_bm10.yaml")as f:
     temp = yaml.safe_load(f)
@@ -59,7 +58,7 @@ with open("../command_cfg/value_bm10.yaml")as f:
             time.sleep(5)
         else:
             print("DUT up after reboot, wait all protocols!")
-            time.sleep(15)
+            time.sleep(25)
             print( "All up!")
 console.print("Стартует настройка tests под тест mwan3\n" ,style='info')
 time.sleep(5)

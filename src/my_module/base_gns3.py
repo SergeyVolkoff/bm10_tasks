@@ -50,6 +50,8 @@ class Base_gns():
         """ Вернет lab_id, статус моей лабы """
 
         lab = Project(name=self.name_lab , connector=self.connector )
+        lab.get()
+        #lab.close()
         print(lab.project_id)
         return f"GNS3 lab_name: {lab.name}, lab_id:{lab.project_id}, lab status: {lab.status}"
     

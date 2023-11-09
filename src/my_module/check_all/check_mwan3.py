@@ -42,10 +42,10 @@ def check_enable_mwan3():
     try:
         temp = r1.send_command(device, 'mwan3 status')
         if "wan is online" and "wanb is online" in temp:
-            console.print("MWAN3 status - enable! \n ",style="success")
+            console.print("\nMWAN3 status - enable! \n ",style="success")
             return True
         else:
-            console.print("MWAN3 status - disable! \n ",style='fail')
+            console.print("\nMWAN3 status - disable! \n ",style='fail')
             return False
     except ValueError as err:
         return False
@@ -60,26 +60,26 @@ def check_trsrt_when_mwan_stop():
     if "interface wan is offline and tracking is down" in show_mwan_stts:
         rslt_trsrt = r1.tracert_ip(device, ip_tracert="1.1.1.1")
         if '192.168.10.2' in rslt_trsrt:
-            console.print (f"Hop with an address 192.168.10.2 in the tracert, but should not be!!! -\n  {rslt_trsrt}",style='fail')
+            console.print (f"\nHop with an address 192.168.10.2 in the tracert, but should not be!!! -\n  {rslt_trsrt}",style='fail')
             return False
         else:
             if "can't connect to remote host" in rslt_trsrt:
                 print(rslt_trsrt)
                 return False
             else:
-                console.print(f"Tracing ok and goes only through 192.168.20.2 \n {rslt_trsrt}",style="success")
+                console.print(f"\nTracing ok and goes only through 192.168.20.2 \n {rslt_trsrt}",style="success")
                 return True
     else:
-        print("MWAN3 status - enable!\n ")      
+        print("\nMWAN3 status - enable!\n ")      
 
 
 def check_trsrt_when_mwan_up():
 
     # Проверка, что при вкл mwan3 трассерт балансируется через оба шлюза!
     
-    # r1.send_command(device, '/sbin/ifup wan')
-    # r1.send_command(device, '/sbin/ifup wanb')
-    # time.sleep(5)
+    r1.send_command(device, '/sbin/ifup wan')
+    #r1.send_command(device, '/sbin/ifup wanb')
+    time.sleep(7)
     show_mwan_stts = r1.send_command(device, 'mwan3 status')
     temp1=r1.tracert_ip(device, ip_tracert="1.1.1.1")
     temp1 = re.search(r' 1  (?P<ip_peer>\S+)',temp1)
@@ -89,15 +89,15 @@ def check_trsrt_when_mwan_up():
     rslt_trsrt2 = temp2.group('ip_peer')
     if rslt_trsrt2 and rslt_trsrt1:
         if  rslt_trsrt1 != rslt_trsrt2:
-            console.print (f"Hops with an address 192.168.10.2 and 192.168.20.2 in the tracert -\ntraffic balanced!!! : \nFor trasert 1 first hop is{rslt_trsrt1}\nFor trasert 2 first hop is{rslt_trsrt2}\n"    
+            console.print (f"\nHops with an address 192.168.10.2 and 192.168.20.2 in the tracert -\ntraffic balanced!!! : \nFor trasert 1 first hop is {rslt_trsrt1}\nFor trasert 2 first hop is {rslt_trsrt2}\n"    
                 ,style="success"
                             )
             return True
         else:
-            console.print(f'Not all hop in tracert -\n  {rslt_trsrt1} \n {rslt_trsrt2}',style='fail',)
+            console.print(f'\nNot all hop in tracert -\n  {rslt_trsrt1} \n {rslt_trsrt2}',style='fail',)
             return False
     else:
-        print("MWAN3 status - disable! or tracert fail")
+        print("\nMWAN3 status - disable! or tracert fail")
         return False
 
 def check_ping_interf(ip_for_ping): # check ping Internet
@@ -108,10 +108,10 @@ def check_ping_interf(ip_for_ping): # check ping Internet
         res_ping_inet = r1.ping_ip(device,ip_for_ping)
         print(res_ping_inet)
         if "destination available" in res_ping_inet:
-            console.print("Interface availeble\n ",style="success")
+            console.print("\nInterface availeble\n ",style="success")
             return True
         else:
-            console.print("Interface is not available\n ",style='fail')
+            console.print("\nInterface is not available\n ",style='fail')
             return False
     except ValueError as err:
         return False
@@ -120,17 +120,15 @@ def check_ping_interf(ip_for_ping): # check ping Internet
 def check_tracert_when_mwan3_up_LinkR2disable():
 
     # Проверка, что при вкл mwan3 и выкл линке на r2 трасса пройдет через r1
-    # current_lab = Base_gns()
-    # print(current_lab.stop_node())
     
     show_mwan_stts = r1.send_command(device, 'mwan3 status')
     if "192.168.10.0/24" in show_mwan_stts:
         rslt_trsrt = r1.tracert_ip(device, ip_tracert="1.1.1.1")
         if  '192.168.10.2'  in rslt_trsrt:
-            console.print (f"Protection channel via interface wanb - OK, tracert - OK!!! - \n{rslt_trsrt}",style="success")
+            console.print (f"\nProtection channel via interface wanb - OK, tracert - OK!!! - \n{rslt_trsrt}",style="success")
             return True
         else:
-            console.print(f'WANb FAIL !!! - {rslt_trsrt}',style='fail')
+            console.print(f'\nWANb FAIL !!! - {rslt_trsrt}',style='fail')
             return False
     else:
         console.print("MWAN3 status - disable!",style='fail')

@@ -29,7 +29,7 @@ def shut_R2_mwan():
             ) # создаем экз-р устр-ва
     r2.get()
     r2.stop()
-    console.print (f'Node {r2.name} {r2.status}',style='success')
+    console.print (f'\nNode {r2.name} {r2.status}',style='success')
     # print(lab.stop_node())
     time.sleep(5)
     
