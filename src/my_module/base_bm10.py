@@ -10,6 +10,7 @@ import time
 import sys
 import os
 
+sys.path.insert(1, os.path.join(sys.path[0],'..'))
 
 # sys.path.insert(1, os.path.join(sys.path[0],'../command_cfg/'))  # !!! PATH fo import with position 1!!!
 # sys.path.append(os.path.join(os.getcwd(),'../my_module/command_cfg'))
@@ -183,19 +184,26 @@ class Base_bm10():
         return result
 
 
-    def reset_conf(self,device, comm_reset_conf):
+    def reset_conf(self,device):
         
-        """ ФУНКЦИЯ сброса конфига на заводской, с ребутом устр-ва.
-        без импорта
-        """
+        """ ФУНКЦИЯ сброса конфига на заводской, с ребутом устр-ва."""
 
         self.check_connection(device)
         output = self.ssh.send_command("uci show system.@system[0].hostname")
         print(output)
+        
         if "DUT" in output:
             result_reset=self.ssh.send_config_set(self.commands_to_reset_conf)
+            result=ping('192.168.1.1')
+            while result is None:
+                result=ping('192.168.1.1')
+                print("DUT is rebooting, wait")
+                time.sleep(5)
+            else:
+                print("DUT up after reboot, wait all protocols!")
+                time.sleep(25)
+                print( "All up!")
             return result_reset
-        
 
     def wait_reboot(self):
         result=ping('192.168.1.1')
@@ -216,8 +224,9 @@ if __name__ == "__main__":
         for t in temp:
             device = dict(t)
             r1 = Base_bm10(**device)
-            print(r1.send_command(device, "uci show"))
+            # print(r1.send_command(device, "uci show"))
             #print(r1.ping_inet(device))
             #print(r1.ping_ip(device,'8.8.8.8'))
             #print (r1.wait_reboot())
             #print(r1.check_connection(device))
+            print(r1.reset_conf(device))

@@ -17,7 +17,7 @@ from netmiko import (
     NetmikoAuthenticationException
 )
 from rich.table import Table
-
+from ping3 import ping, verbose_ping
 
 
 class Cfg_templ_bm10(Base_bm10):
@@ -42,6 +42,17 @@ class Cfg_templ_bm10(Base_bm10):
                 result_command = "command passed"
                 result[command]=output
                 print(command,result_command)
+            if "reboot" in command:
+                time.sleep(5)
+                result=ping('192.168.1.1')
+                while result is None:
+                    result=ping('192.168.1.1')
+                    print("DUT is rebooting, wait")
+                    time.sleep(5)
+                else:
+                    print("DUT up after reboot, wait all protocols!")
+                    time.sleep(30)
+                    print( "All up!")
             elif "Usage: uci [<options>] <command> [<arguments>]" in output:
                 result_command = "bad command"
                 print(command, result_command)
@@ -50,6 +61,13 @@ class Cfg_templ_bm10(Base_bm10):
 
 class Cfg_bm10(Cfg_templ_bm10):
      
+    def cfg_reset(self,device,commands_template):
+
+        """ ФУНКЦИЯ сброса конфига на заводской, с ребутом устр-ва."""
+
+        Cfg_templ_bm10.cfg_template(self,device,commands_template)
+        return
+
 
     def cfg_base(self,device, commands_template):
         

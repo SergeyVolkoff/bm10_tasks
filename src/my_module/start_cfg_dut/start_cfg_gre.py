@@ -12,4 +12,4 @@ if __name__ == "__main__":
             r1 = Cfg_bm10(**device)
             with open ("../command_cfg/commands_gre_config.yaml") as f5:           # команды настройки GRE-tun + базовые настройки
                 commands_gre_config = yaml.safe_load(f5)
-            print(r1.cfg_vlan(device,commands_gre_config)) 
+            print(r1.cfg_gre(device,commands_gre_config)) 
