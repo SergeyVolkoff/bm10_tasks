@@ -41,36 +41,21 @@ console = Console(theme=my_colors)
 
 class Base_bm10():
     def __init__(self,host, username, timeout, password,**kwargs):
-        try:
-            with open("../command_cfg/value_bm10.yaml") as f2:
-                temp = yaml.safe_load(f2)
-                for t in temp:
-                     device = dict(t)
-            with open ("../command_cfg/commands_reset_cfg.yaml") as f1:            # команды сброса конфига
-                self.commands_to_reset_conf = yaml.safe_load(f1)
-            
-            with open("../command_cfg/commands_Fwall_cfg.yaml") as f6:             # команды настройки firewall wan2(как замена порта)
-                self.commands_Fwall_cfg = yaml.safe_load(f6)
-            with open("../command_cfg/commands_dmz_cfg.yaml") as f7:               # команды настройки DMZ доделать правило трафика!!!
-                self.commands_dmz_cfg = yaml.safe_load(f7)
-            with open("../command_cfg/commands_reset_cfg.yaml") as f8:             # команды настройки reset
-                self.commands_reset_cfg = yaml.safe_load(f8)
-            with open("../command_cfg/commands_sh_base.yaml") as f9:               # команды настройки base_cfg
-                self.commands_sh_base = yaml.safe_load(f9)
-            with open("../command_cfg/commands_cfg_WiFi_AP_KingKong.yaml") as f12:    # команды настройки wifi_ap2
-                self.commands_cfg_WiFi_AP_KingKong = yaml.safe_load(f12)
-
-            self.ssh = ConnectHandler(**device)
-            self.ip = host
-            self.name = username
-            self.passwd = password
-            self.promo_ping = " -w 4"
-            self.promt_tracert = '-m 1'
-            self.word_ping = "ping "
-            self.ip_inet = "8.8.8.8"
-            #self.command_ping = self.word_ping+self.promo_ping
-        except(NetmikoAuthenticationException,NetmikoTimeoutException) as error:
-            print("*" * 5, "Error connection to:", device['host'], "*" * 5)
+        with open("../command_cfg/value_bm10.yaml") as f2:
+            temp = yaml.safe_load(f2)
+            for t in temp:
+                    device = dict(t)
+                    self.check_connection(device)
+        self.ssh = ConnectHandler(**device)
+        self.ip = host
+        self.name = username
+        self.passwd = password
+        self.promo_ping = " -w 4"
+        self.promt_tracert = '-m 1'
+        self.word_ping = "ping "
+        self.ip_inet = "8.8.8.8"
+        #self.command_ping = self.word_ping+self.promo_ping
+        
     my_colors = Theme( #добавляет цветовую градацию для rich
     {
         "success":"bold green",
@@ -110,7 +95,7 @@ class Base_bm10():
         """ФУНКЦИЯ для простого пинга 8.8.8.8 , формат команды прописан в инит.
         без импорта."""
 
-        self.check_connection(device)
+        #self.check_connection(device)
         command_ping = (self.word_ping + self.ip_inet + self.promo_ping)
         print(command_ping)
         output = self.ssh.send_command(command_ping)
@@ -188,7 +173,7 @@ class Base_bm10():
         
         """ ФУНКЦИЯ сброса конфига на заводской, с ребутом устр-ва."""
 
-        self.check_connection(device)
+        # self.check_connection(device)
         output = self.ssh.send_command("uci show system.@system[0].hostname")
         print(output)
         
