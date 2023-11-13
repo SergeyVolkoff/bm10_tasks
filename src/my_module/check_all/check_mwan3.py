@@ -36,8 +36,7 @@ with open("../command_cfg/value_bm10.yaml") as f:
 
 def check_enable_mwan3():
 
-    # Проверка, что mwan3 включен на обоих интерфейсах
-    
+    print("Test 5 \nПроверка, что mwan3 включен на обоих интерфейсах")
     r1.send_command(device, 'mwan3 start')
     try:
         temp = r1.send_command(device, 'mwan3 status')
@@ -52,7 +51,7 @@ def check_enable_mwan3():
 
 def check_trsrt_when_mwan_stop():
 
-    # Проверка, что при выкл mwan3 трассерт проходит только через r2 согласно метрике шлюза
+    print("Test 5 \nПроверка, что при выкл mwan3 трассерт проходит только через r2 согласно метрике шлюза")
     
     comm_mwan_stop = r1.send_command(device, 'mwan3 stop')
     time.sleep(2)
@@ -75,16 +74,16 @@ def check_trsrt_when_mwan_stop():
 
 def check_trsrt_when_mwan_up():
 
-    # Проверка, что при вкл mwan3 трассерт балансируется через оба шлюза!
+    print("Test4 \nПроверка, что при вкл mwan3 трассерт балансируется через оба шлюза!")
     
     r1.send_command(device, '/sbin/ifup wan')
-    #r1.send_command(device, '/sbin/ifup wanb')
-    time.sleep(7)
+    r1.send_command(device, '/sbin/ifup wanb')
+    time.sleep(8)
     show_mwan_stts = r1.send_command(device, 'mwan3 status')
     temp1=r1.tracert_ip(device, ip_tracert="1.1.1.1")
+    temp2 = r1.tracert_ip(device,ip_tracert="2.2.2.2")
     temp1 = re.search(r' 1  (?P<ip_peer>\S+)',temp1)
     rslt_trsrt1 = temp1.group('ip_peer')
-    temp2 = r1.tracert_ip(device,ip_tracert="2.2.2.2")
     temp2 = re.search(r' 1  (?P<ip_peer>\S+)',temp2)
     rslt_trsrt2 = temp2.group('ip_peer')
     if rslt_trsrt2 and rslt_trsrt1:
@@ -94,7 +93,7 @@ def check_trsrt_when_mwan_up():
                             )
             return True
         else:
-            console.print(f'\nNot all hop in tracert -\n  {rslt_trsrt1} \n {rslt_trsrt2}',style='fail',)
+            console.print(f'\n Трассировка до 1.1.1.1 и 2.2.2.2 идет через одно плечо -\n  {rslt_trsrt1} \n {rslt_trsrt2}. Если mwan3 включен, то тест надо повторить!',style='fail',)
             return False
     else:
         print("\nMWAN3 status - disable! or tracert fail")
@@ -102,16 +101,16 @@ def check_trsrt_when_mwan_up():
 
 def check_ping_interf(ip_for_ping): # check ping Internet
 
-    # Проверка доступности интерфейсов соседей, исп-ся в тесте с параметрами
+    print("Test 1 \nПроверка доступности интерфейсов соседей, исп-ся в тесте с параметрами")
 
     try:
         res_ping_inet = r1.ping_ip(device,ip_for_ping)
         print(res_ping_inet)
         if "destination available" in res_ping_inet:
-            console.print("\nInterface availeble\n ",style="success")
+            console.print("Interface availeble ",style="success")
             return True
         else:
-            console.print("\nInterface is not available\n ",style='fail')
+            console.print("Interface is not available ",style='fail')
             return False
     except ValueError as err:
         return False
@@ -119,7 +118,7 @@ def check_ping_interf(ip_for_ping): # check ping Internet
 
 def check_tracert_when_mwan3_up_LinkR2disable():
 
-    # Проверка, что при вкл mwan3 и выкл линке на r2 трасса пройдет через r1
+    print("Test 5 \nПроверка, что при вкл mwan3 и выкл линке на r2 трасса пройдет через r1")
     
     show_mwan_stts = r1.send_command(device, 'mwan3 status')
     if "192.168.10.0/24" in show_mwan_stts:
