@@ -49,11 +49,7 @@ with open("../command_cfg/value_bm10.yaml")as f:
         with open("../command_cfg/commands_reset_cfg.yaml") as f14:  # команды сброса конфига
                 commands_reset_cfg = yaml.safe_load(f14)
         print(r1.cfg_mwan3(device,commands_reset_cfg))  # Сброс конфига 
-<<<<<<< HEAD
-        console.print("Стартует настройка DUT под тест mwan3\n" ,style='info')
-=======
         console.print("Стартует настройка DUT под тест 'Проверка поддержки нескольких WAN-портов(mwan3)'\n" ,style='info')
->>>>>>> lepr_bm10
         time.sleep(5)
         with open("../command_cfg/value_bm10.yaml")as f:
                 temp = yaml.safe_load(f)
