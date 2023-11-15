@@ -26,7 +26,7 @@ class Cfg_templ_bm10(Base_bm10):
 
         """ФУНКЦИЯ-шаблон настройки базового конфига"""
 
-        self.check_connection(device)
+        # self.check_connection(device)
         result = {}
         for command in commands_template:
             output = self.ssh.send_command(command, expect_string="", read_timeout=1)

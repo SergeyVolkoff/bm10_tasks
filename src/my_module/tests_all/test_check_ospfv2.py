@@ -8,18 +8,6 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-from check_all.check_ospfv2 import (check_enable_ospfv2,
-                          check_route_ospfv2_net,
-                          check_ping_interf,
-                         )
-
-def test_check_enable_ospfv2():
-    assert check_enable_ospfv2()==True, "OSPFv2 disable!"
-
-def test_check_route_ospfv2_net(): 
-    # ф-я check_route_ripng_net() в цикле переберет список маршрутов, если нужного нет - вернет false
-    assert check_route_ospfv2_net()==True, "*** Some route to the network 192.. or 200.. is not available! ***"
-
 
 """
 В блоке ниже используется параметризация mark.parametrize
@@ -32,6 +20,8 @@ ip_for_check = (
     ('192.168.20.2'),
     ('200.1.10.2'),
     ('200.1.20.2'),
+    ('1.1.1.1'),
+    ('2.2.2.2'),
     
 )
 task_ids = ['ip_test({})'.format(t)
@@ -48,3 +38,15 @@ task_ids = ['ip_test({})'.format(t)
 def test_check_ping_inter(ip_test):
     assert check_ping_interf(ip_for_ping=f"{ip_test}")==True, f"*** IP {ip_test} unavaileble now ***"
     
+from check_all.check_ospfv2 import (check_enable_ospfv2,
+                          check_route_ospfv2_net,
+                          check_ping_interf,
+                         )
+
+def test_check_enable_ospfv2():
+    assert check_enable_ospfv2()==True, "OSPFv2 disable!"
+
+def test_check_route_ospfv2_net(): 
+    # ф-я check_route_ripng_net() в цикле переберет список маршрутов, если нужного нет - вернет false
+    assert check_route_ospfv2_net()==True, "*** Some route to the network 192.. or 200.. is not available! ***"
+

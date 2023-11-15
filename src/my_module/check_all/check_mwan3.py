@@ -1,10 +1,11 @@
 import pprint
 import re
+import sys
+import os
 import time
 from py import test
 import yaml
-import sys
-import os
+
 
 sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with position 1!!!
 # pprint.pprint(sys.path)
