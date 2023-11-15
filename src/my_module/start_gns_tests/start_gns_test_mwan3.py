@@ -49,7 +49,7 @@ with open("../command_cfg/value_bm10.yaml")as f:
         with open("../command_cfg/commands_reset_cfg.yaml") as f14:  # команды сброса конфига
                 commands_reset_cfg = yaml.safe_load(f14)
         print(r1.cfg_mwan3(device,commands_reset_cfg))  # Сброс конфига 
-        console.print("Стартует настройка DUT под тест mwan3\n" ,style='info')
+        console.print("Стартует настройка DUT под тест 'Проверка поддержки нескольких WAN-портов(mwan3)'\n" ,style='info')
         time.sleep(5)
         with open("../command_cfg/value_bm10.yaml")as f:
                 temp = yaml.safe_load(f)
@@ -60,6 +60,6 @@ with open("../command_cfg/value_bm10.yaml")as f:
                             command_cfg_mwan = yaml.safe_load(f15)
                     print(r1.cfg_mwan3(device,command_cfg_mwan))    # Настройка DUT под тесt mwan3
 
-console.print("Стартует настройка tests под тест mwan3\n" ,style='info')
+console.print("Стартует настройка pytests под тест 'Проверка поддержки нескольких WAN-портов(mwan3)'\n" ,style='info')
 time.sleep(10)
 pytest.main(["-v","-s","../tests_all/test_check_mwan3.py"])

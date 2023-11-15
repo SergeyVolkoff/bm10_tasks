@@ -1,5 +1,7 @@
 
 import re
+import sys
+import os
 import time
 import yaml
 import netmiko
@@ -8,8 +10,25 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-from base_bm10 import Base_bm10
+sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with position 1!!!
 
+from base_bm10 import Base_bm10
+from ping3 import ping
+from base_gns3 import Base_gns
+from base_bm10 import Base_bm10
+from gns3fy import *
+
+from rich import print
+from rich.theme import Theme
+from rich.console import Console
+my_colors = Theme( #добавляет цветовую градацию для rich
+    {
+        "success":"bold green",
+        "fail":"bold red",
+        "warning":"bold yellow"
+    }
+)
+console = Console(theme=my_colors)
 
 with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/value_bm10.yaml") as f:
     temp = yaml.safe_load(f)
@@ -17,14 +36,15 @@ with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/value_bm10.y
         device = dict(t)
         r1 = Base_bm10(**device)
 
+
 def check_enable_ospfv2():
  
     '''Проверка enable OSPFv2'''
 
     try:
-        temp = r1.send_sh_command(device, 'uci show ospf.@ospf[0].enabled')
+        temp = r1.send_command(device, 'uci show ospf.@ospf[0].enabled')
         if "='1'" in temp:
-            print("OSPFv2 - enable!")
+            console.print("OSPFv2 - enable!",style="success")
             return True
         else:
             
@@ -48,10 +68,10 @@ def check_route_ospfv2_net():
         for ip in list_iproute:
             if ip  in return_ip_route:
                 i+=1
-                print(f"Ip route {ip} ok!",i)
+                console.print(f"Ip route {ip} ok!",style="success")
             else:
                 if ip  not in return_ip_route:
-                    print(f"No ip route {ip} ")
+                    console.print(f"No ip route {ip} ",style='fail')
         if i==4:
             return True
         else:
@@ -65,10 +85,10 @@ def check_ping_interf(ip_for_ping): # check ping Internet
         res_ping_inet = r1.ping_ip(device,ip_for_ping)
         print(res_ping_inet)
         if "destination available" in res_ping_inet:
-            print("Interface availeble, OSPFv2 OK")
+            console.print("Interface availeble, OSPFv2 OK",style="success")
             return True
         else:
-            print("Interface is not available, OSPFv2 bad ")
+            console.print("Interface is not available, OSPFv2 bad ",style='fail')
             return False
     except ValueError as err:
         return False
