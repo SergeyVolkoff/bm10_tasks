@@ -1,6 +1,9 @@
 import pytest
 from check_all.check_ripv2 import *
 
+@pytest.hookimpl
+def pytest_html_report_title(report):
+    report.title = "My very own title!"
 
 def test_check_enable_ripv2():
     assert check_enable_ripv2()==True, "RIP disable!"
