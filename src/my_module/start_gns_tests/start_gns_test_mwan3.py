@@ -62,4 +62,4 @@ with open("../command_cfg/value_bm10.yaml")as f:
 
 console.print("Стартует настройка pytests под тест 'Проверка поддержки нескольких WAN-портов(mwan3)'\n" ,style='info')
 time.sleep(10)
-pytest.main(["-v","-s","../tests_all/test_check_mwan3.py"])
+pytest.main(["-v","-s","--html=BULAT_TEST_BM10_MWAN3.html","../tests_all/test_check_mwan3.py"])
