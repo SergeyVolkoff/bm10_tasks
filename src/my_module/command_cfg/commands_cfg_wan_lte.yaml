@@ -53,7 +53,7 @@
 "uci set network.wan.ipaddr='192.168.20.1'",
 "uci set network.wan.netmask='255.255.255.0'",
 "uci set network.wan.gateway='192.168.20.2'",
-"uci set network.wanb.metric='20'",
+"uci set network.wan.metric='10'",
 
 "uci set mwan3.wanb.enabled='1'",
 "uci set mwan3.wanb.initial_state='online'",

@@ -13,4 +13,3 @@ if __name__ == "__main__":
             with open("../command_cfg/commands_cfg_wan_lte.yaml") as f15:  # команды настройки mwan3
                 commands_cfg_wan_lte = yaml.safe_load(f15)
             print(r1.cfg_ripv2(device,commands_cfg_wan_lte))
-

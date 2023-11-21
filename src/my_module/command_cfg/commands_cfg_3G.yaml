@@ -2,8 +2,12 @@
 "uci set network.LTE=interface",
 "uci set network.LTE.proto='qmi'",
 "uci set network.LTE.device='/dev/cdc-wdm0'",
-"uci set network.LTE.apn='internet.tele2.ru'",
+"uci set network.LTE.apn='internet.mts.ru'",
+"uci set network.wanb.auth='both'",
+"uci set network.wanb.username='mts'",
+"uci set network.wanb.password='mts'",
 "uci set network.LTE.pdptype='ipv4'",
+"uci set network.wanb.force_link='1'",
 "uci commit",
 "reboot"
 ]
