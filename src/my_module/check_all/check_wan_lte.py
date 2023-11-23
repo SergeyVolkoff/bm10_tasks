@@ -15,7 +15,8 @@ from base_bm10 import Base_bm10
 from rich import print
 from rich.theme import Theme
 from rich.console import Console
-my_colors = Theme( #добавляет цветовую градацию для rich
+my_colors = Theme(
+     #добавляет цветовую градацию для rich
     {
         "success":"bold green",
         "fail":"bold red",
@@ -41,7 +42,7 @@ def check_trsrt_when_mwan_stop():
     if "interface wan is offline and tracking is down" in show_mwan_stts:
         rslt_trsrt = r1.tracert_ip(device, ip_tracert="1.1.1.1")
         if '192.168.20.2'  not in rslt_trsrt:
-            console.print (f"\nHop with LTE address in the tracert, but should not be!!! -\n  {rslt_trsrt}",style='fail')
+            console.print (f"\nHop with LTE address in the tracert, but should not be! -\n  {rslt_trsrt}",style='fail')
             return False
         else:
             if "can't connect to remote host" in rslt_trsrt:
@@ -91,3 +92,6 @@ def check_trsrt_when_mwan_up():
                 return True
     else:
         print("\nMWAN3 status - disable!\n ")
+
+def check_trsrt_mwanUp_wanDown():
+    pass
