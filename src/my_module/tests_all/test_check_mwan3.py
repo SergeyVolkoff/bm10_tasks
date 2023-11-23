@@ -1,4 +1,5 @@
 import pytest
+import pytest_html
 from check_all.check_mwan3 import *
 
 
