@@ -17,6 +17,7 @@ with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/value_bm10.y
 
 
 def check_enable_bgpv3():
+    print("Test1 \nПроверка включени ли пакет BGP на устройстве")
     try:
         temp = r1.send_command(device, 'uci show bgp.@bgp[0].enabled')
         if "='1'" in temp:
@@ -29,6 +30,7 @@ def check_enable_bgpv3():
     
 
 def check_redistr_kernel():
+    print("Test2 \nПроверка включена ли редистрибьюция на DUT")
     try:
         temp = r1.send_command(device, 'uci show bgp.@bgp[0].redistribute_kernel')
         if " kernel" in temp:
@@ -40,6 +42,7 @@ def check_redistr_kernel():
         return False
     
 def check_redistr_connected():
+    print("Test3 \nПроверка включена ли редистрибьюция на DUT")
     try:
         temp = r1.send_command(device, 'uci show bgp.@bgp[0].redistribute_connected')
         if " connected" in temp:
@@ -51,6 +54,7 @@ def check_redistr_connected():
         return False
     
 def check_redistr_static():
+    print("Test4 \nПроверка включена ли редистрибьюция на DUT")
     try:
         temp = r1.send_command(device, 'uci show bgp.@bgp[0].redistribute_static')
         if " static" in temp:
@@ -63,6 +67,7 @@ def check_redistr_static():
     
 
 def check_route10_bgpv3():
+    print("Test5 \nПроверка есть ли маршрут до loopback R1")
     try:
         temp = r1.send_command(device, "ip route")
         if "200.1.10.0/24 via 192.168.10.2" in temp:
@@ -75,6 +80,7 @@ def check_route10_bgpv3():
     
 
 def check_route20_bgpv3():
+    print("Test6 \nПроверка есть ли маршрут до loopback R2")
     try:
         temp = r1.send_command(device, "ip route")
         if "200.1.20.0/24 via 192.168.20.2" in temp:
@@ -86,8 +92,8 @@ def check_route20_bgpv3():
         return False
 
 def check_ping_interf(ip_for_ping): # check ping neighbor
+    print("Test 7 \nПроверка доступности интерфейсов соседей")
     try:
-
         res_ping_inet = r1.ping_ip(device,ip_for_ping)
         print(res_ping_inet)
         if "destination available" in res_ping_inet:
@@ -98,3 +104,6 @@ def check_ping_interf(ip_for_ping): # check ping neighbor
             return False
     except ValueError as err:
         return False
+
+def check_redistr_static_routeDut_toR2():
+    pass

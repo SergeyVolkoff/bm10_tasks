@@ -37,7 +37,7 @@ with open("../command_cfg/value_bm10.yaml") as f:
 
 def check_enable_mwan3():
 
-    print("Test 5 \nПроверка, что mwan3 включен на обоих интерфейсах")
+    print("Test 3 \nПроверка, что mwan3 включен на обоих интерфейсах")
     r1.send_command(device, 'mwan3 start')
     try:
         temp = r1.send_command(device, 'mwan3 status')
@@ -52,7 +52,7 @@ def check_enable_mwan3():
 
 def check_trsrt_when_mwan_stop():
 
-    print("Test 5 \nПроверка, что при выкл mwan3 трассерт проходит только через r2 согласно метрике шлюза")
+    print("Test 2 \nПроверка, что при выкл mwan3 трассерт проходит только через r2 согласно метрике шлюза")
     
     comm_mwan_stop = r1.send_command(device, 'mwan3 stop')
     time.sleep(2)
@@ -60,14 +60,14 @@ def check_trsrt_when_mwan_stop():
     if "interface wan is offline and tracking is down" in show_mwan_stts:
         rslt_trsrt = r1.tracert_ip(device, ip_tracert="1.1.1.1")
         if '192.168.10.2' in rslt_trsrt:
-            console.print (f"\nHop with an address 192.168.10.2 in the tracert, but should not be!!! -\n  {rslt_trsrt}",style='fail')
+            console.print (f"\nИли недоступен удаленный хост или в трассерте есть оба плеча, чего не должно быть.См вывод трасерта. -\n  {rslt_trsrt}",style='fail')
             return False
         else:
             if "can't connect to remote host" in rslt_trsrt:
                 print(rslt_trsrt)
                 return False
             else:
-                console.print(f"\nTracing ok and goes only through 192.168.20.2 \n {rslt_trsrt}",style="success")
+                console.print(f"\nТрасерт идет только через 192.168.20.2. См.вывод трасерта. \n {rslt_trsrt}",style="success")
                 return True
     else:
         print("\nMWAN3 status - enable!\n ")      
@@ -75,7 +75,7 @@ def check_trsrt_when_mwan_stop():
 
 def check_trsrt_when_mwan_up():
 
-    print("Test4 \nПроверка, что при вкл mwan3 трассерт балансируется через оба шлюза!")
+    print("Test4 \nПроверка, что при включенном mwan3 трассерт балансируется через оба шлюза")
     
     r1.send_command(device, '/sbin/ifup wan')
     r1.send_command(device, '/sbin/ifup wanb')
