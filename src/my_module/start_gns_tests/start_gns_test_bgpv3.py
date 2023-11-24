@@ -59,5 +59,5 @@ with open("../command_cfg/value_bm10.yaml")as f:
                             commands_cfg_bgpv3 = yaml.safe_load(f15)
                     print(r1.cfg_mwan3(device,commands_cfg_bgpv3))    # Настройка DUT под тесt BGP
 console.print("Стартует настройка pytests под тест 'Проверка работы протокола BGP'\n" ,style='info')
-time.sleep(10)
+time.sleep(25)
 pytest.main(["-v","--html=BULAT_TEST_BM10_BGP.html","../tests_all/test_check_bgpv3.py"])
