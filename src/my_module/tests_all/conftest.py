@@ -1,6 +1,6 @@
-
 import yaml
 import pytest
+import pytest_html
 import sys
 import os
 import time
@@ -13,6 +13,7 @@ from base_gns3 import Base_gns
 from gns3fy import *
 from cfg_bm10 import *
 from base_bm10 import *
+
 
 @pytest.fixture
 def shut_R2_mwan():

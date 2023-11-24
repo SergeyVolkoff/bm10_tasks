@@ -57,4 +57,6 @@ task_ids = ['ip_test({})'.format(t)
 
 def test_check_ping_loopback_neighbor(ip_test):
     assert check_ping_interf(ip_for_ping=f"{ip_test}")==True, f"*** IP {ip_test} unavaileble now***"
- 
+
+def test_check_redistr_static_routeDut_toR2():
+    pass

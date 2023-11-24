@@ -44,9 +44,9 @@ class Cfg_templ_bm10(Base_bm10):
                 print(command,result_command)
             if "reboot" in command:
                 time.sleep(5)
-                result=ping('192.168.1.1')
+                result=ping('192.168.1.1',timeout=2)
                 while result is None:
-                    result=ping('192.168.1.1')
+                    result=ping('192.168.1.1',timeout=2)
                     print("DUT is rebooting, wait")
                     time.sleep(5)
                 else:

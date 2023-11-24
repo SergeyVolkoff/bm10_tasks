@@ -30,11 +30,11 @@ my_colors = Theme(
 console = Console(theme=my_colors)
 
 console.print(
-    "Тест работает по ПМИ 'Проверка Multihoming'.\n Рекомендуется ознакомиться с текстом теста.\n В ходе теста будет запрошено название лабы и предложены варианты ответа",
+    "Тест работает по ПМИ 'Проверка работы протокола BGP'.\n Рекомендуется ознакомиться с текстом теста.\n В ходе теста будет запрошено название лабы и предложены варианты ответа",
     style='info'
               )
 time.sleep(6)
-current_lab = Base_gns() # test wait this lab - SSV_auto_BM10_MWAN
+current_lab = Base_gns() # test wait this lab - SSV_auto_BM10_BGP
 console.print("Стартует настройка лабы в gns3",style='info')
 time.sleep(5)
 print(current_lab.start_nodes_from_project())
@@ -48,17 +48,16 @@ with open("../command_cfg/value_bm10.yaml")as f:
         with open("../command_cfg/commands_reset_cfg.yaml") as f14:  # команды сброса конфига
                 commands_reset_cfg = yaml.safe_load(f14)
         print(r1.cfg_mwan3(device,commands_reset_cfg))  # Сброс конфига 
-        console.print("Стартует настройка DUT под тест 'Проверка поддержки нескольких WAN-портов(mwan3)'\n" ,style='info')
+        console.print("Стартует настройка DUT под тест 'Проверка работы протокола BGP'\n" ,style='info')
         time.sleep(5)
         with open("../command_cfg/value_bm10.yaml")as f:
                 temp = yaml.safe_load(f)
                 for t in temp:
                     device = dict(t)
                     r1 = Cfg_bm10(**device)
-                    with open("../command_cfg/commands_cfg_mwan3.yaml") as f15: # команды настройки mwan3
-                            command_cfg_mwan = yaml.safe_load(f15)
-                    print(r1.cfg_mwan3(device,command_cfg_mwan))    # Настройка DUT под тесt mwan3
-
-console.print("Стартует настройка tests под тест mwan3\n" ,style='info')
+                    with open("../command_cfg/commands_cfg_bgpv3.yaml") as f15: # команды настройки BGP
+                            commands_cfg_bgpv3 = yaml.safe_load(f15)
+                    print(r1.cfg_mwan3(device,commands_cfg_bgpv3))    # Настройка DUT под тесt BGP
+console.print("Стартует настройка pytests под тест 'Проверка работы протокола BGP'\n" ,style='info')
 time.sleep(10)
-pytest.main(["-v","-s","--html=BULAT_TEST_BM10_Multihoming.html","../tests_all/test_check_mwan3.py"])
+pytest.main(["-v","--html=BULAT_TEST_BM10_BGP.html","../tests_all/test_check_bgpv3.py"])

@@ -1,4 +1,5 @@
 import pytest
+import pytest_html
 from check_all.check_mwan3 import *
 
 
@@ -13,6 +14,7 @@ ip_for_check = (
     ('192.168.20.2'),
     ('200.1.20.1'),
     ('1.1.1.1'),
+    ('2.2.2.2'),
 )
 task_ids = ['ip_test({})'.format(t)
              # определям параметр ids чтобы сделать идентификаторы для понимания вывода теста
@@ -26,11 +28,11 @@ task_ids = ['ip_test({})'.format(t)
             # переменную указывающую на данные для проверки (ip_for_check) и ids
 
 def test_check_ping_inter(ip_test,):
-    assert check_ping_interf(ip_for_ping=f"{ip_test}")==True, f"*** IP {ip_test} unavaileble now ***"
+    assert check_ping_interf(ip_for_ping=f"{ip_test}")==True, f"*** IP {ip_test} недоступен в данный момент ***"
 
 
 def test_check_tracert_when_mwan3_stop():
-    assert check_trsrt_when_mwan_stop()==True, "hop with an address 192.168.10.2 and 192.168.20.2 in the tracert!!!"
+    assert check_trsrt_when_mwan_stop()==True, "Или недоступен удаленный хост или в трассерте есть оба плеча, чего не должно быть.См вывод трасерта."
 
 
 def test_check_enable_mwan3():
@@ -38,7 +40,7 @@ def test_check_enable_mwan3():
 
 
 def test_check_tracert_when_mwan3_up():
-    assert check_trsrt_when_mwan_up()== True, "Not all hop in tracert"
+    assert check_trsrt_when_mwan_up()== True, "Не все хопы в трассерте"
 
 
 def test_check_tracert_when_mwan3_up_LinkR2disable(shut_R2_mwan):

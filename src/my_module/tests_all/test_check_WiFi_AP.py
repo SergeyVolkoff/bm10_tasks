@@ -8,7 +8,6 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-#from clss_Router import Router
 from check_all.check_WiFi_AP import check_WiFi_AP,check_pingGW
 
 def test_Wifi_AP():

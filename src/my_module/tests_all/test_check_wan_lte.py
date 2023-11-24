@@ -1,19 +1,5 @@
 import pytest
-from check_all.check_ripv2 import *
-
-@pytest.hookimpl
-def pytest_html_report_title(report):
-    report.title = "My very own title!"
-
-def test_check_enable_ripv2():
-    assert check_enable_ripv2()==True, "RIP disable!"
-
-def test_check_version_ripv2():
-    assert check_ver_ripv2()==True, "ver RIP not 2!"
-
-def test_check_route_ripv2():
-    assert check_route_ripv2()==True, "*** Route to the network 200.. is not available! ***"
-
+from check_all.check_mwan3 import *
 
 """
 В блоке ниже используется параметризация mark.parametrize
@@ -24,9 +10,8 @@ ip_for_check = (
     ('192.168.10.2'),
     ('192.168.20.1'),
     ('192.168.20.2'),
-    ('200.1.10.1'),
     ('200.1.20.1'),
-    
+    ('1.1.1.1'),
 )
 task_ids = ['ip_test({})'.format(t)
              # определям параметр ids чтобы сделать идентификаторы для понимания вывода теста
@@ -41,4 +26,15 @@ task_ids = ['ip_test({})'.format(t)
 
 def test_check_ping_inter(ip_test,):
     assert check_ping_interf(ip_for_ping=f"{ip_test}")==True, f"*** IP {ip_test} unavaileble now ***"
-    
+
+def test_check_tracert_when_mwan3_stop():
+    assert check_trsrt_when_mwan_stop()==True, "Hop with LTE address in the tracert, but should not be!"
+
+def test_check_enable_mwan3():
+    assert check_enable_mwan3() ==True, "MWAN3 status - disable!"
+
+def test_check_tracert_when_mwan3_up():
+    assert check_trsrt_when_mwan_up()== True, "Not all hop in tracertHop with LTE address in the tracert, but should not be!s"
+
+def test_check_trsrt_mwanUp_wanDown():
+    pass
