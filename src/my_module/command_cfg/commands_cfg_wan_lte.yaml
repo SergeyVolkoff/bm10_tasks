@@ -73,6 +73,12 @@
 "uci add_list mwan3.wan.track_ip='1.1.1.1'",
 "uci add_list mwan3.wanb.track_ip='1.1.1.1'",
 "uci del firewall.cfg03dc81.network",
+
+"uci set mwan3.https.use_policy='wan_wanb'",
+"uci set mwan3.wan.reliability='1'",
+"uci set mwan3.default_rule_v4.use_policy='wan_wanb'",
+"uci set mwan3.default_rule_v6.use_policy='wan_wanb'",
+
 "uci add_list firewall.cfg03dc81.network='wan'",
 "uci add_list firewall.cfg03dc81.network='wan6'",
 "uci add_list firewall.cfg03dc81.network='wanb'",

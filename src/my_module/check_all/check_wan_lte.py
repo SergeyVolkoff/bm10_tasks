@@ -31,6 +31,21 @@ with open("../command_cfg/value_bm10.yaml") as f:
             device = dict(t)
             r1 = Base_bm10(**device)
 
+def check_ping_interf(ip_for_ping): # check ping Internet
+
+    print("Test 1 \nПроверка доступности интерфейсов соседей, исп-ся в тесте с параметрами")
+
+    try:
+        res_ping_inet = r1.ping_ip(device,ip_for_ping)
+        print(res_ping_inet)
+        if "destination available" in res_ping_inet:
+            console.print("Interface availeble ",style="success")
+            return True
+        else:
+            console.print("Interface is not available ",style='fail')
+            return False
+    except ValueError as err:
+        return False
     
 def check_trsrt_when_mwan_stop():
 

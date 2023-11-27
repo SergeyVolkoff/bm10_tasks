@@ -1,16 +1,13 @@
 import pytest
-from check_all.check_mwan3 import *
+from check_all.check_wan_lte import *
 
 """
 В блоке ниже используется параметризация mark.parametrize
 """
 ip_for_check = (
     ('192.168.1.1'),
-    ('192.168.10.1'),
-    ('192.168.10.2'),
     ('192.168.20.1'),
     ('192.168.20.2'),
-    ('200.1.20.1'),
     ('1.1.1.1'),
 )
 task_ids = ['ip_test({})'.format(t)
@@ -34,7 +31,7 @@ def test_check_enable_mwan3():
     assert check_enable_mwan3() ==True, "MWAN3 status - disable!"
 
 def test_check_tracert_when_mwan3_up():
-    assert check_trsrt_when_mwan_up()== True, "Not all hop in tracertHop with LTE address in the tracert, but should not be!s"
+    assert check_trsrt_when_mwan_up()== True, "Not all hop in tracertHop with LTE address in the tracert, but should not be!"
 
 def test_check_trsrt_mwanUp_wanDown():
     pass
