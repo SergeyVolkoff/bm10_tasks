@@ -137,7 +137,7 @@ def check_trsrt_when_mwan_up():
     else:
         print("\nMWAN3 status - disable!\n ")
 
-def check_trsrt_mwanUp_wanDown():
+def check_trsrt_mwanUp_wanDown(): # ДОПИСАТЬ!!!
     console.print(
         "Test 7 \nПроверка, что при вкл mwan3 и выкл линке на r2 трасса пройдет через LTE",
         style='info'

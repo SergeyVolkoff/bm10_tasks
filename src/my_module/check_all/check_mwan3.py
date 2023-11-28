@@ -22,7 +22,7 @@ my_colors = Theme( #добавляет цветовую градацию для 
     {
         "success":"bold green",
         "fail":"bold red",
-        "warning":"bold yellow"
+        "info": "bold blue"
     }
 )
 console = Console(theme=my_colors)
