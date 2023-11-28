@@ -1,6 +1,11 @@
 import pytest
 from check_all.check_wan_lte import *
 
+def test_check_int3G():
+    assert check_int3G()==True, (
+        "No interface on router or interface exist, but d'nt have ip address"
+    )
+
 """
 В блоке ниже используется параметризация mark.parametrize
 """

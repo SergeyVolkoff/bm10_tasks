@@ -61,4 +61,4 @@ with open("../command_cfg/value_bm10.yaml")as f:
 
 console.print("Стартует настройка pytests под тест 'Проверка поддержки Multihoming  3G/4G failover (mwan3)'\n" ,style='info')
 time.sleep(10)
-pytest.main(["-v","--html=BULAT_TEST_BM10_Multihoming.html","../tests_all/test_check_wan_lte.py"])
+pytest.main(["-v","--html=BULAT_TEST_BM10_Multihoming_failover.html","../tests_all/test_check_wan_lte.py"])

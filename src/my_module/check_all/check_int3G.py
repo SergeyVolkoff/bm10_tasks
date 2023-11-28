@@ -9,29 +9,39 @@ from netmiko import (
 from base_bm10 import Base_bm10
 
 
-def check_int3G(comm):
-
-    """
-    Проверяется выдан ли адрес на 3G интерфейсе, использует импортированую
-    ф-ю show_int3G из класса Router. Сверяет вывод из результата этой ф-ии.
-    """
-
-    with open ("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/value_bm10.yaml") as f:
+with open("../command_cfg/value_bm10.yaml") as f:
         temp = yaml.safe_load(f)
         for t in temp:
             device = dict(t)
             r1 = Base_bm10(**device)
-    try:
-        temp = r1.show_int3G(device,comm) # add "show"!!!!!!!!!!!!!!
-        if "addr" in temp:
-            return True
-        if " but d'nt have ip addr" in temp:
-             return True
+
+def check_int3G():
+    print(" \nПроверка интерфейса 3G")
+
+    temp = r1.send_command(device,"uci show network | grep wanb")
+    result = ""
+    for line in temp:
+        if "wanb.device" in temp:
+            name_intf = re.search(r'network.(\S+).device', temp).group()
+            result += name_intf
+            temp = r1.send_command(device,"ifconfig |grep -A 1 wwan0")
+            if "addr:" in temp:
+                ip_int = re.search(r'inet addr:(\S+)', temp).group()
+                result +=  ip_int
+                print(result)
+                return True
+            else:
+                result = name_intf
+                print("*" * 30)
+                print(name_intf, "exist, but d'nt have ip addr")
+                return False
+            break
         else:
+            result = "No interface on router"
+            print(result)
             return False
-    except ValueError as err:
-        return False
+    return result
     
 if __name__ =="__main__":
-    result = check_int3G("uci show network | grep 34G")
+    result = check_int3G("uci show network | grep wanb")
     print (result)

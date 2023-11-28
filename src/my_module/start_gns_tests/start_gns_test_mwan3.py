@@ -24,13 +24,12 @@ my_colors = Theme(
         "success":" bold green",
         "fail": "bold red",
         "info": "bold blue"
-
     }
 )
 console = Console(theme=my_colors)
 
 console.print(
-    "Тест работает по ПМИ 'Проверка Multihoming'.\n Рекомендуется ознакомиться с текстом теста.\n В ходе теста будет запрошено название лабы и предложены варианты ответа",
+    "Тест работает по ПМИ 'Проверка поддержки нескольких WAN-портов(mwan3)'.\n Рекомендуется ознакомиться с текстом теста.\n В ходе теста будет запрошено название лабы и предложены варианты ответа",
     style='info'
               )
 time.sleep(6)
@@ -61,4 +60,4 @@ with open("../command_cfg/value_bm10.yaml")as f:
 
 console.print("Стартует настройка tests под тест mwan3\n" ,style='info')
 time.sleep(10)
-pytest.main(["-v","-s","--html=BULAT_TEST_BM10_Multihoming.html","../tests_all/test_check_mwan3.py"])
+pytest.main(["-v","-s","--html=BULAT_TEST_BM10_MWAN3.html","../tests_all/test_check_mwan3.py"])
