@@ -47,7 +47,7 @@ with open("../command_cfg/value_bm10.yaml")as f:
         r1 = Cfg_bm10(**device)
         with open("../command_cfg/commands_reset_cfg.yaml") as f14:  # команды сброса конфига
                 commands_reset_cfg = yaml.safe_load(f14)
-        print(r1.cfg_mwan3(device,commands_reset_cfg))  # Сброс конфига 
+        print(r1.cfg_bgpv3(device,commands_reset_cfg))  # Сброс конфига 
         console.print("Стартует настройка DUT под тест 'Проверка работы протокола BGP'\n" ,style='info')
         time.sleep(5)
         with open("../command_cfg/value_bm10.yaml")as f:
@@ -57,7 +57,7 @@ with open("../command_cfg/value_bm10.yaml")as f:
                     r1 = Cfg_bm10(**device)
                     with open("../command_cfg/commands_cfg_bgpv3.yaml") as f15: # команды настройки BGP
                             commands_cfg_bgpv3 = yaml.safe_load(f15)
-                    print(r1.cfg_mwan3(device,commands_cfg_bgpv3))    # Настройка DUT под тесt BGP
+                    print(r1.cfg_bgpv3(device,commands_cfg_bgpv3))    # Настройка DUT под тесt BGP
 console.print("Стартует настройка pytests под тест 'Проверка работы протокола BGP'\n" ,style='info')
 time.sleep(25)
 pytest.main(["-v","--html=BULAT_TEST_BM10_BGP.html","../tests_all/test_check_bgpv3.py"])

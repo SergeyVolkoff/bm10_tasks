@@ -32,9 +32,27 @@ def shut_R2_mwan():
     r2.stop()
     console.print (f'\nNode {r2.name} {r2.status}',style='success')
     # print(lab.stop_node())
-    time.sleep(5)
+    time.sleep(10)
     
-
+@pytest.fixture
+def shut_Swi1_mwan():
+    server_url = "http://10.27.193.245:3080"
+    connector = Gns3Connector(url=server_url)
+    name_lab = 'SSV_auto_BM10_wan_lte'
+    lab = Project(name=name_lab , connector=connector)
+    lab.get()
+    lab.open() # open lab
+    r2 = Node(
+            project_id=lab.project_id, 
+            name='Swi1',
+            connector=connector
+            ) # создаем экз-р устр-ва
+    r2.get()
+    r2.stop()
+    console.print (f'\nNode {r2.name} {r2.status}.',style='success')
+    # print(lab.stop_node())
+    console.print('Waiting for mwan3 to be rebuilt the route',style='success')
+    time.sleep(60)
 
 
 @pytest.fixture

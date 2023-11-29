@@ -41,9 +41,9 @@ def check_int3G():
         if "wanb.device" in temp:
             name_intf = re.search(r'network.(\S+).device', temp).group() # type: ignore
             result += name_intf
-            temp = r1.send_command(device,"ifconfig |grep -A 1 wwan0")
-            if "addr:" in temp:
-                ip_int = re.search(r'inet addr:(\S+)', temp).group() # type: ignore
+            output_ifconfig = r1.send_command(device,"ifconfig |grep -A 1 wwan0")
+            if "addr:" in output_ifconfig:
+                ip_int = re.search(r'inet addr:(\S+)', output_ifconfig).group() # type: ignore
                 result +=  ip_int
                 console.print(result,style='success')
                 return True
@@ -93,7 +93,7 @@ def check_trsrt_when_mwan_stop():
                 print(rslt_trsrt)
                 return False
             else:
-                console.print(f"\nTracing ok and goes only through 192.168.20.2 \n {rslt_trsrt}",style="fail")
+                console.print(f"\nTracing ok and goes only through 192.168.20.2 \n {rslt_trsrt}",style="success")
                 return True
     else:
         print("\nMWAN3 status - enable!\n ")  
@@ -102,13 +102,14 @@ def check_enable_mwan3():
 
     console.print("Test 5 \nПроверка, что mwan3 включен на обоих интерфейсах",style='info')
     r1.send_command(device, 'mwan3 start')
+    time.sleep(8)
     try:
         temp = r1.send_command(device, 'mwan3 status')
         if "wan is online" and "wanb is online" in temp:
             console.print("\nMWAN3 status - enable! \n ",style="success")
             return True
         else:
-            console.print("\nMWAN3 status - disable! \n ",style='fail')
+            console.print("\nMWAN3 status - disable! \n ",style='success')
             return False
     except ValueError as err:
         return False
@@ -117,9 +118,9 @@ def check_enable_mwan3():
 def check_trsrt_when_mwan_up():
 
     console.print("Test6 \nПроверка, что при вкл mwan3 трассерт идет через wan!",style='info')
-    
-    r1.send_command(device, '/sbin/ifup wan')
-    r1.send_command(device, '/sbin/ifup wanb')
+    r1.send_command(device, 'mwan3 start')
+    # r1.send_command(device, '/sbin/ifup wan')
+    # r1.send_command(device, '/sbin/ifup wanb')
     time.sleep(8)
     show_mwan_stts = r1.send_command(device, 'mwan3 status')
     if "interface wan is online" and "wanb is online"  in show_mwan_stts:
@@ -132,21 +133,25 @@ def check_trsrt_when_mwan_up():
                 print(rslt_trsrt)
                 return False
             else:
-                console.print(f"\nTracing ok and goes only through 192.168.20.2 \n {rslt_trsrt}",style="fail")
+                console.print(f"\nTracing ok and goes only through 192.168.20.2 \n {rslt_trsrt}",style="success")
                 return True
     else:
         print("\nMWAN3 status - disable!\n ")
 
-def check_trsrt_mwanUp_wanDown(): # ДОПИСАТЬ!!!
+def check_trsrt_mwanUp_wanDown(): # Works !!!
     console.print(
         "Test 7 \nПроверка, что при вкл mwan3 и выкл линке на r2 трасса пройдет через LTE",
         style='info'
         )
+    output_ifconfig = r1.send_command(device,"ifconfig |grep -A 1 wwan0")
+    temp = re.search(r'inet addr:(?P<ip_lte>\S+)', output_ifconfig) # type: ignore
+    ip_int = temp.group('ip_lte') # в трасерте нет шлюза соты, поэтому это не будет работать
+   
     show_mwan_stts = r1.send_command(device, 'mwan3 status')
-    if "192.168.10.0/24" in show_mwan_stts:
+    if "interface wan is offline" in show_mwan_stts:
         rslt_trsrt = r1.tracert_ip(device, ip_tracert="1.1.1.1")
-        if  '192.168.10.2'  in rslt_trsrt:
-            console.print (f"\nProtection channel via interface wanb - OK, tracert - OK!!! - \n{rslt_trsrt}",style="success")
+        if  '.msk.mts'  in rslt_trsrt:
+            console.print (f"\nStandby channel via interface LTE(wanb) - operates, the tassing passes through LTE. - \nIP LTE {ip_int}",style="success")
             return True
         else:
             console.print(f'\nWANb FAIL !!! - {rslt_trsrt}',style='fail')
@@ -154,6 +159,6 @@ def check_trsrt_mwanUp_wanDown(): # ДОПИСАТЬ!!!
     else:
         console.print("MWAN3 status - disable!",style='fail')
 
-# if __name__ =="__main__":
-#     result = check_int3G()
-#     print (result)
+if __name__ =="__main__":
+    result = check_trsrt_mwanUp_wanDown()
+    print (result)

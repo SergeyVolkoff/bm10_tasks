@@ -172,7 +172,14 @@ class Cfg_bm10(Cfg_templ_bm10):
 
         Cfg_templ_bm10.cfg_template(self,device,commands_template)
         return
+    
+    def cfg_multihoming_failover(self, device,commands_template): 
 
+        """ ФУНКЦИЯ настройки Multihoming """
+
+        Cfg_templ_bm10.cfg_template(self,device,commands_template)
+        return
+    
     def cfg_pass (self,device, commands, log=True):
 
         """ ФУНКЦИЯ изменения пароля, надо поменять так,

@@ -51,7 +51,7 @@ class Base_bm10():
         self.name = username
         self.passwd = password
         self.promo_ping = " -w 4"
-        self.promt_tracert = '-m 1'
+        self.promt_tracert = '-m 5'
         self.word_ping = "ping "
         self.ip_inet = "8.8.8.8"
         #self.command_ping = self.word_ping+self.promo_ping
@@ -154,19 +154,19 @@ class Base_bm10():
 
         #self.check_connection(device)
         comand_tracert = f'traceroute {ip_tracert} {self.promt_tracert}'
-        output_tracert = self.ssh.send_command(comand_tracert, read_timeout=15)
-        if "ms" in output_tracert:
-            temp = self.send_command(device,'ip a')
-            if "peer" in temp:
-                output1 = re.search(r'\s+inet (?P<ip_int>\d+.\d+.\d+.\d+) peer (?P<ip_peer>\d+.\d+.\d+.\d+).{0,}pppoe-wan', temp)
-                ip_peer = output1.group('ip_peer')
-                result = f'### Tracert passes through server-peer, {ip_peer}! ###\n {output_tracert}'
-            else:
-                result = f'### Tracert passes! ###\n {output_tracert}'
-        else:
-            result = f'Tracert does not pass through {output_tracert}'
+        output_tracert = self.ssh.send_command(comand_tracert, read_timeout=25)
+        # if "ms" in output_tracert:
+        #     temp = self.send_command(device,'ip a')
+        #     if "peer" in temp:
+        #         output1 = re.search(r'\s+inet (?P<ip_int>\d+.\d+.\d+.\d+) peer (?P<ip_peer>\d+.\d+.\d+.\d+).{0,}pppoe-wan', temp)
+        #         ip_peer = output1.group('ip_peer')
+        #         result = f'### Tracert passes through server-peer, {ip_peer}! ###\n {output_tracert}'
+        #     else:
+        #         result = f'### Tracert passes! ###\n {output_tracert}'
+        # else:
+        #     result = f'Tracert does not pass  {output_tracert}'
 
-        return result
+        return output_tracert
 
 
     def reset_conf(self,device):

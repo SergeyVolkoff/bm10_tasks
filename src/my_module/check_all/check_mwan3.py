@@ -60,7 +60,9 @@ def check_trsrt_when_mwan_stop():
     if "interface wan is offline and tracking is down" in show_mwan_stts:
         rslt_trsrt = r1.tracert_ip(device, ip_tracert="1.1.1.1")
         if '192.168.10.2' in rslt_trsrt:
-            console.print (f"\nИли недоступен удаленный хост или в трассерте есть оба плеча, чего не должно быть.См вывод трасерта. -\n  {rslt_trsrt}",style='fail')
+            console.print (
+                f"\nИли недоступен удаленный хост или в трассерте есть оба плеча, чего не должно быть.См вывод трасерта. -\n  {rslt_trsrt}",style='fail'
+                )
             return False
         else:
             if "can't connect to remote host" in rslt_trsrt:
@@ -79,6 +81,7 @@ def check_trsrt_when_mwan_up():
     
     r1.send_command(device, '/sbin/ifup wan')
     r1.send_command(device, '/sbin/ifup wanb')
+    r1.send_command(device, 'mwan3 start')
     time.sleep(8)
     show_mwan_stts = r1.send_command(device, 'mwan3 status')
     temp1=r1.tracert_ip(device, ip_tracert="1.1.1.1")
