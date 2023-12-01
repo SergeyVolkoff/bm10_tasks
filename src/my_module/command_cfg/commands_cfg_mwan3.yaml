@@ -52,6 +52,7 @@
 "uci set network.wan.gateway='192.168.20.2'",
 "uci set network.wanb.metric='20'",
 
+"uci set mwan3.wan.reliability='1'",
 "uci set mwan3.wanb.enabled='1'",
 "uci set mwan3.wanb.initial_state='online'",
 "uci set mwan3.wanb.track_method='ping'",
