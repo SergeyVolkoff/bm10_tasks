@@ -238,7 +238,7 @@ class SCP_cfg_ppoe(Cfg_templ_bm10):
         scp.put('../pppoe_cfg_file/pppoe', '/etc/config/')
         scp.close()
         self.client.close()
-        print("File download")
+        print("File pppoe download")
 
     def cfg_pppoe_opt(self):
 
@@ -251,7 +251,7 @@ class SCP_cfg_ppoe(Cfg_templ_bm10):
         scp.put('../pppoe_cfg_file/pppoe-server-options', '/etc/ppp/')
         scp.close()
         self.client.close()
-        print("File download")
+        print("File pppoe-server-options download")
     
     def cfg_pppoe_chap(self):
 
@@ -264,7 +264,7 @@ class SCP_cfg_ppoe(Cfg_templ_bm10):
         scp.put('../pppoe_cfg_file/chap-secrets', '/etc/ppp/')
         scp.close()
         self.client.close()
-        print("File download")
+        print("File chap-secrets download")
 
         
 if __name__ == "__main__":
