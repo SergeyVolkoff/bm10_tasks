@@ -1,19 +1,36 @@
 import re
+import os
+import time
+from py import test
 import yaml
-import netmiko
-from netmiko import (
-    ConnectHandler,
-    NetmikoTimeoutException,
-    NetmikoAuthenticationException,
-)
+import pprint
+import sys
+
+sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with position 1!!!
+# pprint.pprint(sys.path)
+
+from ping3 import ping
+from base_gns3 import Base_gns
 from base_bm10 import Base_bm10
 
+from rich import print
+from rich.theme import Theme
+from rich.console import Console
+my_colors = Theme(
+     #добавляет цветовую градацию для rich
+    {
+        "success":" bold green",
+        "fail": "bold red",
+        "info": "bold blue"
+    }
+)
+console = Console(theme=my_colors)
 
-with open("/home/ssw/Documents/bm10_tasks/src/my_module/command_cfg/value_bm10.yaml") as f:
-    temp = yaml.safe_load(f)
-    for t in temp:
-        device = dict(t)
-        r1 = Base_bm10(**device)
+with open("../command_cfg/value_bm10.yaml") as f:
+        temp = yaml.safe_load(f)
+        for t in temp:
+            device = dict(t)
+            r1 = Base_bm10(**device)
 
 def check_int_pppoe_cl(comm): 
      # Определяем наличие настроенного интерфейса ван с РРРоЕ (есть ли конфиг вообще)
@@ -76,6 +93,8 @@ def check_ip_peer(comm): # возвращает ip сервера (ip_per) дл�
         return ip_per
     except ValueError as err:
         return False
+    
+    
 if __name__ =="__main__":
     result = check_ip_peer("ip a")
     print (result)

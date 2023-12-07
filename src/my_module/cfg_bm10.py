@@ -5,6 +5,8 @@ import yaml
 import netmiko
 import paramiko
 import time
+
+
 from paramiko import SSHClient
 from scp import SCPClient
 from rich import print
@@ -212,8 +214,9 @@ class Cfg_bm10(Cfg_templ_bm10):
                         break
             return output
 
-    
+  
         
+
 class SCP_cfg_ppoe(Cfg_templ_bm10):
     
     def __init__(self):
@@ -288,5 +291,6 @@ if __name__ == "__main__":
             #print(r2.cfg_pppoe_opt())                                      # Cfg pppoe-serv2
             #print(r2.cfg_pppoe_chap())                                     # Cfg pppoe-serv3
             #print(r1.cfg_pppoe_4(device,r1.commands_pppoe_server_cfg))  # Cfg pppoe-serv4
+            print(r1.cfg_pppoe_server_all)
 
             

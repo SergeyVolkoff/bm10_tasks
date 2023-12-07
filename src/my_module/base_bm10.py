@@ -7,16 +7,7 @@ import yaml
 import netmiko
 import paramiko
 import time
-import sys
-import os
 
-sys.path.insert(1, os.path.join(sys.path[0],'..'))
-
-# sys.path.insert(1, os.path.join(sys.path[0],'../command_cfg/'))  # !!! PATH fo import with position 1!!!
-# sys.path.append(os.path.join(os.getcwd(),'../my_module/command_cfg'))
-# sys.path.append(os.path.join(os.getcwd(),'../../src/my_module/command_cfg'))
-
-# pprint.pprint(sys.path)
 
 from ping3 import ping, verbose_ping
 from rich import print
