@@ -77,5 +77,5 @@ with open("../command_cfg/value_bm10.yaml")as f:
 
 console.print("Стартует настройка pytests под тест 'Проверка поддержки PPPoE-server'\n" ,style='info')
 time.sleep(10)
-# pytest.main(["-v","-s","--html=BULAT_TEST_BM10_PPPoE-server.html","../tests_all/test_check?.py"])
+pytest.main(["-v","-s","--html=BULAT_TEST_BM10_PPPoE-server.html","../tests_all/test_check_pppoe_serv.py"])
 
