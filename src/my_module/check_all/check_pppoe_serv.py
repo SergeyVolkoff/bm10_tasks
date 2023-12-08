@@ -34,7 +34,7 @@ with open("../command_cfg/value_bm10.yaml") as f:
 
 
 def check_int_pppoe(comm): 
-     # Определяем наличие настроенного интерфейса ван с РРРоЕ (есть ли конфиг вообще)
+    console.print("Test 1 \nОпределяем наличие настроенного интерфейса lan4 с РРРоЕ (есть ли конфиг вообще)",style='info')
     try:
         temp = r1.send_command(device, comm)
         if "lan4" in temp:
@@ -43,18 +43,31 @@ def check_int_pppoe(comm):
             return False
     except ValueError as err:
         return False
+    
+
+def check_ping_interf(ip_for_ping): # check ping Internet
+    console.print("Test 2 \nПроверка доступности интерфейсов соседей, исп-ся в тесте с параметрами",style='info')
+    try:
+        res_ping_inet = r1.ping_ip(device,ip_for_ping)
+        if "destination available" in res_ping_inet:
+            console.print("Interface availeble ",style="success")
+            return True
+        else:
+            console.print("Interface is not available ",style='fail')
+            return False
+    except ValueError as err:
+        return False
+
 
 def check_ip_pppoe_neib(comm): 
-    # check ip for client and serv
+    console.print("Test 2 \nПроверка наличия нейбора, выдан ли адрес",style='info')
     try:
         temp = r1.send_command(device,comm)
         ip_peer = re.search(r'(?P<ip_peer>\d+.\d+.\d+.\d+) dev ppp0 proto',temp)
         ip_peer=ip_peer.group('ip_peer')
-        print(ip_peer)
         ip_serv = re.search(r'ppp0 proto kernel scope link src (?P<ip_serv>\d+.\d+.\d+.\d+)',temp)
-        print(ip_serv)
         if "ip_peer" !='ip_serv':
-            print(f'Tunnel ok, ip client PPPoE:{ip_peer}, ip server PPPoE:',ip_serv.group('ip_serv'))
+            print(f'Tunnel ok, ip client PPPoE: {ip_peer}, ip server PPPoE:',ip_serv.group('ip_serv'))
             return True
         else:
             if "state DOWN"in temp:
@@ -62,6 +75,8 @@ def check_ip_pppoe_neib(comm):
                 return False
     except ValueError as err:
         return False
+
+
 
 if __name__ =="__main__":
     print (check_ip_pppoe_neib('ip r'))
