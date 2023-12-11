@@ -9,7 +9,6 @@ import sys
 sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with position 1!!!
 # pprint.pprint(sys.path)
 
-from ping3 import ping
 from base_gns3 import Base_gns
 from base_bm10 import Base_bm10
 
