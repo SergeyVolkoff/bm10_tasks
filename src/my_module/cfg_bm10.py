@@ -61,6 +61,15 @@ class Cfg_templ_bm10(Base_bm10):
         return result
 
 class Cfg_bm10(Cfg_templ_bm10):
+    my_colors = Theme(
+     #добавляет цветовую градацию для rich
+    {
+        "success":" bold green",
+        "fail": "bold red",
+        "info": "bold blue"
+    }
+)
+    console = Console(theme=my_colors)
      
     def cfg_reset(self,device,commands_template):
         
