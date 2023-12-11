@@ -127,7 +127,10 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+<<<<<<< HEAD
 venv_bulat
+=======
+>>>>>>> main
 
 # Spyder project settings
 .spyderproject

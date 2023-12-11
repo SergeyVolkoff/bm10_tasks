@@ -1,21 +1,12 @@
-import pprint
 import yaml
 import pytest
 import time
 import sys
 import os
-
 sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with position 1!!!
-# sys.path.insert(1, os.path.join(sys.path[0],'../command_cfg/'))  # !!! PATH fo import with position 1!!!
-# sys.path.append(os.path.join(os.getcwd(),'..'))     # !!! PATH fo import!!!
-
-# pprint.pprint(sys.path)
-
-from ping3 import ping, verbose_ping
-from cfg_bm10 import Cfg_bm10,SCP_cfg_ppoe
+from cfg_bm10 import Cfg_bm10, SCP_cfg_ppoe
 from base_gns3 import Base_gns
 from base_bm10 import Base_bm10
-
 from rich import print
 from rich.theme import Theme
 from rich.console import Console
