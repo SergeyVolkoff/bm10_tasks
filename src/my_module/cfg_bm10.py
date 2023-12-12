@@ -22,7 +22,7 @@ from rich.table import Table
 from ping3 import ping, verbose_ping
 
 class Cfg_templ_bm10(Base_bm10):
-
+    
     def cfg_template(self,device,commands_template):
 
         """ФУНКЦИЯ-шаблон настройки базового конфига"""
@@ -51,7 +51,7 @@ class Cfg_templ_bm10(Base_bm10):
                     print("DUT is rebooting, wait")
                     time.sleep(5)
                 else:
-                    print("DUT up after reboot, wait all protocols!")
+                    print("\nDUT up after reboot, wait all protocols!")
                     time.sleep(30)
                     print( "All up!")
             elif "Usage: uci [<options>] <command> [<arguments>]" in output:
@@ -61,6 +61,9 @@ class Cfg_templ_bm10(Base_bm10):
         return result
 
 class Cfg_bm10(Cfg_templ_bm10):
+
+    SLEEP_TIME5 = time.sleep(5)
+    SLEEP_TIME10 = time.sleep(10)
     my_colors = Theme(
      #добавляет цветовую градацию для rich
     {
