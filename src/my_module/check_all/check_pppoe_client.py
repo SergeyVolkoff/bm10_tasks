@@ -11,19 +11,9 @@ sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with po
 
 from base_gns3 import Base_gns
 from base_bm10 import Base_bm10
-
+from cfg_bm10 import Cfg_bm10
 from rich import print
-from rich.theme import Theme
-from rich.console import Console
-my_colors = Theme(
-     #добавляет цветовую градацию для rich
-    {
-        "success":" bold green",
-        "fail": "bold red",
-        "info": "bold blue"
-    }
-)
-console = Console(theme=my_colors)
+
 
 with open("../command_cfg/value_bm10.yaml") as f:
         temp = yaml.safe_load(f)

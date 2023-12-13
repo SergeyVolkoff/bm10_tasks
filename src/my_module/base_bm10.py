@@ -47,15 +47,7 @@ class Base_bm10():
         self.word_ping = "ping "
         self.ip_inet = "8.8.8.8"
         #self.command_ping = self.word_ping+self.promo_ping
-        self.my_colors = Theme( #добавляет цветовую градацию для rich
-        {
-            "success":"bold green",
-            "fail":"bold red",
-            "info": "bold blue"
-        }
-        )   
-        self.console = Console(theme = self.my_colors)
-        
+       
 
     def check_connection(self,device,log=True):
 
@@ -64,12 +56,12 @@ class Base_bm10():
         """
 
         if log:
-            self.console.print(f"Try connect to {device['host']}...", style="info")
+            console.print(f"Try connect to {device['host']}...", style="info")
         try:
             with ConnectHandler(**device) as ssh:
-                self.console.print(device['host'], "connected!", style='success')
+                console.print(device['host'], "connected!", style='success')
         except (NetmikoAuthenticationException, NetmikoTimeoutException) as error:
-            self.console.print("*" * 5, "Error connection to:", device['host'], "*" * 5, style='fail')
+            console.print("*" * 5, "Error connection to:", device['host'], "*" * 5, style='fail')
 
 
     def send_command(self, device, command):

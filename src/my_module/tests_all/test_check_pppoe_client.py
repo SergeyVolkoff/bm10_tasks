@@ -10,8 +10,7 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
-from check_all.check_pppoe_client import check_int_pppoe_cl, check_ping_inet,check_ip_pppoe,\
-    check_ip_peer,check_tracert_peer
+from check_all.check_pppoe_client import *
 
 def test_check_int_pppoe_cl():
     assert check_int_pppoe_cl ("uci show network.wan.proto")==True, "No PPPoE on wan-interface!!!"

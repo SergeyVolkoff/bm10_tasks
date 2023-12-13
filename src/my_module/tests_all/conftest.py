@@ -1,6 +1,6 @@
 import yaml
 import pytest
-import pytest_html
+# import pytest_html
 import sys
 import os
 import time
@@ -30,7 +30,7 @@ def shut_R2_mwan():
             ) # создаем экз-р устр-ва
     r2.get()
     r2.stop()
-    console.print (f'\nNode {r2.name} {r2.status}',style='success')
+    Cfg_bm10.console.print (f'\nNode {r2.name} {r2.status}',style='success')
     # print(lab.stop_node())
     time.sleep(10)
     
@@ -49,9 +49,9 @@ def shut_Swi1_mwan():
             ) # создаем экз-р устр-ва
     r2.get()
     r2.stop()
-    console.print (f'\nNode {r2.name} {r2.status}.',style='success')
+    Cfg_bm10.console.print (f'\nNode {r2.name} {r2.status}.',style='success')
     # print(lab.stop_node())
-    console.print('Waiting for mwan3 to be rebuilt the route',style='success')
+    Cfg_bm10.console.print('Waiting for mwan3 to be rebuilt the route',style='success')
     time.sleep(60)
 
 
