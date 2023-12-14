@@ -74,12 +74,16 @@ def check_tracert_peer():
 '''
 используется параметризация!!
 '''
-def check_ip_peer(comm): # возвращает ip сервера (ip_per) для теста test_check_ip_peer
+def check_ping_interface(ip_for_ping): # check ping Internet
+    Cfg_bm10.console.print("Test 2 \nПроверка доступности интерфейсов соседей, исп-ся в тесте с параметрами",style='info')
     try:
-        temp = r1.send_command(device,comm)
-        output = re.search(r'\s+inet (?P<ip_int>\d+.\d+.\d+.\d+) peer (?P<ip_peer>\d+.\d+.\d+.\d+).{0,}pppoe-wan', temp)
-        ip_per=output.group('ip_peer')
-        return ip_per
+        res_ping_inet = r1.ping_ip(device,ip_for_ping)
+        if "destination available" in res_ping_inet:
+            Cfg_bm10.console.print("Interface availeble ",style="success")
+            return True
+        else:
+            Cfg_bm10.console.print("Interface is not available ",style='fail')
+            return False
     except ValueError as err:
         return False
     
