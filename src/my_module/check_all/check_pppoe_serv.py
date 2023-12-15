@@ -60,7 +60,7 @@ def check_ping_interf(ip_for_ping): # check ping Internet
 
 
 def check_ip_pppoe_neib(comm): 
-    console.print("Test 2 \nПроверка наличия нейбора, выдан ли адрес",style='info')
+    console.print("Test 3 \nПроверка наличия нейбора, выдан ли адрес",style='info')
     try:
         temp = r1.send_command(device,comm)
         ip_peer = re.search(r'(?P<ip_peer>\d+.\d+.\d+.\d+) dev ppp0 proto',temp)

@@ -22,10 +22,6 @@ def test_check_ping_inet():
 def test_check_ip_pppoe():
     assert check_ip_pppoe('ip a')==True, "interface exist, but dont have ip, tunnel state DOWN"
 
-@pytest.mark.skip
-def test_check_tracert():
-    assert check_tracert_peer() ==True, 'Tracert does not pass through server_ppoe'
-
 """
 В блоке 28-50 используется параметризация mark.parametrize
 """

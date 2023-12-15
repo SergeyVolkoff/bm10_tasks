@@ -31,6 +31,7 @@ with open("../command_cfg/value_bm10.yaml")as f:
         print(r1.cfg_reset(device,commands_reset_cfg))  # Сброс конфига 
         Cfg_bm10.SLEEP_TIME5
         Cfg_bm10.console.print("Стартует настройка DUT под тест 'Проверка поддержки PPPoE-client'\n" ,style='info')
+        Cfg_bm10.SLEEP_TIME5
         with open("../command_cfg/value_bm10.yaml")as f:
             temp = yaml.safe_load(f)
             for t in temp:
@@ -42,5 +43,5 @@ with open("../command_cfg/value_bm10.yaml")as f:
 
 Cfg_bm10.console.print("Стартует настройка pytests под тест 'Проверка поддержки PPPoE-client'\n" ,style='info')
 Cfg_bm10.SLEEP_TIME10 
-# pytest.main(["-v","-s","--html=BULAT_TEST_BM10_PPPoE-client.html","../tests_all/test_check_pppoe_client.py"])
+pytest.main(["-v","-s","--html=BULAT_TEST_BM10_PPPoE-client.html","../tests_all/test_check_pppoe_client.py"])
 

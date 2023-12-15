@@ -52,7 +52,7 @@ class Cfg_templ_bm10(Base_bm10):
                     time.sleep(5)
                 else:
                     print("\nDUT up after reboot, wait all protocols!")
-                    time.sleep(30)
+                    time.sleep(40)
                     print( "All up!")
             elif "Usage: uci [<options>] <command> [<arguments>]" in output:
                 result_command = "bad command"

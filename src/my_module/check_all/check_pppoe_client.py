@@ -22,7 +22,7 @@ with open("../command_cfg/value_bm10.yaml") as f:
             r1 = Base_bm10(**device)
 
 def check_int_pppoe_cl(comm): 
-     # Определяем наличие настроенного интерфейса ван с РРРоЕ (есть ли конфиг вообще)
+    Cfg_bm10.console.print("Test 1 \nОпределяем наличие настроенного интерфейса wan с РРРоЕ (есть ли конфиг вообще)",style='info')
     try:
         temp = r1.send_command(device, comm)
         if "pppoe" in temp:
@@ -33,7 +33,7 @@ def check_int_pppoe_cl(comm):
         return False
     
 def check_ip_pppoe(comm): 
-    # check ip for client and serv
+    Cfg_bm10.console.print("Test 2 \nОпределяем наличие ip на интерфейсе wan с РРРоЕ",style='info')
     try:
         temp = r1.send_command(device,comm)
         temp2 = re.search(r'\s+inet (?P<intf>\d+.\d+.\d+.\d+) peer (.{0,})pppoe-wan',temp).group()
@@ -50,6 +50,7 @@ def check_ip_pppoe(comm):
         return False
 
 def check_ping_inet(): # check ping Internet
+    Cfg_bm10.console.print("Test 3 \n Определяем доступность инета (8.8.8.8), в тестах эта проверка отключена")
     try:
         res_ping_inet = r1.ping_inet(device)
         print(res_ping_inet)
@@ -62,20 +63,11 @@ def check_ping_inet(): # check ping Internet
     except ValueError as err:
         return False
 
-def check_tracert_peer():
-    try:
-        result_tracert =  r1.tracert_ip(device) # add !!!!
-        if ' Tracert passes through server-peer' in result_tracert:
-            return True
-        else:
-            return False
-    except ValueError as err:
-        return False
 '''
 используется параметризация!!
 '''
 def check_ping_interface(ip_for_ping): # check ping Internet
-    Cfg_bm10.console.print("Test 2 \nПроверка доступности интерфейсов соседей, исп-ся в тесте с параметрами",style='info')
+    Cfg_bm10.console.print("Test 4 \nПроверка доступности интерфейсов, исп-ся в тесте с параметрами",style='info')
     try:
         res_ping_inet = r1.ping_ip(device,ip_for_ping)
         if "destination available" in res_ping_inet:
@@ -88,7 +80,4 @@ def check_ping_interface(ip_for_ping): # check ping Internet
         return False
     
     
-if __name__ =="__main__":
-    result = check_ip_peer("ip a")
-    print (result)
 
