@@ -198,8 +198,7 @@ class Cfg_bm10(Cfg_templ_bm10):
         чтоб можно было вводить короткий пароль без сбоя и тащить пароль со стороны, а не из кода.
         без импорта"""
         
-        self.check_connection(device)
-        new_pass = input("Input new pass: ")
+        # self.check_connection(device)
         prompt = self.ssh.find_prompt()
         output = self.ssh.send_command(commands, expect_string="New password:", read_timeout=2)
         print(output, "****")
@@ -222,7 +221,7 @@ class Cfg_bm10(Cfg_templ_bm10):
                     elif "root@" in output:
                         self.console.print("New pass OK",style="success")
                         break
-            return output
+            # return output
 
   
         

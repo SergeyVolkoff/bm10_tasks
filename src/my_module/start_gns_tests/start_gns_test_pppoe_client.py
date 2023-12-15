@@ -1,6 +1,7 @@
+"""Запускающий файл для тестирования PPPoE-client."""
+
 import yaml
 import pytest
-import time
 import sys
 import os
 sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with position 1!!!

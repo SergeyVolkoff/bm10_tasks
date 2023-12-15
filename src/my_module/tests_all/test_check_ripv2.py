@@ -39,6 +39,6 @@ task_ids = ['ip_test({})'.format(t)
             # запятыми списком имен — "ip_test" в нашем случае,
             # переменную указывающую на данные для проверки (ip_for_check) и ids
 
-def test_check_ping_inter(ip_test,):
+def test_check_ping_interf(ip_test,):
     assert check_ping_interf(ip_for_ping=f"{ip_test}")==True, f"*** IP {ip_test} unavaileble now ***"
     
