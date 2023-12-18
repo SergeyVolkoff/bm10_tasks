@@ -33,7 +33,8 @@ def shut_R2_mwan():
     Cfg_bm10.console.print (f'\nNode {r2.name} {r2.status}',style='success')
     # print(lab.stop_node())
     time.sleep(10)
-    
+
+
 @pytest.fixture
 def shut_Swi1_mwan():
     server_url = "http://10.27.193.245:3080"
@@ -60,6 +61,7 @@ def init_lab_gns():
     current_lab = Base_gns()
     current_lab.start_nodes_from_project()
 
+
 @pytest.fixture
 def wait_reboot():
         result=ping('192.168.1.1')
@@ -73,4 +75,21 @@ def wait_reboot():
             time.sleep(15)
             print( "all up!")
 
+data_pass_tests = (
+    ('root'),
+    ('root1'),
+    ('root2'),
+    ('root3'),
+    ('root'),
+)
 
+@pytest.fixture
+def reconnect ():
+        """ ФУНКЦИЯ подключения, без чтения из файла"""
+        with open("../command_cfg/value_bm10.yaml") as f:
+            temp = yaml.safe_load(f)
+            for t in temp:
+                device = dict(t)
+                r2 = Cfg_bm10(**device)
+                # self.check_connection(device)
+                

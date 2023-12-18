@@ -1,26 +1,28 @@
-
+import sys
+import os
+sys.path.insert(1, os.path.join(sys.path[0],'..'))  # !!! PATH fo import with position 1!!!
 import pytest
-from check_all.check_chang_pass import check_chang_pass
+from check_all.check_chang_pass import *
 
 """
 В блоке ниже используется параметризация mark.parametrize
 """
-pass_for_check = (
-    ('root1'),
-    ('root2'),
-    ('root3'),
+new_pass = (
+    ('root'),
+    ('12345'),
+    ('67891'),
+    ('qwerty'),
 )
-pass_ids = ['pass_for_check({})'.format(t)
+pass_ids = ['new_pass({})'.format(t)
              # определям параметр ids чтобы сделать идентификаторы для понимания вывода теста
-            for t in pass_for_check
+            for t in new_pass
             ]
-@pytest.mark.parametrize("pass_for_check",pass_for_check,ids=pass_ids)
+@pytest.mark.parametrize("new_pass",new_pass,ids=pass_ids)
             #("ip_test",ip_for_check,ids=task_ids)
             # используем параметризацию,
             # передаем в нее первый аргумент parametrize() — это строка с разделенным
             # запятыми списком имен — "ip_test" в нашем случае,
             # переменную указывающую на данные для проверки (ip_for_check) и ids
-
-def test_check_chang_pass(pass_for_check,):
-    assert check_chang_pass()==True, f"*** PASS {pass_for_check} unavaileble now ***"
+def test_check_chang_pass( new_pass):
+    assert cfg_pass_new(pass_for_test = f'{new_pass}')==True, f"*** PASS unavaileble now ***"
     
