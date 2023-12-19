@@ -36,7 +36,6 @@ class Base_bm10():
             temp = yaml.safe_load(f2)
             for t in temp:
                     device = dict(t)
-                    
                     self.check_connection(device)
         self.ssh = ConnectHandler(**device)
         self.ip = host
@@ -47,7 +46,7 @@ class Base_bm10():
         self.word_ping = "ping "
         self.ip_inet = "8.8.8.8"
         #self.command_ping = self.word_ping+self.promo_ping
-       
+        
 
     def check_connection(self,device,log=True):
 
