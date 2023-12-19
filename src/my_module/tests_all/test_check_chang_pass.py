@@ -8,10 +8,14 @@ from check_all.check_chang_pass import *
 В блоке ниже используется параметризация mark.parametrize
 """
 new_pass = (
-    ('root'),
+    
     ('12345'),
-    ('67891'),
     ('qwerty'),
+    ('QWERTY'),
+    ('qWeRtY123'),
+    ('!@#$%^&'),
+    (''),
+    ('root'),
 )
 pass_ids = ['new_pass({})'.format(t)
              # определям параметр ids чтобы сделать идентификаторы для понимания вывода теста
@@ -24,5 +28,7 @@ pass_ids = ['new_pass({})'.format(t)
             # запятыми списком имен — "ip_test" в нашем случае,
             # переменную указывающую на данные для проверки (ip_for_check) и ids
 def test_check_chang_pass( new_pass):
+    
+    print(f"Test \nПроверка смены пароля доступа по ssh")
     assert cfg_pass_new(pass_for_test = f'{new_pass}')==True, f"*** PASS unavaileble now ***"
     
