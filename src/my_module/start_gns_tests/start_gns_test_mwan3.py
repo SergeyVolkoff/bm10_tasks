@@ -60,4 +60,4 @@ with open("../command_cfg/value_bm10.yaml")as f:
 
 console.print("Стартует настройка tests под тест mwan3\n" ,style='info')
 time.sleep(10)
-pytest.main(["-v","-s","--html=BULAT_TEST_BM10_MWAN3.html","../tests_all/test_check_mwan3.py"])
+pytest.main(["-v","--html=BULAT_TEST_BM10_MWAN3.html","../tests_all/test_check_mwan3.py"])

@@ -76,9 +76,7 @@ def check_trsrt_when_mwan_stop():
 
 
 def check_trsrt_when_mwan_up():
-
     print("Test4 \nПроверка, что при включенном mwan3 трассерт балансируется через оба шлюза")
-    
     r1.send_command(device, '/sbin/ifup wan')
     r1.send_command(device, '/sbin/ifup wanb')
     r1.send_command(device, 'mwan3 start')
@@ -104,12 +102,9 @@ def check_trsrt_when_mwan_up():
         return False
 
 def check_ping_interf(ip_for_ping): # check ping Internet
-
     print("Test 1 \nПроверка доступности интерфейсов соседей, исп-ся в тесте с параметрами")
-
     try:
         res_ping_inet = r1.ping_ip(device,ip_for_ping)
-        print(res_ping_inet)
         if "destination available" in res_ping_inet:
             console.print("Interface availeble ",style="success")
             return True
@@ -123,10 +118,14 @@ def check_ping_interf(ip_for_ping): # check ping Internet
 def check_tracert_when_mwan3_up_LinkR2disable():
 
     print("Test 5 \nПроверка, что при вкл mwan3 и выкл линке на r2 трасса пройдет через r1")
-    
+    r1.send_command(device, '/sbin/ifup wan')
+    r1.send_command(device, '/sbin/ifup wanb')
+    print('Ждем, пока MWAN3 перестроит маршруты')
+    time.sleep(30)
     show_mwan_stts = r1.send_command(device, 'mwan3 status')
     if "192.168.10.0/24" in show_mwan_stts:
         rslt_trsrt = r1.tracert_ip(device, ip_tracert="1.1.1.1")
+        print(rslt_trsrt)
         if  '192.168.10.2'  in rslt_trsrt:
             console.print (f"\nProtection channel via interface wanb - OK, tracert - OK!!! - \n{rslt_trsrt}",style="success")
             return True

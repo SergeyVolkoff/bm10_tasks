@@ -19,7 +19,7 @@ from base_bm10 import *
 def shut_R2_mwan():
     server_url = "http://10.27.193.245:3080"
     connector = Gns3Connector(url=server_url)
-    name_lab = 'SSV_auto_BM10_MWAN'
+    name_lab = 'SSV_auto_BM10_MWAN3'
     lab = Project(name=name_lab , connector=connector)
     lab.get()
     lab.open() # open lab
@@ -31,8 +31,8 @@ def shut_R2_mwan():
     r2.get()
     r2.stop()
     Cfg_bm10.console.print (f'\nNode {r2.name} {r2.status}',style='success')
-    # print(lab.stop_node())
-    time.sleep(10)
+    time.sleep(8)
+    
 
 
 @pytest.fixture

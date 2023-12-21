@@ -33,7 +33,7 @@ def check_redistr_kernel():
     print("Test2 \nПроверка включена ли редистрибьюция на DUT")
     try:
         temp = r1.send_command(device, 'uci show bgp.@bgp[0].redistribute_kernel')
-        if " kernel" in temp:
+        if "='1'" in temp:
             print("Redistribute_kernel - enable!")
             return True
         else:
@@ -45,7 +45,7 @@ def check_redistr_connected():
     print("Test3 \nПроверка включена ли редистрибьюция на DUT")
     try:
         temp = r1.send_command(device, 'uci show bgp.@bgp[0].redistribute_connected')
-        if " connected" in temp:
+        if "='1'" in temp:
             print("Redistribute_connected - enable!")
             return True
         else:
@@ -57,7 +57,7 @@ def check_redistr_static():
     print("Test4 \nПроверка включена ли редистрибьюция на DUT")
     try:
         temp = r1.send_command(device, 'uci show bgp.@bgp[0].redistribute_static')
-        if " static" in temp:
+        if "='1'" in temp:
             print("Redistribute_static - enable!")
             return True
         else:

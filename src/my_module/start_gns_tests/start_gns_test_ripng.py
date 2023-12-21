@@ -34,4 +34,4 @@ with open("../command_cfg/value_bm10.yaml")as f:
             print("DUT up after reboot, wait all protocols!")
             time.sleep(25)
             print("All up!")
-pytest.main(["-v", "--tb=no", "--html=BULAT_TEST_BM10_RIPng.html", "../tests_all/test_check_ripng.py"])
+pytest.main(["-v", "-s", "--html=BULAT_TEST_BM10_RIPng.html", "../tests_all/test_check_ripng.py"])
