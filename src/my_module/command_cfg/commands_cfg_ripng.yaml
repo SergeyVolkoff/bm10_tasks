@@ -35,6 +35,12 @@
 "uci set network.lan3.device='lan3'",
 "uci set network.lan3.ipaddr='192.168.30.1'",
 "uci set network.lan3.netmask='255.255.255.0'",
+"uci add_list network.lan1.ip6addr='2001:10::1/64'",
+"uci add_list network.lan2.ip6addr='2001:20::1/64'",
+"uci add_list network.lan3.ip6addr='2001:30::1/64'",
+"uci set network.lan1.ip6gw='2001:10::2'",
+"uci set network.lan2.ip6gw='2001:20::2'",
+"uci set network.lan3.ip6gw='2001:30::2'",
 
 "uci set ripng.cfg01a5d0.enabled='1'",
 "uci add ripng network # =cfg0202af",
