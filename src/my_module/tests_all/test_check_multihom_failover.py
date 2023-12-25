@@ -1,3 +1,5 @@
+"""Проверка поддержки Multihoming 3G/4G failover (mwan3)."""
+
 import pytest
 from check_all.check_wan_lte import *
 
@@ -38,5 +40,5 @@ def test_check_enable_mwan3():
 def test_check_tracert_when_mwan3_up():
     assert check_trsrt_when_mwan_up()== True, "Not all hop in tracertHop with LTE address in the tracert, but should not be!"
 
-def test_check_trsrt_mwanUp_wanDown(shut_Swi1_mwan):
+def test_check_trsrt_mwanUp_wanDown(shut_R1_mwan):
     assert check_trsrt_mwanUp_wanDown()==True, "WANb FAIL!"

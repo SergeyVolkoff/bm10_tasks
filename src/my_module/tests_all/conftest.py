@@ -36,7 +36,7 @@ def shut_R2_mwan():
 
 
 @pytest.fixture
-def shut_Swi1_mwan():
+def shut_R1_mwan():
     server_url = "http://10.27.193.245:3080"
     connector = Gns3Connector(url=server_url)
     name_lab = 'SSV_auto_BM10_wan_lte'
@@ -45,7 +45,7 @@ def shut_Swi1_mwan():
     lab.open() # open lab
     r2 = Node(
             project_id=lab.project_id, 
-            name='Swi1',
+            name='R1',
             connector=connector
             ) # создаем экз-р устр-ва
     r2.get()

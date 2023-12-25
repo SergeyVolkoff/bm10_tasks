@@ -44,5 +44,5 @@ with open("../command_cfg/value_bm10.yaml")as f:
 
 Cfg_bm10.console.print("Стартует настройка pytests под тест 'Проверка поддержки PPPoE-client'\n" ,style='info')
 Cfg_bm10.SLEEP_TIME10 
-pytest.main(["-v","-s","--html=BULAT_TEST_BM10_PPPoE-client.html","../tests_all/test_check_pppoe_client.py"])
+pytest.main(["-v","--html=BULAT_TEST_BM10_PPPoE-client.html","../tests_all/test_check_pppoe_client.py"])
 

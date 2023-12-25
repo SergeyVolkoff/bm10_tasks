@@ -143,8 +143,13 @@ def check_trsrt_mwanUp_wanDown(): # Works !!!
         "Test 7 \nПроверка, что при вкл mwan3 и выкл линке на r2 трасса пройдет через LTE",
         style='info'
         )
+    r1.send_command(device, 'mwan3 start')
+    time.sleep(5)
+    r1.send_command(device, '/sbin/ifup wan')
+    r1.send_command(device, '/sbin/ifup wanb')
+    time.sleep(15)
     output_ifconfig = r1.send_command(device,"ifconfig |grep -A 1 wwan0")
-    temp = re.search(r'inet addr:(?P<ip_lte>\S+)', output_ifconfig) # type: ignore
+    temp = re.search(r'inet addr:(?P<ip_lte>\S+)', output_ifconfig) 
     ip_int = temp.group('ip_lte') # в трасерте нет шлюза соты, поэтому это не будет работать
    
     show_mwan_stts = r1.send_command(device, 'mwan3 status')
@@ -157,7 +162,7 @@ def check_trsrt_mwanUp_wanDown(): # Works !!!
             console.print(f'\nWANb FAIL !!! - {rslt_trsrt}',style='fail')
             return False
     else:
-        console.print("MWAN3 status - disable!",style='fail')
+        console.print("Interface wan UP! or MWAN3 status - disable!",style='fail')
 
 if __name__ =="__main__":
     result = check_trsrt_mwanUp_wanDown()

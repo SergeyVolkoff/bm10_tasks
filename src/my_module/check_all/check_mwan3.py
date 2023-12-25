@@ -80,7 +80,7 @@ def check_trsrt_when_mwan_up():
     r1.send_command(device, '/sbin/ifup wan')
     r1.send_command(device, '/sbin/ifup wanb')
     r1.send_command(device, 'mwan3 start')
-    time.sleep(8)
+    time.sleep(15)
     show_mwan_stts = r1.send_command(device, 'mwan3 status')
     temp1=r1.tracert_ip(device, ip_tracert="1.1.1.1")
     temp2 = r1.tracert_ip(device,ip_tracert="2.2.2.2")

@@ -1,3 +1,6 @@
+"""Проверка поддержки Multihoming 3G/4G failover (mwan3)."""
+
+
 import pprint
 import yaml
 import pytest
@@ -37,7 +40,7 @@ with open("../command_cfg/value_bm10.yaml")as f:
         with open("../command_cfg/commands_reset_cfg.yaml") as f14:  # команды сброса конфига
                 commands_reset_cfg = yaml.safe_load(f14)
         print(r1.cfg_multihoming_failover(device,commands_reset_cfg))  # Сброс конфига 
-        Cfg_bm10.console.print("Стартует настройка DUT под тест 'Проверка поддержки Multihoming  3G/4G failover (mwan3)'\n" ,style='info')
+        Cfg_bm10.console.print("Стартует настройка DUT под тест 'Проверка поддержки Multihoming 3G/4G failover (mwan3)'\n" ,style='info')
         time.sleep(5)
         with open("../command_cfg/value_bm10.yaml")as f:
                 temp = yaml.safe_load(f)
@@ -48,6 +51,6 @@ with open("../command_cfg/value_bm10.yaml")as f:
                             commands_cfg_wan_lte = yaml.safe_load(f15)
                     print(r1.cfg_multihoming_failover(device,commands_cfg_wan_lte))    # Настройка DUT под тесt 
 
-Cfg_bm10.console.print("Стартует настройка pytests под тест 'Проверка поддержки Multihoming  3G/4G failover (mwan3)'\n" ,style='info')
+Cfg_bm10.console.print("Стартует настройка pytests под тест 'Проверка поддержки Multihoming 3G/4G failover (mwan3)'\n" ,style='info')
 time.sleep(10)
-pytest.main(["-v","-s","--html=BULAT_TEST_BM10_Multihoming_failover.html","../tests_all/test_check_wan_lte.py"])
+pytest.main(["-v","--html=BULAT_TEST_BM10_Multihoming_failover.html","../tests_all/test_check_multihom_failover.py"])
