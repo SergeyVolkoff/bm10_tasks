@@ -5,6 +5,8 @@ import sys
 import time
 import os
 import yaml
+
+from my_module.base_bm10 import Base_bm10
 # !!! PATH fo import with position 1!!!
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 # pprint.pprint(sys.path)
@@ -15,7 +17,6 @@ from base_gns3 import Base_gns
 
 current_lab = Base_gns()  # test wait this lab - SSV_auto_BM10_RIPv2
 print(current_lab.start_nodes_from_project())
-
 with open("../command_cfg/value_bm10.yaml")as f:
     temp = yaml.safe_load(f)
     for t in temp:
