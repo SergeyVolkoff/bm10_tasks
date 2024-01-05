@@ -20,13 +20,15 @@ from netmiko import (
 )
 from rich.table import Table
 from ping3 import ping, verbose_ping
+from constants import *
+
 
 class Cfg_templ_bm10(Base_bm10):
     
     def cfg_template(self,device,commands_template):
 
         """ФУНКЦИЯ-шаблон настройки базового конфига"""
-
+        
         # self.check_connection(device)
         result = {}
         for command in commands_template:
@@ -64,15 +66,6 @@ class Cfg_bm10(Cfg_templ_bm10):
 
     SLEEP_TIME5 = time.sleep(5)
     SLEEP_TIME10 = time.sleep(10)
-    my_colors = Theme(
-     #добавляет цветовую градацию для rich
-    {
-        "success":" bold green",
-        "fail": "bold red",
-        "info": "bold blue"
-    }
-)
-    console = Console(theme=my_colors)
      
     def cfg_reset(self,device,commands_template):
         
@@ -89,108 +82,108 @@ class Cfg_bm10(Cfg_templ_bm10):
         return
         
          
-    def cfg_base_802(self, device, commands_template):
+    # def cfg_base_802(self, device, commands_template):
 
-        """ФУНКЦИЯ настройки stp- конфига"""
+    #     """ФУНКЦИЯ настройки stp- конфига"""
 
-        Cfg_templ_bm10.cfg_template(self,device,commands_template)
-        return
-
-
-    def cfg_vlan(self,device,commands_template):
-
-        """ФУНКЦИЯ настройки vlan- конфига (vlan-сабинтерфейc), после ребута потеря связи! """
-
-        Cfg_templ_bm10.cfg_template(self,device,commands_template)
-        return
+    #     Cfg_templ_bm10.cfg_template(self,device,commands_template)
+    #     return
 
 
-    def cfg_WiFi_AP(self, device, commands_template):
+    # def cfg_vlan(self,device,commands_template):
 
-        """ ФУНКЦИЯ настройки Wifi_AP """
+    #     """ФУНКЦИЯ настройки vlan- конфига (vlan-сабинтерфейc), после ребута потеря связи! """
 
-        Cfg_templ_bm10.cfg_template(self,device, commands_template)
-        return
+    #     Cfg_templ_bm10.cfg_template(self,device,commands_template)
+    #     return
+
+
+    # def cfg_WiFi_AP(self, device, commands_template):
+
+    #     """ ФУНКЦИЯ настройки Wifi_AP """
+
+    #     Cfg_templ_bm10.cfg_template(self,device, commands_template)
+    #     return
     
     
-    def cfg_3G(self, device, commands_template):
+    # def cfg_3G(self, device, commands_template):
 
-        """ ФУНКЦИЯ настройки 3G """
+    #     """ ФУНКЦИЯ настройки 3G """
 
-        Cfg_templ_bm10.cfg_template(self,device, commands_template)
-        return
-
-
-    def cfg_gre(self, device, commands_template):
-
-        """ ФУНКЦИЯ настройки GRE """
-
-        Cfg_templ_bm10.cfg_template(self,device, commands_template)
-        return
+    #     Cfg_templ_bm10.cfg_template(self,device, commands_template)
+    #     return
 
 
-    def cfg_pppoe_client(self,device,commands_template):
+    # def cfg_gre(self, device, commands_template):
 
-        """ ФУНКЦИЯ настройки роутера как РРРоЕ-клиент на wan порту
-        Сначала залить сервер, потом - клиент """
+    #     """ ФУНКЦИЯ настройки GRE """
 
-        Cfg_templ_bm10.cfg_template(self,device,commands_template)
-        return
+    #     Cfg_templ_bm10.cfg_template(self,device, commands_template)
+    #     return
 
 
-    def cfg_pppoe_4(self,device,commands_template):
+    # def cfg_pppoe_client(self,device,commands_template):
 
-        """ 4-ФУНКЦИЯ настройки роутера как РРРоЕ-server на wan порту
-        Сервр льем первым!
-        эта ф-я передает донастривает рррое и имя на интерфейсе """
+    #     """ ФУНКЦИЯ настройки роутера как РРРоЕ-клиент на wan порту
+    #     Сначала залить сервер, потом - клиент """
+
+    #     Cfg_templ_bm10.cfg_template(self,device,commands_template)
+    #     return
+
+
+    # def cfg_pppoe_4(self,device,commands_template):
+
+    #     """ 4-ФУНКЦИЯ настройки роутера как РРРоЕ-server на wan порту
+    #     Сервр льем первым!
+    #     эта ф-я передает донастривает рррое и имя на интерфейсе """
         
-        Cfg_templ_bm10.cfg_template(self,device,commands_template)
-        return
+    #     Cfg_templ_bm10.cfg_template(self,device,commands_template)
+    #     return
     
 
-    def cfg_ripv2(self, device,commands_template):
+    # def cfg_ripv2(self, device,commands_template):
 
-        """ ФУНКЦИЯ настройки RIPv2 """
+    #     """ ФУНКЦИЯ настройки RIPv2 """
 
-        Cfg_templ_bm10.cfg_template(self,device,commands_template)
-        return
+    #     Cfg_templ_bm10.cfg_template(self,device,commands_template)
+    #     return
     
 
-    def cfg_ripvng(self, device, commands_template): 
+    # def cfg_ripvng(self, device, commands_template): 
         
-        """ ФУНКЦИЯ настройки RIPng """
+    #     """ ФУНКЦИЯ настройки RIPng """
 
-        Cfg_templ_bm10.cfg_template(self,device,commands_template)
-        return
+    #     Cfg_templ_bm10.cfg_template(self,device,commands_template)
+    #     return
 
-    def cfg_bgpv3(self, device, commands_template): 
+    # def cfg_bgpv3(self, device, commands_template): 
         
-        """ ФУНКЦИЯ настройки BGPv3 """
+    #     """ ФУНКЦИЯ настройки BGPv3 """
 
-        Cfg_templ_bm10.cfg_template(self,device,commands_template)
-        return
+    #     Cfg_templ_bm10.cfg_template(self,device,commands_template)
+    #     return
     
 
-    def cfg_ospfv2(self, device,commands_template): 
+    # def cfg_ospfv2(self, device,commands_template): 
 
-        """ ФУНКЦИЯ настройки OSPFv2 """
+    #     """ ФУНКЦИЯ настройки OSPFv2 """
 
-        Cfg_templ_bm10.cfg_template(self,device,commands_template)
-        return
+    #     Cfg_templ_bm10.cfg_template(self,device,commands_template)
+    #     return
 
-    def cfg_mwan3(self, device,commands_template): 
+    # def cfg_mwan3(self, device,commands_template): 
 
-        """ ФУНКЦИЯ настройки MWAN3 """
+    #     """ ФУНКЦИЯ настройки MWAN3 """
 
-        Cfg_templ_bm10.cfg_template(self,device,commands_template)
-        return
+    #     Cfg_templ_bm10.cfg_template(self,device,commands_template)
+    #     return
     
-    def cfg_multihoming_failover(self, device,commands_template): 
+    # def cfg_multihoming_failover(self, device,commands_template): 
 
-        """ ФУНКЦИЯ настройки Multihoming """
+    #     """ ФУНКЦИЯ настройки Multihoming """
 
-        Cfg_templ_bm10.cfg_template(self,device,commands_template)
-        return
+    #     Cfg_templ_bm10.cfg_template(self,device,commands_template)
+    #     return
     
     def cfg_pass (self,device, commands, log=True):
 

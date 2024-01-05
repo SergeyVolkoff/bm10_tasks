@@ -31,7 +31,7 @@ my_colors = Theme( #добавляет цветовую градацию для 
 console = Console(theme=my_colors)
 
 class Base_bm10():
-    
+
     def __init__(self,host, username, timeout, password,**kwargs):
         with open("../command_cfg/value_bm10.yaml") as f2:
             temp = yaml.safe_load(f2)
@@ -47,7 +47,6 @@ class Base_bm10():
         self.word_ping = "ping "
         self.ip_inet = "8.8.8.8"
         #self.command_ping = self.word_ping+self.promo_ping
-        
 
     def check_connection(self,device,log=True):
 
