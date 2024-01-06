@@ -4,7 +4,7 @@
 import pprint
 import yaml
 import pytest
-import syss
+import sys
 import os
 import time
 
