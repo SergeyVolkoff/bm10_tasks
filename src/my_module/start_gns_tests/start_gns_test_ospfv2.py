@@ -19,27 +19,23 @@ from base_bm10 import Base_bm10
 from rich import print
 from rich.theme import Theme
 from rich.console import Console
-my_colors = Theme(
-     {
-        "success":" bold green",
-        "fail": "bold red",
-        "info": "bold blue"
-
-    }
+from constants import (
+    DEVICE_BM10,
+    RESET_CONFIG_COMMAND,
+    CONSOLE,
 )
-console = Console(theme=my_colors)
 
 
-console.print(
+CONSOLE.print(
     "Тест работает по ПМИ 'Проверка базового функционала OSPFv2 '.\n Рекомендуется ознакомиться с текстом теста.\n В ходе теста будет запрошено название лабы и предложены варианты ответа",
     style='info'
               )
 time.sleep(6)
 current_lab = Base_gns() # test wait this lab - SSV_auto_BM10_OSPFv2
-console.print("Стартует настройка лабы в gns3",style='info')
+CONSOLE.print("Стартует настройка лабы в gns3",style='info')
 time.sleep(5)
 print(current_lab.start_nodes_from_project())
-console.print("Стартует сброс конфига DUT перед настройкой под тест\n" ,style='info')
+CONSOLE.print("Стартует сброс конфига DUT перед настройкой под тест\n" ,style='info')
 time.sleep(5)
 with open("../command_cfg/value_bm10.yaml")as f:
     temp = yaml.safe_load(f)
@@ -48,8 +44,8 @@ with open("../command_cfg/value_bm10.yaml")as f:
         r1 = Cfg_bm10(**device)
         with open("../command_cfg/commands_reset_cfg.yaml") as f14:  # команды сброса конфига
                 commands_reset_cfg = yaml.safe_load(f14)
-        print(r1.cfg_mwan3(device,commands_reset_cfg))  # Сброс конфига 
-        console.print("Стартует настройка DUT под тест 'Проверка базового функционала OSPFv2'\n" ,style='info')
+        print(r1.cfg_base(device,commands_reset_cfg))  # Сброс конфига 
+        CONSOLE.print("Стартует настройка DUT под тест 'Проверка базового функционала OSPFv2'\n" ,style='info')
         time.sleep(5)
         with open("../command_cfg/value_bm10.yaml")as f:
                 temp = yaml.safe_load(f)
@@ -58,8 +54,8 @@ with open("../command_cfg/value_bm10.yaml")as f:
                     r1 = Cfg_bm10(**device)
                     with open("../command_cfg/commands_cfg_ospfv2.yaml") as f15: # команды настройки mwan3
                             command_cfg_ospf = yaml.safe_load(f15)
-                    print(r1.cfg_mwan3(device,command_cfg_ospf))    # Настройка DUT под тесt mwan3
+                    print(r1.cfg_base(device,command_cfg_ospf))    # Настройка DUT под тесt mwan3
 
-console.print("Стартует настройка pytests под тест 'Проверка базового функционала OSPFv2'\n" ,style='info')
+CONSOLE.print("Стартует настройка pytests под тест 'Проверка базового функционала OSPFv2'\n" ,style='info')
 time.sleep(10)
 pytest.main(["-v","../tests_all/test_check_ospfv2.py"])

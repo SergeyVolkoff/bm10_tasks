@@ -21,14 +21,11 @@ from netmiko import (
 )
 from rich.table import Table
 from netmiko.linux.linux_ssh import LinuxSSH
-my_colors = Theme( #добавляет цветовую градацию для rich
-    {
-        "success":"bold green",
-        "fail":"bold red",
-        "info": "bold blue"
-    }
+from constants import (
+    DEVICE_BM10,
+    RESET_CONFIG_COMMAND,
+    CONSOLE,
 )
-console = Console(theme=my_colors)
 
 class Base_bm10():
 
@@ -55,12 +52,12 @@ class Base_bm10():
         """
 
         if log:
-            console.print(f"Try connect to {device['host']}...", style="info")
+            CONSOLE.print(f"Try connect to {device['host']}...", style="info")
         try:
             with ConnectHandler(**device) as ssh:
-                console.print(device['host'], "connected!", style='success')
+                CONSOLE.print(device['host'], "connected!", style='success')
         except (NetmikoAuthenticationException, NetmikoTimeoutException) as error:
-            console.print("*" * 5, "Error connection to:", device['host'], "*" * 5, style='fail')
+            CONSOLE.print("*" * 5, "Error connection to:", device['host'], "*" * 5, style='fail')
 
 
     def send_command(self, device, command):

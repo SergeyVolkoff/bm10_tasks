@@ -15,10 +15,10 @@ from base_gns3 import Base_gns
 from constants import (
     DEVICE_BM10,
     RESET_CONFIG_COMMAND,
-    console,
+    CONSOLE,
 )
 
-console.print(
+CONSOLE.print(
     "Тест работает по ПМИ 'Проверка поддержки RIPv2'.",
     "\nРекомендуется ознакомиться с описанием теста.",
     "\nВ ходе теста настройки устойства будут сброшены,",
@@ -31,13 +31,13 @@ print(current_lab.start_nodes_from_project())
 
 r1 = Cfg_bm10(**DEVICE_BM10)
 
-console.print("Стартует сброс конфига DUT перед настройкой под тест\n",
+CONSOLE.print("Стартует сброс конфига DUT перед настройкой под тест\n",
               style='info')
 time.sleep(5)
 # Сброс конфига
 print(r1.cfg_reset(DEVICE_BM10, RESET_CONFIG_COMMAND))
 
-console.print("Стартует настройка DUT под тест 'Проверка поддержки RIPv2'\n",
+CONSOLE.print("Стартует настройка DUT под тест 'Проверка поддержки RIPv2'\n",
               style='info')
 time.sleep(5)
 # команды настройки конфига ripv2
@@ -46,7 +46,7 @@ with open("../command_cfg/commands_cfg_ripv2.yaml") as f15:
 r1 = Cfg_bm10(**DEVICE_BM10)
 print(r1.cfg_base(DEVICE_BM10, commands_cfg_ripv2))
 
-console.print(
+CONSOLE.print(
     "Стартует настройка pytests под тест 'Проверка базового функционала RIPv2'\n",
     style='info'
     )

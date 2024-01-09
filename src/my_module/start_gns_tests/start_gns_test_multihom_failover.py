@@ -20,11 +20,11 @@ from base_bm10 import Base_bm10
 from constants import (
     DEVICE_BM10,
     RESET_CONFIG_COMMAND,
-    console,
+    CONSOLE,
 )
 
 
-console.print(
+CONSOLE.print(
     "Тест работает по ПМИ 'Проверка поддержки Multihoming 3G/4G failover (mwan3)'.",
     "\nРекомендуется ознакомиться с описанием теста.",
     "\nВ ходе теста настройки устойства будут сброшены,",
@@ -33,20 +33,20 @@ console.print(
               )
 time.sleep(5)
 current_lab = Base_gns() # test wait this lab - SSV_auto_BM10_wan_lte
-console.print("Стартует настройка лабы в gns3",style='info')
+CONSOLE.print("Стартует настройка лабы в gns3",style='info')
 time.sleep(5)
 print(current_lab.start_nodes_from_project())
 
 r1 = Cfg_bm10(**DEVICE_BM10)
 
-console.print(
+CONSOLE.print(
         "Стартует сброс конфига DUT перед настройкой под тест\n",
         style='info'
         )
 time.sleep(5)
 print(r1.cfg_reset(DEVICE_BM10, RESET_CONFIG_COMMAND))  # Сброс конфига 
 
-console.print(
+CONSOLE.print(
         "Стартует настройка DUT под тест 'Проверка поддержки Multihoming 3G/4G failover (mwan3)'\n",
         style='info'
         )
@@ -57,7 +57,7 @@ r1 = Cfg_bm10(**DEVICE_BM10)
 # Настройка DUT под тесt 
 print(r1.cfg_base(DEVICE_BM10,commands_cfg_wan_lte))    
 
-console.print(
+CONSOLE.print(
         "Стартует настройка pytests под тест 'Проверка поддержки Multihoming 3G/4G failover (mwan3)'\n",
         style='info'
         )

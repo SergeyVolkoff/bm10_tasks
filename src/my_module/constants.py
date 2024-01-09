@@ -22,4 +22,4 @@ my_colors = Theme(
         "info": "bold blue"
     }
 )
-console = Console(theme=my_colors)
+CONSOLE = Console(theme=my_colors)

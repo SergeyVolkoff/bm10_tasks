@@ -202,17 +202,17 @@ class Cfg_bm10(Cfg_templ_bm10):
                 pass
             else:
                 output = self.ssh.send_command_timing(new_pass, read_timeout=1)
-                self.console.print(output,style="success")
+                CONSOLE.print(output,style="success")
             if "Re-enter new password:" in output:
                 output = self.ssh.send_command_timing(new_pass, read_timeout=1)
-                self.console.print(output,style="warning")
+                CONSOLE.print(output,style="warning")
                 while True:
                     if "root@" not in output:
                         output = self.ssh.read_until_pattern(f'{prompt}', read_timeout=0)
                         print("Wait, the password will change now")
                         self.ssh.write_channel(" ")
                     elif "root@" in output:
-                        self.console.print("New pass OK",style="success")
+                        CONSOLE.print("New pass OK",style="success")
                         break
             # return output
 
@@ -293,6 +293,6 @@ if __name__ == "__main__":
             #print(r2.cfg_pppoe_opt())                                      # Cfg pppoe-serv2
             #print(r2.cfg_pppoe_chap())                                     # Cfg pppoe-serv3
             #print(r1.cfg_pppoe_4(device,r1.commands_pppoe_server_cfg))  # Cfg pppoe-serv4
-            print(r1.cfg_pppoe_server_all)
+            # print(r1.cfg_pppoe_server_all)
 
             

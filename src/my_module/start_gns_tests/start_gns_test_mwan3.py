@@ -19,45 +19,42 @@ from base_bm10 import Base_bm10
 from rich import print
 from rich.theme import Theme
 from rich.console import Console
-my_colors = Theme(
-     {
-        "success":" bold green",
-        "fail": "bold red",
-        "info": "bold blue"
-    }
+from constants import (
+    DEVICE_BM10,
+    RESET_CONFIG_COMMAND,
+    CONSOLE,
 )
-console = Console(theme=my_colors)
 
-console.print(
-    "Тест работает по ПМИ 'Проверка поддержки нескольких WAN-портов(mwan3)'.\n Рекомендуется ознакомиться с текстом теста.\n В ходе теста будет запрошено название лабы и предложены варианты ответа",
+CONSOLE.print(
+    "Тест работает по ПМИ 'Проверка поддержки нескольких WAN-портов(mwan3)'.",
+    "\nРекомендуется ознакомиться с описанием теста.",
+    "\nВ ходе теста настройки устойства будут сброшены,",
+    "\nбудет запрошено название лабы gns3 и предложены варианты ответа",
     style='info'
               )
-time.sleep(6)
+time.sleep(5)
 current_lab = Base_gns() # test wait this lab - SSV_auto_BM10_MWAN
-console.print("Стартует настройка лабы в gns3",style='info')
-time.sleep(5)
 print(current_lab.start_nodes_from_project())
-console.print("Стартует сброс конфига DUT перед настройкой под тест\n" ,style='info')
-time.sleep(5)
-with open("../command_cfg/value_bm10.yaml")as f:
-    temp = yaml.safe_load(f)
-    for t in temp:
-        device = dict(t)
-        r1 = Cfg_bm10(**device)
-        with open("../command_cfg/commands_reset_cfg.yaml") as f14:  # команды сброса конфига
-                commands_reset_cfg = yaml.safe_load(f14)
-        print(r1.cfg_mwan3(device,commands_reset_cfg))  # Сброс конфига 
-        console.print("Стартует настройка DUT под тест 'Проверка поддержки нескольких WAN-портов(mwan3)'\n" ,style='info')
-        time.sleep(5)
-        with open("../command_cfg/value_bm10.yaml")as f:
-                temp = yaml.safe_load(f)
-                for t in temp:
-                    device = dict(t)
-                    r1 = Cfg_bm10(**device)
-                    with open("../command_cfg/commands_cfg_mwan3.yaml") as f15: # команды настройки mwan3
-                            command_cfg_mwan = yaml.safe_load(f15)
-                    print(r1.cfg_mwan3(device,command_cfg_mwan))    # Настройка DUT под тесt mwan3
 
-console.print("Стартует настройка tests под тест mwan3\n" ,style='info')
+r1 = Cfg_bm10(**DEVICE_BM10)
+
+CONSOLE.print("Стартует сброс конфига DUT перед настройкой под тест\n",
+              style='info')
+time.sleep(5)
+# Сброс конфига
+print(r1.cfg_reset(DEVICE_BM10, RESET_CONFIG_COMMAND))
+
+CONSOLE.print(
+       "Стартует настройка DUT под тест 'Проверка поддержки нескольких WAN-портов(mwan3)'\n",
+       style='info')
+time.sleep(5)
+# команды настройки конфига 
+with open("../command_cfg/commands_cfg_mwan3.yaml") as f15: # команды настройки mwan3
+        command_cfg_mwan = yaml.safe_load(f15)
+r1 = Cfg_bm10(**DEVICE_BM10)
+print(r1.cfg_base(DEVICE_BM10,command_cfg_mwan))    # Настройка DUT под тесt mwan3
+
+CONSOLE.print("Стартует настройка tests под тест mwan3\n",
+              style='info')
 time.sleep(10)
 pytest.main(["-v","--html=BULAT_TEST_BM10_MWAN3.html","../tests_all/test_check_mwan3.py"])
