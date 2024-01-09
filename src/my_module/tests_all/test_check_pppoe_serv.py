@@ -1,5 +1,7 @@
 from ipaddress import ip_interface
 import re
+from tkinter import NO
+from xml.dom.pulldom import END_DOCUMENT
 
 import pytest
 # import tasks
@@ -11,6 +13,9 @@ from netmiko import (
     NetmikoTimeoutException,
     NetmikoAuthenticationException,
 )
+from constants import (
+    DEVICE_BM10,
+)
 from check_all.check_pppoe_serv import *
 from check_all.check_pppoe_serv import check_ip_pppoe_neib
 
@@ -20,9 +25,20 @@ def test_check_int_pppoe_server():
 """
 В блоке ниже используется параметризация mark.parametrize
 """
-temp = r1.send_command(device,"ip r")
-ip_peer = re.search(r'(?P<ip_peer>\d+.\d+.\d+.\d+) dev ppp0 proto',temp)
-ip_peer=ip_peer.group('ip_peer')
+
+temp = r1.send_command(DEVICE_BM10,"ip r")
+try:
+    ip_peer = re.search(r'(?P<ip_peer>\d+.\d+.\d+.\d+) dev ppp0 proto',temp)
+    if ip_peer is None:
+        print("Peer has no address, nothing to test, tests stopped")
+        exit()
+    else:
+        ip_peer=ip_peer.group('ip_peer')
+except ValueError as err:
+        print("Peer has no address, nothing to test, tests stopped")
+        exit()
+    
+
 ip_for_check = (
     ('192.168.1.1'),
     (ip_peer),

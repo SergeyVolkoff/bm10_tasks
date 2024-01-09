@@ -13,7 +13,11 @@ from base_gns3 import Base_gns
 from gns3fy import *
 from cfg_bm10 import *
 from base_bm10 import *
-
+from constants import (
+    DEVICE_BM10,
+    RESET_CONFIG_COMMAND,
+    CONSOLE,
+)
 
 @pytest.fixture
 def shut_R2_mwan():
@@ -30,7 +34,7 @@ def shut_R2_mwan():
             ) # создаем экз-р устр-ва
     r2.get()
     r2.stop()
-    Cfg_bm10.console.print (f'\nNode {r2.name} {r2.status}',style='success')
+    CONSOLE.print (f'\nNode {r2.name} {r2.status}',style='success')
     time.sleep(8)
     
 
@@ -50,9 +54,9 @@ def shut_R1_mwan():
             ) # создаем экз-р устр-ва
     r2.get()
     r2.stop()
-    Cfg_bm10.console.print (f'\nNode {r2.name} {r2.status}.',style='success')
+    CONSOLE.print (f'\nNode {r2.name} {r2.status}.',style='success')
     # print(lab.stop_node())
-    Cfg_bm10.console.print('Waiting for mwan3 to be rebuilt the route',style='success')
+    CONSOLE.print('Waiting for mwan3 to be rebuilt the route',style='success')
     time.sleep(60)
 
 
